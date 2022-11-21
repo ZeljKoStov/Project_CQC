@@ -1,0 +1,31 @@
+.cqc__header {
+    display: flex;
+    flex-direction: row;
+   
+    margin: 2rem  6rem ;
+    background-color: white;
+    left: 0;
+    right: 0;
+}
+
+.cqc__header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.cqc__header-right {
+    flex: 1;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
+.cqc__header-right img {
+    width: 100%;
+    height: 100%;
+}
+
+.Prazan{
+    height: 2000px;
+}
