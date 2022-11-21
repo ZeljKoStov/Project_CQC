@@ -16,9 +16,6 @@ const Header = () => {
                 <img  src={sky} alt='img' />
             </div>
         </div>
-        <div className='Prazan'>
-
-            </div>
         </>
     )
 }
