@@ -1,19 +1,30 @@
-import React from 'react'
-import {  Route, Routes,Outlet  } from 'react-router-dom';
+import React,{useEffect, useState} from 'react' ;
+import {  Route, Routes  } from 'react-router-dom';
 
 import './App.css'
 import { Navbar } from './Component';
-import {Landing, Register, Login} from './Pages';
+import {Landing, Register, Login, Processing} from './Pages';
 
 const App = () => {
+
+  const [sticky, setSticky]=useState(false);
+
+  useEffect(()=> {
+    const handleScroll =()=>{
+      setSticky(window.scrollY>200);
+      console.log(window.scrollY);
+    };
+    window.addEventListener('scroll',handleScroll);
+    return ()=> window.removeEventListener('scroll',handleScroll);
+  });
+
   return (
     <>
     <div className='App'>
     
-      <div className='Nav'>
+      <nav className={`${sticky ? 'sticky' : '' }`}>
         <Navbar/>
-        <Outlet/>
-      </div>
+      </nav>
       
       <div className='Page'>
         <Routes>
@@ -22,6 +33,7 @@ const App = () => {
           <Route path='/Register' element={<Register/>}/>
           <Route path='/Login' element={<Login/>}/>
           <Route path='/Register' element={<Login/>}/>
+          <Route path='/Processing' element={<Processing/>}/>
         
         
         </Routes>
