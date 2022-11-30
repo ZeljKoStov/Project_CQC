@@ -1,4 +1,3 @@
-import React from 'react'
 import {  Route, Routes,Outlet  } from 'react-router-dom';
 
 import './App.css'
@@ -25,7 +24,6 @@ const App = () => {
         
         
         </Routes>
-          
       </div>
     </div>
     </>
