@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import sky from '../../assets/sky1jpg.jpg';
 import { getCookie } from '../../utils/cookies';
+import { useNavigate } from "react-router-dom";
 
 import './header.css'
 
@@ -14,6 +15,11 @@ const Header = () => {
       setName(_name)
       
     }, [name]);
+    let navigate = useNavigate(); 
+    const routeChange = () =>{ 
+      let path = `/Processing`; 
+      navigate(path);
+    }
   
     return(
         <>
@@ -23,13 +29,17 @@ const Header = () => {
                 <h3>{name}</h3>
                 <p>…powerful novel technology that reveals features in images that, for the most part, have  previously been hidden…</p>
             </div>
-            <div className='cqc__header-right'>
+            <div className='cqc__image'>
                 <img  src={sky} alt='img' />
             </div>
-        </div>
-        <div className='Prazan'>
-
+            <div className='cqc__text'>
+                <h1>Intrinsic Image Processing Site</h1>
+                <p>…powerful novel technology that reveals features <br/> in images that, for the most part, have  previously been hidden…</p>
             </div>
+            <div className='cqc__button'>
+                <button type='button' onClick={routeChange}>Image Processing</button>
+            </div>
+        </div>
         </>
     )
 }

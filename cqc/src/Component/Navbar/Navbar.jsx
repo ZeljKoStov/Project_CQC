@@ -1,4 +1,4 @@
-import React,{useState} from 'react' ;
+import React,{ useState} from 'react' ;
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ const Navbar = () => {
             {toggleMenu && (
               <div className='cqc__navbar_frst-menu_container'>
                   <div className='cqc__navbar_frst-menu_container-links'>
-                    <p id='p1'><Link to='#Image_Procesing'>Image Procesing</Link></p>
+                    <p id='p1'><Link to='Landing'>Home</Link></p>
                     <p id= 'p2'><Link to='#Intrinsic_Theory_Technology'>Intrinsic Theory/Technology</Link></p>
                     <p id='p3'><Link to='#Web_Shop'>Web Shop</Link></p>
                   </div>
@@ -50,9 +50,9 @@ const Navbar = () => {
         </div>
         <div className='cqc__navbar_second'>
           <div className='cqc__navbar-links_container'>
-              <p><a href='#Image_Procesing'>Image Procesing</a></p>
-              <p><a href='#Intrinsic_Theory_Technology'>Intrinsic Theory/Technology</a></p>
-              <p><a href='#Web_Shop'>Web Shop</a></p>
+              <p><Link to='/'>Home</Link></p>
+              <p><Link to='#Intrinsic_Theory_Technology'>Intrinsic Theory/Technology</Link></p>
+              <p><Link to='#Web_Shop'>Web Shop</Link></p>
           </div>
         </div>
       </div>
