@@ -11,7 +11,7 @@ export const RequestAPI = (data) => {
   let { body } = data;
 
   let headers = { 
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
   };
 
   if (headerAdditional) {

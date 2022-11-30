@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { processing } from "../../api/processing";
+import { RequestAPI } from "../../utils/request-api";
 import './Processing.css'
 
 const Processing=()=> {
@@ -6,6 +8,7 @@ const Processing=()=> {
 
     const [selectedPicture1, setSelectedPicture1] = useState();
     const [selectedPicture2, setSelectedPicture2] = useState();
+    const [instrinsic, setIntrinsic] = useState();
 
     function handleChange1(event) {
         setSelectedPicture1(event.target.files[0])
@@ -18,21 +21,21 @@ const Processing=()=> {
  
     const handleSubmit= async(e)=>{
         e.preventDefault();
-        var  data={
-            pictureOne: selectedPicture1,
-            pictureTwo: selectedPicture2
-
-        };
-        console.log(data);
-        /*try {
-            const response = await RequestAPI(Processing(data));
+        const formData = new FormData();
+        formData.append("F", selectedPicture1);
+        formData.append("D", selectedPicture2);
+        formData.append("name","I_p.jpg")
+        console.log(formData);
+        try {
+            const response = await RequestAPI(processing(formData));
             if (response.status === 200) {
-                console.log(response.data.data);
+                
+                setIntrinsic(<img src={`${response.data}`} />)
             }
 
         } catch (error) {
             console.log(error);
-        }*/
+        }
     }
     
 
@@ -51,6 +54,10 @@ const Processing=()=> {
                     />
                 <button type="submit">Upload</button>
             </form>
+
+            <div className='cqc__image'>
+                {instrinsic}
+            </div>
         </div>
     )
 }

@@ -60,7 +60,7 @@ const Register = () => {
         <h2>Register</h2>
         <form className="register-form" onSubmit={submitRegister}>
             <label htmlFor='name'>Full name</label>
-            <input value ={registerObj['name']} onChange={(e) => onChangeInput(e)} type={'name'}  placeholder='full Name' id='name' name='name'/>
+            <input value ={registerObj['name']} onChange={(e) => onChangeInput(e)} type={'name'}  placeholder='Full Name' id='name' name='name'/>
             <label htmlFor='email'>Email</label>
             <input value ={registerObj['email']} onChange={(e) => onChangeInput(e)} type={'email'} placeholder='youremail@gmail.com' id='email' name='email'/>
             <label htmlFor='password'>Password</label>
