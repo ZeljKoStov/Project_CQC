@@ -1,37 +1,73 @@
 import React , {useState}from 'react';
 import { useNavigate } from "react-router-dom";
+import { RequestAPI } from '../../utils/request-api'
+import { register } from '../../api/register'
+import { setCookie } from '../../utils/cookies';
 
 import './register.css';
 
 const Register = () => {
 
-  const [email, setEmail]=useState('');  
-  const [pass, setPass]=useState('');
-  const [name, setName]=useState('');
+  const [registerObj, setRegisterObj] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const [confirm, setConfirm] = useState('')
 
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
     let path = `/Login`; 
     navigate(path);
   }
+  const onChangeInput = (e) => {
+    let val = e.target.value;
+    let name = e.target.name;
+    let newRegObj = Object.assign({}, registerObj);
 
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    console.log(email);
+    newRegObj[name] = val;
+
+    setRegisterObj(newRegObj);
   }
+
+  const onChangeConfirm = (e) => {
+    let val = e.target.value
+    setConfirm(val)
+  }
+
+  const submitRegister = async (e) => {
+    e.preventDefault();
+    console.log(registerObj);
+
+    try {
+        const response = await RequestAPI(register(registerObj));
+        console.log(response)
+        if (response.status === 200) {
+            setCookie('_jwt',response.data.token)
+            setCookie('_name',response.data.name)
+            navigate(`/`);
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   return (
     <div className='container'>
       <div className='form-container'>
         <h2>Register</h2>
-        <form className="register-form" onSubmit={handleSubmit}>
+        <form className="register-form" onSubmit={submitRegister}>
             <label htmlFor='name'>Full name</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} type={'name'}  placeholder='full Name' id='name' name='name'/>
-            <label htmlFor='email'>email</label>
-            <input value ={email} onChange={(e) => setEmail(e.target.value)} type={'email'} placeholder='youremail@gmail.com' id='email' name='email'/>
-            <label htmlFor='password'>password</label>
-            <input value={pass} onChange={(e) => setPass(e.target.value)} type={'password'} placeholder='********' id='password' name='password'/>
-            <button type='submit'>Log In</button>
+            <input value ={registerObj['name']} onChange={(e) => onChangeInput(e)} type={'name'}  placeholder='full Name' id='name' name='name'/>
+            <label htmlFor='email'>Email</label>
+            <input value ={registerObj['email']} onChange={(e) => onChangeInput(e)} type={'email'} placeholder='youremail@gmail.com' id='email' name='email'/>
+            <label htmlFor='password'>Password</label>
+            <input value ={registerObj['password']} onChange={(e) => onChangeInput(e)} type={'password'} placeholder='********' id='password' name='password'/>
+            <label htmlFor='password'>Confirm password</label>
+            <input value ={confirm} onChange={(e) => onChangeConfirm(e)} type={'password'} placeholder='********' id='confirm' name='confirm'/>
+            <button type='submit'>Register</button>
         </form>
         <button className="link-btn" onClick={routeChange}>Alredy have an account? Login here.</button>
         </div>
