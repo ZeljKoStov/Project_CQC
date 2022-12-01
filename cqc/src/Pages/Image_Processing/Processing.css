@@ -1,3 +1,45 @@
 .cqc__processing{
+    padding: 2rem  6rem 2rem;
     color: white;
+}
+
+
+.cqc__processing-image {
+    flex: 1;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.cqc__processing-image img {
+    width: 100%;
+    height: 100%;
+    border: 2px;
+}
+.cqc__forma {
+    padding: 2rem 4rem 4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.cqc__forma label{
+    font-size: 19px;
+    line-height: 26px;
+}
+
+.cqc__forma button {
+    padding: 0.5rem 1rem;
+    color: white;
+    background: var(--color-text);
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
 }

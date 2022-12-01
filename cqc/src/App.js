@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react' ;
 import {  Route, Routes  } from 'react-router-dom';
 
 import './App.css'
-import { Navbar } from './Component';
+import { Footer, Navbar} from './Component';
 import {Landing, Register, Login, Processing} from './Pages';
 
 const App = () => {
@@ -11,8 +11,7 @@ const App = () => {
 
   useEffect(()=> {
     const handleScroll =()=>{
-      setSticky(window.scrollY>200);
-      console.log(window.scrollY);
+      setSticky(window.scrollY>0);
     };
     window.addEventListener('scroll',handleScroll);
     return ()=> window.removeEventListener('scroll',handleScroll);
@@ -37,6 +36,9 @@ const App = () => {
         
         
         </Routes>
+      </div>
+      <div className='footer'>
+        <Footer/>
       </div>
     </div>
     </>

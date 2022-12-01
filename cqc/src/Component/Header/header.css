@@ -48,7 +48,8 @@
     align-items: center;
     color: #000;
     font-family: var(--font-family);
-    font-weight: 500;
+    font-weight: 700;
     font-size: 18px;
     line-height: 25px;
+    border-radius: 36px;
 }

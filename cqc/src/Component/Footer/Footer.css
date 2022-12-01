@@ -1,0 +1,21 @@
+.cqc__footer {
+    padding: 2rem  6rem 2rem;
+    background-color: white;
+ 
+}
+.cqc__footer h3{
+    text-align: center;
+}
+
+.cqc__footer-row  {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    padding: 2rem 0rem 0rem;
+}
+
+.cqc__footer-row div {
+    padding: 0rem 2rem;
+}

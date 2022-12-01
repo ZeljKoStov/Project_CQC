@@ -29,8 +29,8 @@ const Processing=()=> {
         try {
             const response = await RequestAPI(processing(formData));
             if (response.status === 200) {
-                
-                setIntrinsic(<img src={`${response.data}`} />)
+            
+                setIntrinsic(<img src={`${response.data}`} alt='reload'/>)
             }
 
         } catch (error) {
@@ -41,21 +41,23 @@ const Processing=()=> {
 
     return (
         <div className='cqc__processing'>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor='image1'> Upload picture 1</label>  
-                <input
-                    type="file"
-                    onChange={handleChange1}
-                    />
-                <label htmlFor='image2'> Upload picture 1</label>  
-                <input
-                    type="file"
-                    onChange={handleChange2}
-                    />
-                <button type="submit">Upload</button>
-            </form>
-
-            <div className='cqc__image'>
+            <div className="cqc__forma">
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor='image1'> Upload focused image</label>  
+                    <input
+                        type="file"
+                        onChange={handleChange1}
+                        />
+                    <label htmlFor='image2'> Upload diffuse image</label>  
+                    <input
+                        type="file"
+                        onChange={handleChange2}
+                        />
+                    <button type="submit">Processing</button>
+                </form>
+            </div>
+            <div className='cqc__processing-image' >
+                
                 {instrinsic}
             </div>
         </div>

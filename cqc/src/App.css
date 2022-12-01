@@ -28,6 +28,14 @@ nav.sticky {
   top: 0;
   z-index: 100;
 }
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+}
+.Page {
+  min-height: calc(100vh - 305px);
+}
 
  
 
