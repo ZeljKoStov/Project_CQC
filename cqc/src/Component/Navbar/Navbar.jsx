@@ -1,12 +1,23 @@
-import React,{ useState} from 'react' ;
+import React,{ useState,useEffect} from 'react' ;
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { getCookie } from '../../utils/cookies';
 import { useNavigate } from "react-router-dom";
 
 import './navbar.css';
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [name,setName] = useState('')
+  const [signin,setSignIn] = useState(false)
+
+  useEffect(() => {
+
+    const _name = getCookie('_name');
+    setName(_name)
+    setSignIn(true)
+    
+  }, [name]);
 
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
@@ -25,6 +36,10 @@ const Navbar = () => {
           </div>
           <div className='cqc__navbar_frst-end'>
             <div className='cqc__navbar_frst-sign'>
+              { signin 
+                ? <p>{name}</p>
+                : <p></p>
+              }
               <p><Link to='Register'>Register</Link></p>
               <button  type='button' onClick={routeChange}>Login</button>
             </div>

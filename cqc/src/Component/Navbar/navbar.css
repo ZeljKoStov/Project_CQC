@@ -1,5 +1,5 @@
 .cqc__navbar {
-    padding: 2rem  6rem 1rem;
+    padding: 2rem  1rem 0rem;
 
  
      /* ff 3.6+ */
@@ -50,20 +50,16 @@
     flex-direction: row;
     justify-content: center;
     margin-top: 2rem;
-    border-bottom-style: solid ;
-    border-bottom-color: #fff;
-    border-bottom-width: 2px;
-    
+ 
 }
 
 .cqc__navbar-links_container {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 .cqc__navbar-links_container p {
     color: #fff;
-    font-family: var(--font-family);
     font-weight: 500;
     font-size: 17px;
     line-height: 24px;
@@ -90,7 +86,6 @@
 .cqc__navbar_frst-sign p,
 .cqc__navbar_frst-menu_container p {
     color: #fff;
-    font-family: var(--font-family);
     font-weight: 500;
     font-size: 18px;
     line-height: 25px;
@@ -103,7 +98,6 @@
 
 .cqc__navbar_frst-logo p {
     color: #fff;
-    font-family: var(--font-family);
     font-weight: 500;
     font-size: 30px;
     line-height: 37px;
@@ -120,9 +114,8 @@
     padding: 0.5rem 1rem;
     color: #fff;
     background: #FF4820;
-    font-family: var(--font-family);
-    font-weight: 500;
-    font-size: 18px;
+    
+    
     line-height: 25px;
     border: none;
     outline: none;
