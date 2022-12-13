@@ -1,12 +1,12 @@
 .cqc__processing{
-    padding: 2rem  6rem 2rem;
-    color: white;
+    padding: 0rem 6rem 2rem;
 }
 
 
 .cqc__processing-image {
     flex: 1;
     display:flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
    
@@ -34,7 +34,6 @@
     padding: 0.5rem 1rem;
     color: white;
     background: var(--color-text);
-    font-family: var(--font-family);
     font-weight: 500;
     font-size: 18px;
     line-height: 25px;
@@ -43,3 +42,130 @@
     cursor: pointer;
     border-radius: 5px;
 }
+
+.cqc__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+    color: #fff;
+    padding: 3rem;
+}
+
+.input_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    width: 30%;
+    padding: 20px;
+}
+
+.remove_button {
+    color:#fff;
+    font-weight: 1000;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: none;
+}
+
+
+
+
+.form-field {
+    flex: 2;
+    flex-direction: column;
+    justify-content: space-between;
+}
+  .output {
+    margin-left: 3rem;
+    flex: 1;
+  }
+  .form-field label,
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #FFF;
+  }
+  
+  input {
+    height: 35px;
+    width: 100%;
+    padding: 7px;
+    outline: none;
+    border-radius: 5px;
+    background-color: #1d2020;
+    border: 1px solid #3c4244;
+    color: #fff;
+  }
+
+  .input_label{
+    color: #fff
+  }
+  
+  input:focus {
+    border: 1px solid #FFF;
+  }
+  
+  .services {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 10px 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #3c4244;
+  }
+
+  .response_image{
+    height: 500px;
+    width: 300px;
+  }
+  .first-division {
+    display: flex;
+    flex-direction: row;
+    margin: 0 5px 0.5rem 0;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .add_button {
+    padding: 0.5rem 1rem;
+    margin: 10px 10px 10px 10px; 
+    color: white;
+    background: #1d2020;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .process_button{
+    padding: 0.5rem 1rem;
+    color: white;
+    background: var(--color-text);;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .first-division button {
+    padding: 0.5rem 1rem;
+    color: white;
+    background: var(--color-text);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }

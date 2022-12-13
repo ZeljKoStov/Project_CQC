@@ -1,20 +1,11 @@
-import React, {useState,useEffect} from 'react'
+import React from 'react'
 import sky from '../../assets/darksky.png';
-import { getCookie } from '../../utils/cookies';
 import { useNavigate } from "react-router-dom";
 
 import './header.css'
 
 const Header = () => {
 
-    const [name,setName] = useState('')
-
-    useEffect(() => {
-  
-      const _name = getCookie('_name');
-      setName(_name)
-      
-    }, [name]);
     let navigate = useNavigate(); 
     const routeChange = () =>{ 
       let path = `/Processing`; 

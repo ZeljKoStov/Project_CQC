@@ -1,12 +1,23 @@
-import React,{ useState} from 'react' ;
+import React,{ useState,useEffect} from 'react' ;
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { getCookie } from '../../utils/cookies';
 import { useNavigate } from "react-router-dom";
 
 import './navbar.css';
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [name,setName] = useState('')
+  const [signin,setSignIn] = useState(false)
+
+  useEffect(() => {
+
+    const _name = getCookie('_name');
+    setName(_name)
+    setSignIn(true)
+    
+  }, [name]);
 
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
@@ -25,6 +36,10 @@ const Navbar = () => {
           </div>
           <div className='cqc__navbar_frst-end'>
             <div className='cqc__navbar_frst-sign'>
+              { signin 
+                ? <p>{name}</p>
+                : <p></p>
+              }
               <p><Link to='Register'>Register</Link></p>
               <button  type='button' onClick={routeChange}>Login</button>
             </div>
@@ -36,8 +51,9 @@ const Navbar = () => {
               <div className='cqc__navbar_frst-menu_container'>
                   <div className='cqc__navbar_frst-menu_container-links'>
                     <p id='p1'><Link to='Landing'>Home</Link></p>
-                    <p id= 'p2'><Link to='#Intrinsic_Theory_Technology'>Intrinsic Theory/Technology</Link></p>
+                    <p id='p2'><Link to='#Intrinsic_Theory_Technology'>Intrinsic Theory/Technology</Link></p>
                     <p id='p3'><Link to='#Web_Shop'>Web Shop</Link></p>
+                    <p id='p4'><Link to='Processing'>Image Processing</Link></p>
                   </div>
                   <div className='cqc__navbar_frst-menu_containers-links-sign'>
                     <p>Sign in</p>
@@ -53,6 +69,7 @@ const Navbar = () => {
               <p><Link to='/'>Home</Link></p>
               <p><Link to='#Intrinsic_Theory_Technology'>Intrinsic Theory/Technology</Link></p>
               <p><Link to='#Web_Shop'>Web Shop</Link></p>
+              <p><Link to='/Processing'>Image Processing</Link></p>
           </div>
         </div>
       </div>
