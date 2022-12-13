@@ -3,7 +3,8 @@ import {  Route, Routes  } from 'react-router-dom';
 
 import './App.css'
 import { Footer, Navbar} from './Component';
-import {Landing, Register, Login, Processing} from './Pages';
+import {Landing, Register, Login, Processing, Technology,Theory, Tutorials} from './Pages';
+
 
 const App = () => {
 
@@ -33,7 +34,9 @@ const App = () => {
           <Route path='/Login' element={<Login/>}/>
           <Route path='/Register' element={<Login/>}/>
           <Route path='/Processing' element={<Processing/>}/>
-        
+          <Route path='/Intrinsic_Technology' element={<Technology/>}/>
+          <Route path='/Intrinsic_Theory' element={<Theory/>}/>
+          <Route path='/Process_Tutorials' element={<Tutorials/>}/>
         
         </Routes>
       </div>
