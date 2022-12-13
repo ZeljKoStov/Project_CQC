@@ -1,0 +1,43 @@
+.technology {
+    padding: 2rem  6rem 2rem;
+    color: white;
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.title {
+    align-items: center;
+    text-decoration: overline ;
+}
+.title h2 {
+    text-align: center;
+}
+
+.image {
+    display: flex;
+    flex-direction: row;
+}
+
+.imagediv1 img {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+}
+.imagediv2 img {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+}
+.textdiv {
+    padding: 1rem;
+    text-align: left;
+}
+.textdiv h2 {
+    margin-bottom: 1rem;
+}
+.textdiv p {
+    font-size: 22px;
+}

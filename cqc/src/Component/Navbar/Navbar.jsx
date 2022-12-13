@@ -35,13 +35,15 @@ const Navbar = () => {
             {toggleMenu && (
               <div className='cqc__navbar_frst-menu_container'>
                   <div className='cqc__navbar_frst-menu_container-links'>
-                    <p id='p1'><Link to='Landing'>Home</Link></p>
-                    <p id= 'p2'><Link to='#Intrinsic_Theory_Technology'>Intrinsic Theory/Technology</Link></p>
-                    <p id='p3'><Link to='#Web_Shop'>Web Shop</Link></p>
+                    <p id='p1'><Link to='/'>Home</Link></p>
+                    <p id= 'p2'><Link to='/Intrinsic_Technology'>Intrinsic Technology</Link></p>
+                    <p id='p3'><Link to='/Intrinsic_Theory'>Intrinsic Theory</Link></p>
+                    <p id='p4'><Link to='/Process_Tutorials'>Process Tutorials</Link></p>
+                    <p id='p5'><Link to='/Intrinsic_Challenge'>Intrinsic Challenge</Link></p>
                   </div>
                   <div className='cqc__navbar_frst-menu_containers-links-sign'>
-                    <p>Sign in</p>
-                    <button type="button">Sign up</button>
+                    <p><Link to='Register'>Register</Link></p>
+                    <button  type='button' onClick={routeChange}>Login</button>
                   </div>
               </div>
             )}
@@ -51,8 +53,10 @@ const Navbar = () => {
         <div className='cqc__navbar_second'>
           <div className='cqc__navbar-links_container'>
               <p><Link to='/'>Home</Link></p>
-              <p><Link to='#Intrinsic_Theory_Technology'>Intrinsic Theory/Technology</Link></p>
-              <p><Link to='#Web_Shop'>Web Shop</Link></p>
+              <p><Link to='/Intrinsic_Technology'>Intrinsic Technology</Link></p>
+              <p><Link to='/Intrinsic_Theory'>Intrinsic Theory</Link></p>
+              <p><Link to='/Process_Tutorials'>Process Tutorials</Link></p>
+              <p><Link to='/Intrinsic_Challenge'>Intrinsic Challenge</Link></p>
           </div>
         </div>
       </div>
