@@ -5,12 +5,19 @@ import './Processing.css'
 
 const Processing=()=> {
 
-    const [imagePairs, setImagePairs] = useState([{ focused: null, diffused: null, name: "" }]);
-    const [processedImages, setProcessedImages] = useState([])
-
-    const [selectedPicture1, setSelectedPicture1] = useState();
-    const [selectedPicture2, setSelectedPicture2] = useState();
-    const [instrinsic, setIntrinsic] = useState([]);
+    const [imagePairs, setImagePairs] = useState([{ 
+            focused: null, 
+            furl: "", 
+            ferror: false, 
+            diffused: null, 
+            durl:"",
+            derror:false, 
+            name: "",
+            nerror: false,
+            serror: false, 
+            intrinsic: null
+    }]);
+    const [count, setCount] = useState(0)
 
     const handleImagePairRemove = (index) => {
         const list = [...imagePairs];
@@ -18,19 +25,21 @@ const Processing=()=> {
         setImagePairs(list);
     };
 
-    function handleChange1(event) {
-        setSelectedPicture1(event.target.files[0])
-    }
-    
-    function handleChange2(event) {
-        setSelectedPicture2(event.target.files[0])
-    }
-
     const handleFocusedChange = (e,index) => {
         const f = e.target.files[0];
         const list = [...imagePairs];
         const item = list[index];
         item.focused = f;
+
+        let fileReader
+        fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            const { result } = e.target;
+            item.furl=result
+            updateUI();
+        }
+        fileReader.readAsDataURL(item.focused);
+
         list[index]= item;
         setImagePairs(list);
         console.log(imagePairs);
@@ -41,10 +50,22 @@ const Processing=()=> {
         const list = [...imagePairs];
         const item = list[index];
         item.diffused = d;
+
+        let fileReader
+        fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            const { result } = e.target;
+            item.durl=result
+            updateUI();
+        }
+        fileReader.readAsDataURL(item.diffused);
+        
         list[index]= item;
+
         setImagePairs(list);
-        console.log(imagePairs);
     }
+
+
 
     const handleNameChange = (e,index) => {
         const name = e.target.value;
@@ -53,19 +74,53 @@ const Processing=()=> {
         item.name = name;
         list[index]= item;
         setImagePairs(list);
-        console.log(imagePairs);
     }
     
     const handleServiceAdd = () => {
-        setImagePairs([...imagePairs, { focused: null, diffused: null, name: "" }]);
+        setImagePairs([...imagePairs, { 
+            focused: null, 
+            furl: "", 
+            ferror: false, 
+            diffused: null, 
+            durl:"",
+            derror:false, 
+            name: "",
+            nerror: false, 
+            intrinsic: null 
+        }]);
     };
     
  
-    const handleSubmit = async(e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
-        const list = [...processedImages]
-        var count = imagePairs.lenght;
-        imagePairs.map(async (pair, index) => {
+        const list = [...imagePairs];
+        let error=false
+
+
+        imagePairs.map((pair,index)=>{
+            if(pair.focused==null) {
+                list[index].ferror=true;
+                error=true;
+            } else list[index].ferror=false;
+            if(pair.diffused==null){
+                list[index].derror=true;
+                error=true;
+            } else list[index].derror=false;
+            if(pair.name==""){
+                list[index].nerror=true;
+                error=true;
+            } else list[index].nerror=false;
+            if(pair.name.indexOf(' ') >= 0){
+                list[index].serror=true;
+                error=true;
+            } else list[index].serror=false;
+        })
+
+        if(error){
+            setImagePairs(list);
+            updateUI();
+        } 
+        else imagePairs.map( async (pair, index) => {
             if(pair.diffused!= null && pair.focused!=null && pair.name!= null){
 
                 const formData = new FormData();
@@ -75,16 +130,13 @@ const Processing=()=> {
                 try {
                     const response = await RequestAPI(processing(formData));
                     if (response.status === 200) {   
-                        console.log(response);
-                        list.push(<img src={`${response.data}`} className="response_image"/>)
-                        count=count-1;
-                        if(count==0) {
-                            setProcessedImages(list);
-                            console.log(list);
-                        }
-                    }
-                    
 
+                        const list = [...imagePairs];
+                        list[index].intrinsic=<img src={`${response.data}`} className="image_preview" alt="reload"/>
+                        setImagePairs(list);
+
+                        updateUI();
+                    }
         
                 } catch (error) {
                     console.log(error);
@@ -94,8 +146,13 @@ const Processing=()=> {
         
     }
 
-
-    
+    const updateUI = () => {
+        const prev = count;
+        const min = count;
+        const max = 1000000;
+        const rand = min + Math.random() * (max - min);
+        setCount(rand);
+    }
 
     return (
         <div className='cqc__processing'>
@@ -106,33 +163,51 @@ const Processing=()=> {
             <div className="form-field">
                 { imagePairs.map((pair, index) => (
                     <div key={index} className="services">
-                        <div className="first-division">
+                        <div className="first_row">
                             <div className="input_item">
-                                <label className="input_label"> Upload focused image</label>  
-                                <input
-                                    type="file"
-                                    onChange={(e) => handleFocusedChange(e, index)}
-                                    required
-                                />
-                            </div>
-                            <div className="input_item">
-                                <label htmlFor='image1'> Upload diffuse image</label>  
-                                <input
-                                    type="file"
-                                    onChange={(e) => handleDiffusedChange(e, index)}
-                                    required
-                                />
-                            </div>
-                            <div className="input_item">
-                                <label htmlFor='image1'> Enter image pair name</label>  
+                                <label htmlFor='image1'>Name Image Pair</label>  
                                 <input
                                     type="text"
                                     value={pair.name}
                                     onChange={(e) => handleNameChange(e, index)}
                                     required
-                                 />
+                                />
+                               {pair.nerror && <div className="error_text">Image Pair Name cannot be empty!</div>}
+                               {pair.serror && <div className="error_text">Image Pair Name cannot contain whitespace caracter!</div>}
+                            </div>
+                            <div className="input_item">
+                                <label className="input_label">Upload Focused Image</label>  
+                                <input
+                                    type="file"
+                                    onChange={(e) => handleFocusedChange(e, index)}
+                                    required
+                                />
+                                {pair.ferror && <div className="error_text">Please upload the foused image!</div>}
+                            </div>
+                            <div className="input_item">
+                                <label htmlFor='image1'>Upload Diffused Image</label>  
+                                <input
+                                    type="file"
+                                    onChange={(e) => handleDiffusedChange(e, index)}
+                                    required
+                                />
+                                {pair.derror && <div className="error_text">Please upload the diffused image!</div>}
                             </div>
                         </div>
+                        <div className="image_row">
+                            {pair.focused && <img src={pair.furl} className="image_preview" alt="reload"/>}
+                            {!pair.focused &&   <div className='cqc__text'>
+                                                    <p>Focused Image</p>
+                                                </div> }
+                        </div>
+                        <div className="image_row">
+                            {pair.durl && <img src={pair.durl} className="image_preview" alt="reload"/>}
+                            {!pair.durl &&   <div className='cqc__text'>
+                                                    <p>Diffused Image</p>
+                                                </div> }
+                        </div>
+
+                        {pair.intrinsic && <div className="image_row"> {pair.intrinsic} </div>}
 
                         <div className="second-division">
                             {imagePairs.length !== 1 && (
@@ -148,27 +223,7 @@ const Processing=()=> {
                 <button type="button" onClick={handleServiceAdd} className="add_button">
                     <span>Add another image pair</span>
                 </button>
-                <button type="button" onClick={handleSubmit} className="process_button">Processing</button>
-            </div>
-            {/* <div className="cqc__forma">
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor='image1'> Upload focused image</label>  
-                    <input
-                        type="file"
-                        onChange={handleChange1}
-                        />
-                    <label htmlFor='image2'> Upload diffuse image</label>  
-                    <input
-                        type="file"
-                        onChange={handleChange2}
-                        />
-                    <button type="submit">Processing</button>
-                </form>
-            </div> */}
-            <div className='services' >
-                { processedImages.map((image, index) => (
-                    image
-                ))}
+                <button type="button" onClick={handleSubmit} className="process_button">Process</button>
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 .theory {
-    padding: 2rem  6rem 2rem;
-    color: white;
-   
+    padding: 2rem 20rem 2rem;
+    color: black;
+    background: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,6 +14,11 @@
 }
 .title h2 {
     text-align: center;
+}
+
+h2{
+    color: black;
+    font-size: 30px;
 }
 
 .image1 {

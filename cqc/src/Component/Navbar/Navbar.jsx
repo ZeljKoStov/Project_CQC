@@ -51,10 +51,11 @@ const Navbar = () => {
               <div className='cqc__navbar_frst-menu_container'>
                   <div className='cqc__navbar_frst-menu_container-links'>
                     <p id='p1'><Link to='/'>Home</Link></p>
-                    <p id= 'p2'><Link to='/Intrinsic_Technology'>Intrinsic Technology</Link></p>
+                    <p id='p2'><Link to='/Intrinsic_Technology'>Intrinsic Technology</Link></p>
                     <p id='p3'><Link to='/Intrinsic_Theory'>Intrinsic Theory</Link></p>
                     <p id='p4'><Link to='/Process_Tutorials'>Process Tutorials</Link></p>
                     <p id='p5'><Link to='/Intrinsic_Challenge'>Intrinsic Challenge</Link></p>
+                    <p id='p6'><Link to='/Processing'>Image Processing</Link></p>
                   </div>
                   <div className='cqc__navbar_frst-menu_containers-links-sign'>
                     <p><Link to='Register'>Register</Link></p>
@@ -72,6 +73,7 @@ const Navbar = () => {
               <p><Link to='/Intrinsic_Theory'>Intrinsic Theory</Link></p>
               <p><Link to='/Process_Tutorials'>Process Tutorials</Link></p>
               <p><Link to='/Intrinsic_Challenge'>Intrinsic Challenge</Link></p>
+              <p><Link to='/Processing'>Image Processing</Link></p>
           </div>
         </div>
       </div>

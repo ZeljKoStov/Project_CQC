@@ -1,6 +1,7 @@
 .tutorials {
-    padding: 2rem  6rem 2rem;
-    color: white;
+    padding: 2rem 20rem 2rem;
+    color: black;
+    background: white;
    
     display: flex;
     flex-direction: column;
@@ -16,6 +17,11 @@
     text-align: center;
 }
 
+h1 {
+    font-size: 40px;
+    padding: 2rem;
+}
+
 .clip {
     display: flex;
     flex-direction: row;
@@ -24,6 +30,12 @@
 }
 .clip iframe {
     padding: 1rem;
+}
+
+.clip_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .image {

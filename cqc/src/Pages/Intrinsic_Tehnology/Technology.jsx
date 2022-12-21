@@ -6,9 +6,9 @@ import './technology.css';
 const Technology = () => {
   return (
     <div className='technology'>
-      <div className='title'>
-        <h1>Intrinsic Dark</h1>
-      </div>
+      
+      <h1>Intrinsic Dark</h1>
+    
       <div className='image'>
         <div className='imagediv1'>
             <img  src={orignalimage} alt='img' />

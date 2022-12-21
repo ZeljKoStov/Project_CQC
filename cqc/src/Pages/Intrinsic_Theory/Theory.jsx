@@ -6,9 +6,7 @@ import './theory.css';
 const Theory = () => {
   return (
     <div className='theory'>
-      <div className='title'>
         <h1>Original Image</h1>
-      </div>
       <div className='image1'>
             <img  src={theoryfirst} alt='img' />
       </div>
@@ -21,9 +19,7 @@ const Theory = () => {
         <p>*US Patent 10,652,484<br/>*US Patent 10,969,523</p>
         <br/>  
       </div>
-      <div className='title'>
         <h1>Intrinsic Image</h1>
-      </div>
       <div className='image2'>
             <img  src={theorysecond} alt='img' />
         </div>

@@ -36,7 +36,7 @@ nav.sticky {
 }
 .Page {
   min-height: calc(100vh - 305px);
-  padding: 2rem 0 2rem;
+  padding: 0rem 0 0rem;
 }
 
  

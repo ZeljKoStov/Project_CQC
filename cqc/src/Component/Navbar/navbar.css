@@ -1,6 +1,5 @@
 .cqc__navbar {
     padding: 2rem  1rem 0rem;
-
  
      /* ff 3.6+ */
      background:-moz-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
@@ -157,4 +156,8 @@
 
 .cqc__navbar_frst-menu_container-links-sign {
     display: none;
+}
+
+p{
+    font-size: 25px;
 }
