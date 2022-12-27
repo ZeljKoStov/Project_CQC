@@ -1,4 +1,4 @@
-const getBaseUrl = "http://localhost:3001";
+const getBaseUrl = "https://intrinsic-backend.xyz";
 
 export const processing = (body) => ({
   body,
