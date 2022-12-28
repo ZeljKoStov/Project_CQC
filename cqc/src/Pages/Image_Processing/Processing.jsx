@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import FileSaver from 'file-saver';
+import JSZip from "jszip"
 import { processing } from "../../api/processing";
 import { RequestAPI } from "../../utils/request-api";
 import './Processing.css'
@@ -18,7 +20,7 @@ const Processing=()=> {
             intrinsic: null
     }]);
     const [count, setCount] = useState(0)
-
+    const [imagesProcessed, setImagesProcessed] = useState(false);
     const handleImagePairRemove = (index) => {
         const list = [...imagePairs];
         list.splice(index, 1);
@@ -31,6 +33,7 @@ const Processing=()=> {
         const item = list[index];
         item.focused = f;
 
+        console.log(f);
         let fileReader
         fileReader = new FileReader();
         fileReader.onload = (e) => {
@@ -132,10 +135,16 @@ const Processing=()=> {
                     if (response.status === 200) {   
 
                         const list = [...imagePairs];
-                        list[index].intrinsic=<img src={`${response.data}`} className="image_preview" alt="reload"/>
+                        
+                        list[index].intrinsic = response.data
+                        console.log(response.data.substring(22));
+                        
                         setImagePairs(list);
 
                         updateUI();
+
+                        downloadAuto();
+
                     }
         
                 } catch (error) {
@@ -144,6 +153,40 @@ const Processing=()=> {
             } 
         });
         
+    }
+
+    const downloadAuto = ()=>{
+        var flag = true;
+        const zip = new JSZip();
+
+        imagePairs.forEach((item) => {
+            if(item.intrinsic==null) flag=false;
+            else zip.file(item.name+".jpeg",item.intrinsic.substring(22),{base64: true})
+        })
+
+        if(flag){
+            setImagesProcessed(true);
+            zip.generateAsync({type:"blob"}).then(function(content) {
+                
+                FileSaver.saveAs(content, "intrinsic.zip");
+            });
+        }
+
+    }
+
+    const download = (e)=>{
+        e.preventDefault();
+
+        const zip = new JSZip();
+
+        imagePairs.forEach((item) => {
+            zip.file(item.name+".jpeg",item.intrinsic.substring(22),{base64: true})
+        })
+
+        zip.generateAsync({type:"blob"}).then(function(content) {
+            
+            FileSaver.saveAs(content, "intrinsic.zip");
+        });
     }
 
     const updateUI = () => {
@@ -165,7 +208,7 @@ const Processing=()=> {
                     <div key={index} className="services">
                         <div className="first_row">
                             <div className="input_item">
-                                <label htmlFor='image1'>Name Image Pair</label>  
+                                <p>Name Image Pair</p>
                                 <input
                                     type="text"
                                     value={pair.name}
@@ -176,7 +219,7 @@ const Processing=()=> {
                                {pair.serror && <div className="error_text">Image Pair Name cannot contain whitespace caracter!</div>}
                             </div>
                             <div className="input_item">
-                                <label className="input_label">Upload Focused Image</label>  
+                                <p>Upload Focused Image</p>  
                                 <input
                                     type="file"
                                     onChange={(e) => handleFocusedChange(e, index)}
@@ -185,7 +228,7 @@ const Processing=()=> {
                                 {pair.ferror && <div className="error_text">Please upload the foused image!</div>}
                             </div>
                             <div className="input_item">
-                                <label htmlFor='image1'>Upload Diffused Image</label>  
+                                <p>Upload Diffused Image</p>  
                                 <input
                                     type="file"
                                     onChange={(e) => handleDiffusedChange(e, index)}
@@ -207,12 +250,12 @@ const Processing=()=> {
                                                 </div> }
                         </div>
 
-                        {pair.intrinsic && <div className="image_row"> {pair.intrinsic} </div>}
+                        {pair.intrinsic && <div className="image_row"><img src={`${pair.intrinsic}`} className="image_preview" alt="reload"/></div>}
 
                         <div className="second-division">
                             {imagePairs.length !== 1 && (
                                 <button type="button" onClick={() => handleImagePairRemove(index)} className="remove_button">
-                                    <span>X</span>
+                                    X
                                 </button>
                             )}
                         </div>
@@ -220,10 +263,11 @@ const Processing=()=> {
                     </div>
 
                 ))}
-                <button type="button" onClick={handleServiceAdd} className="add_button">
-                    <span>Add another image pair</span>
+                <button type="button" onClick={handleServiceAdd} className="dodajRed">
+                    Add another image pair
                 </button>
                 <button type="button" onClick={handleSubmit} className="process_button">Process</button>
+                { imagesProcessed && <button type="button" onClick={(e)=>download(e)} className="process_button">Save</button>}
             </div>
         </div>
     )

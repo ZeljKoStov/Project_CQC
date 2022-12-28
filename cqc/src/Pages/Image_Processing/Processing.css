@@ -1,5 +1,7 @@
 .cqc__processing{
     padding: 0rem 6rem 2rem;
+    background: #22459D;
+    background-size: cover;
 }
 
 
@@ -49,7 +51,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 2rem;
-    color: #fff;
+    color: white;
     padding: 3rem;
 }
 
@@ -60,12 +62,14 @@
     height: 33%;
     width: 100%;
     padding: 10px;
+    color: black;
 }
 
 .remove_button {
-    color:#fff;
+    color:black;
+    background-color: white;
     font-weight: 1000;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 25px;
     border: none;
     outline: none;
@@ -89,6 +93,10 @@
     font-weight: 500;
     color: #FFF;
   }
+
+  label {
+    text-decoration: black;
+  }
   
   input {
     height: 35px;
@@ -96,17 +104,31 @@
     padding: 7px;
     outline: none;
     border-radius: 5px;
-    background-color: #1d2020;
+    background-color: white;
     border: 1px solid #3c4244;
-    color: #fff;
+    color: black;
   }
 
   .input_label{
-    color: #fff
+    color: black;
+  }
+
+  label {
+    color: black;
+  }
+
+  div {
+    color: black;
+  }
+
+  .input_title{
+    font-size: 19px;
+    line-height: 26px;
+    color: black;
   }
   
   input:focus {
-    border: 1px solid #FFF;
+    border: 1px solid black;
   }
   
   .services {
@@ -115,7 +137,8 @@
     justify-content: space-between;
     margin: 10px 10px 10px 10px;
     border-radius: 5px;
-    border: 1px solid #3c4244;
+    border: 1px solid black;
+    background: white;
   }
 
   .response_image{
@@ -137,6 +160,8 @@
     width: 340px;
     margin: 12px 0 0 0;
     object-fit: contain;
+    border-radius: 5px;
+    border: 1px solid black;
   }
 
   .image_row {
@@ -174,6 +199,7 @@
   }
   .process_button{
     padding: 0.5rem 1rem;
+    margin: 10px;
     color: white;
     background: var(--color-text);;
     font-weight: 500;
@@ -196,3 +222,18 @@
     cursor: pointer;
     border-radius: 5px;
   }
+
+  .dodajRed {
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    color: white;
+    background: black;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
