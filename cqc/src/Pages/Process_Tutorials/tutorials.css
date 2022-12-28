@@ -9,14 +9,6 @@
     text-align: center;
 }
 
-.title {
-    align-items: center;
-    text-decoration: overline ;
-}
-.title h2 {
-    text-align: center;
-}
-
 h1 {
     font-size: 40px;
     padding: 2rem;
@@ -25,17 +17,19 @@ h1 {
 .clip {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    padding: 1rem 0;
+    justify-content: space-between;
+    padding: 1rem 0rem;
 }
 .clip iframe {
-    padding: 1rem;
+    width: 100%;
+    height: 100%;
 }
 
 .clip_item {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 0rem 1rem;
 }
 
 .image {
@@ -46,7 +40,6 @@ h1 {
 .image img {
     width: 100%;
     height: 100%;
-    padding: 1rem;
 }
 
 .textdiv {
@@ -68,4 +61,100 @@ h1 {
 
 .textdiv li {
     font-size: 22px;
+}
+
+@media screen and (max-width:1350px) {
+    .tutorials {
+        padding: 2rem 16rem 2rem;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .tutorials {
+        padding: 2rem 13rem 2rem;
+    }
+}
+
+@media screen and (max-width:1050px) {
+    .tutorials {
+        padding: 2rem 10rem 2rem;
+    }
+}
+
+@media screen and (max-width:950px) {
+    .tutorials {
+        padding: 2rem 8rem 2rem;
+    }
+    .tutorials h1{
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .tutorials {
+        padding: 2rem 6rem 2rem;
+    }
+    .tutorials h1{
+        padding: 1.2rem;
+    }
+
+    .textdiv p {
+        font-size: 20px;
+    }
+    .textdiv li {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width:700px) {
+    .tutorials {
+        padding: 2rem 4rem 2rem;
+    }
+    .tutorials h1{
+        padding: 0 0.7rem 0.7rem;
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .tutorials {
+        padding: 2rem 3rem 2rem;
+    }
+    .textdiv h2{
+        font-size: 28px;
+    }
+    .clip_item h2{
+        font-size: 22px;
+    }
+    .textdiv p {
+        font-size: 18px;
+    }
+    .textdiv li {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .tutorials {
+        padding: 2rem 2rem 2rem;
+    }
+    .tutorials h1 {
+        font-size: 32px;
+    }
+    .textdiv {
+        padding: 1rem 0rem;
+    }
+    .textdiv h2{
+        font-size: 26px;
+        margin-top: 1rem;
+    }
+    .clip_item h2{
+        font-size: 20px;
+    }
+    .textdiv p {
+        font-size: 16px;
+    }
+    .textdiv li {
+        font-size: 16px;
+    }
 }

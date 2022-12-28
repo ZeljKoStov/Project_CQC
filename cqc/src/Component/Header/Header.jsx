@@ -18,7 +18,7 @@ const Header = () => {
             <div className='cqc__image'>
                 <img  src={sky} alt='img' />
             </div>
-            <div className='cqc__text'>
+            <div className='cqc__text1'>
                 <h1>Intrinsic Image Processing Site</h1>
                 <p>…powerful novel technology that reveals features <br/> in images that, for the most part, have  previously been hidden…</p>
             </div>

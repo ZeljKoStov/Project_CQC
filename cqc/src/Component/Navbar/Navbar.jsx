@@ -1,15 +1,42 @@
 import React,{ useState,useEffect} from 'react' ;
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import { getCookie } from '../../utils/cookies';
 import { useNavigate } from "react-router-dom";
 
 import './navbar.css';
 
-const Navbar = () => {
+const navigation=[
+  {name: 'Home', href:'/'},
+  {name: 'Intrinsic Technology', href:'/Intrinsic_Technology'},
+  {name: 'Intrinsic Theory', href:'/Intrinsic_Theory'},
+  {name: 'Process Tutorials', href:'/Process_Tutorials'},
+  {name: 'Intrinsic Challenge', href:'/Intrinsic_Challenge'},
+  {name: 'Image Processing', href:'/Processing'},
+];
+
+const Navbar = ({widChanger, ...rest}) => {
+
+  const getWindowsDimensions=()=>{
+    const {innerWidth: width, innerHeight: height}=window;
+    return {
+      width,
+      height
+    };
+  }
   const [toggleMenu, setToggleMenu] = useState(false);
   const [name,setName] = useState('')
   const [signin,setSignIn] = useState(false)
+  const [wid, setWid]=useState(getWindowsDimensions());
+
+
+  useEffect(()=> {
+    const handleResize =()=>{
+      setWid(getWindowsDimensions());
+    };
+    window.addEventListener('resize',handleResize);
+    return ()=> window.removeEventListener('resize',handleResize);
+  },[]);
 
   useEffect(() => {
 
@@ -24,7 +51,7 @@ const Navbar = () => {
     let path = `/login`; 
     navigate(path);
   }
-
+  
   return (
     <>
       <div className='cqc__navbar'>
@@ -32,7 +59,7 @@ const Navbar = () => {
           <div className='cqc__navbar_frst-empty'>
           </div>
           <div className='cqc__navbar_frst-logo'>
-              <p><Link to='/'>Center for Quantitative Cytometry</Link></p>
+              <p><NavLink to='/'>Center for Quantitative Cytometry</NavLink></p>
           </div>
           <div className='cqc__navbar_frst-end'>
             <div className='cqc__navbar_frst-sign'>
@@ -40,22 +67,34 @@ const Navbar = () => {
                 ? <p>{name}</p>
                 : <p></p>
               }
-              <p><Link to='Register'>Register</Link></p>
+              <p><NavLink to='Register'>Register</NavLink></p>
               <button  type='button' onClick={routeChange}>Login</button>
             </div>
             <div className='cqc__navbar_frst-menu'>
-            {toggleMenu
-              ? <RiCloseLine color="#fff" size={27} onClick={() => setToggleMenu(false)} />
-              : <RiMenu3Line color="#fff" size={27} onClick={() => setToggleMenu(true)} />}
-            {toggleMenu && (
-              <div className='cqc__navbar_frst-menu_container'>
+            {toggleMenu 
+              ? <RiCloseLine color="#fff" size={27} onClick={() =>{ setToggleMenu(false);widChanger(true)} } />
+              : <RiMenu3Line color="#fff" size={27} onClick={() =>{ setToggleMenu(true);wid.width<=425?widChanger(false):widChanger(true)}} />}
+            {toggleMenu && wid.width>425 && (
+              <div className='cqc__navbar_frst-menu_container' onClick={() => {setToggleMenu(false);widChanger(true)}}>
                   <div className='cqc__navbar_frst-menu_container-links'>
-                    <p id='p1'><Link to='/'>Home</Link></p>
-                    <p id='p2'><Link to='/Intrinsic_Technology'>Intrinsic Technology</Link></p>
-                    <p id='p3'><Link to='/Intrinsic_Theory'>Intrinsic Theory</Link></p>
-                    <p id='p4'><Link to='/Process_Tutorials'>Process Tutorials</Link></p>
-                    <p id='p5'><Link to='/Intrinsic_Challenge'>Intrinsic Challenge</Link></p>
-                    <p id='p6'><Link to='/Processing'>Image Processing</Link></p>
+                     {navigation.map((item)=>(
+                        <p>
+                          <NavLink
+                            key={item.name}
+                            to={item.href}
+                            className={({isActive})=> {
+                                return(
+                                  ( !isActive
+                                      ? 'cqc__navbar-links_container'
+                                      : 'cqc__navbar-links_container2'
+                                  )
+                              ); 
+                            }}
+                          >
+                              {item.name}
+                          </NavLink>
+                        </p>
+                      ))}
                   </div>
                   <div className='cqc__navbar_frst-menu_containers-links-sign'>
                     <p><Link to='Register'>Register</Link></p>
@@ -67,14 +106,24 @@ const Navbar = () => {
             </div> 
         </div>
         <div className='cqc__navbar_second'>
-          <div className='cqc__navbar-links_container'>
-              <p><Link to='/'>Home</Link></p>
-              <p><Link to='/Intrinsic_Technology'>Intrinsic Technology</Link></p>
-              <p><Link to='/Intrinsic_Theory'>Intrinsic Theory</Link></p>
-              <p><Link to='/Process_Tutorials'>Process Tutorials</Link></p>
-              <p><Link to='/Intrinsic_Challenge'>Intrinsic Challenge</Link></p>
-              <p><Link to='/Processing'>Image Processing</Link></p>
-          </div>
+              {navigation.map((item)=>(
+                <p>
+                  <NavLink
+                    key={item.name}
+                    to={item.href}
+                    className={({isActive})=> {
+                        return(
+                          ( !isActive
+                              ? 'cqc__navbar-links_container'
+                              : 'cqc__navbar-links_container2'
+                          )
+                      ); 
+                    }}
+                  >
+                      {item.name}
+                  </NavLink>
+                </p>
+                ))}
         </div>
       </div>
     </>

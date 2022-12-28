@@ -1,11 +1,9 @@
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    
- }
+
 
  body {
+   box-sizing: border-box;
+    padding: 0;
+    margin: 0;
     background: var(--color-bg);
  }
 
@@ -14,10 +12,16 @@
     text-decoration: none;
   }
 
- .App {
+ .App{
+    display: flex;
+    flex-direction: column;
+  } 
+ .App-second {
+   min-height:100vh;
    display: flex;
    flex-direction: column;
-   background-color: #000;
+   justify-content:space-between;
+   background-color: #fff;
  }
  
  nav {
@@ -29,14 +33,47 @@ nav.sticky {
   top: 0;
   z-index: 100;
 }
-.footer {
-  position: relative;
-  left: 0;
-  bottom: 0;
+
+.Clasic {
+  display: flex;
+  flex-direction: column;
 }
+
 .Page {
-  min-height: calc(100vh - 305px);
   padding: 0rem 0 0rem;
+}
+.fulNav {
+  background-color: var(--color-footer);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fulNav p{
+  padding: 0.4rem;
+  margin: 0;
+}
+
+.fulNavdiv{
+
+}
+
+.cqc__fulNavP{
+  color: #FF4820;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.cqc__fulNavP2 {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  text-transform: capitalize;
+  cursor: pointer;
 }
 
  

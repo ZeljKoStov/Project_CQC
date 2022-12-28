@@ -8,44 +8,112 @@
     text-align: center;
 }
 
-.title {
-    align-items: center;
-    text-decoration: overline ;
-}
-.title h2 {
-    text-align: center;
-}
 
-h2{
+.theory h2{
     color: black;
     font-size: 30px;
 }
 
-.image1 {
+.imageTh {
     display: flex;
 }
 
-.image1 img {
+.imageTh img {
     width: 100%;
     height: 100%;
-    padding: 1rem;
 }
 
-.image2 {
-    display: flex;
-}
-.image2 img {
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-}
-.textdiv {
+.textdivTh {
     padding: 1rem;
     text-align: left;
 }
-.textdiv p {
+.textdivTh p {
     font-size: 22px;
 }
-.textdiv h2 {
+.textdivTh h2 {
     margin-bottom: 1rem;
+}
+
+
+@media screen and (max-width:1350px) {
+    .theory {
+        padding: 2rem 16rem 2rem;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .theory {
+        padding: 2rem 13rem 2rem;
+    }
+}
+
+@media screen and (max-width:1050px) {
+    .theory {
+        padding: 2rem 10rem 2rem;
+    }
+}
+
+@media screen and (max-width:950px) {
+    .theory {
+        padding: 2rem 8rem 2rem;
+    }
+    .theory h1{
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .theory {
+        padding: 2rem 6rem 2rem;
+    }
+    .theory h1{
+        padding: 1.2rem;
+    }
+
+    .textdivTh p {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width:700px) {
+    .theory {
+        padding: 2rem 4rem 2rem;
+    }
+    .theory h1{
+        padding: 0 0.7rem 0.7rem;
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .theory {
+        padding: 2rem 3rem 2rem;
+    }
+    .textdivTh h2{
+        font-size: 28px;
+    }
+    .para  {
+        font-size: 18px;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .theory {
+        padding: 2rem 2rem 2rem;
+    }
+    .theory h1 {
+        font-size: 32px;
+        margin: 0;
+    }
+    .textdivTh {
+        padding: 1rem 0rem;
+    }
+    .textdivTh h2{
+        font-size: 26px;
+        margin-top: 1rem;
+    }
+    .textdivTh p {
+        font-size: 18px;
+    }
 }
