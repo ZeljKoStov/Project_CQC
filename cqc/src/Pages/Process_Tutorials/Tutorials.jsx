@@ -4,7 +4,7 @@ import './tutorials.css';
 
 const Tutorials = () => {
   return (
-    <div className='technology'>
+    <div className='tutorials'>
         <h1>Process Tutorials</h1>
       <div className='clip'>
         <div className='clip_item'>
