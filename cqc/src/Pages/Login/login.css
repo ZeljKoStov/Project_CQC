@@ -27,14 +27,14 @@
     padding: 0.25rem 0;
   }
   
-  input {
+  .login-form input {
     margin: 0.5rem 0;
     padding: 1rem;
     border: none;
     border-radius: 10px;
   }
   
-  button {
+  .form_container button {
     border: none;
     background-color: white;
     padding: 20px;

@@ -1,5 +1,5 @@
 .theory {
-    padding: 2rem 20rem 2rem;
+    padding: 2rem 20rem ;
     color: black;
     background: white;
     display: flex;
@@ -12,6 +12,10 @@
 .theory h2{
     color: black;
     font-size: 30px;
+}
+.theory h1 {
+    margin-top: 0;
+    font-size: 40px;
 }
 
 .imageTh {
@@ -35,39 +39,35 @@
 }
 
 
-@media screen and (max-width:1350px) {
+@media screen and  (max-width : 1600px) {
     .theory {
-        padding: 2rem 16rem 2rem;
+        padding: 2rem  10rem ;
     }
 }
 
-@media screen and (max-width:1200px) {
+@media screen and  (max-width : 1450px) {
     .theory {
-        padding: 2rem 13rem 2rem;
+        padding: 2rem  8rem ;
     }
 }
 
-@media screen and (max-width:1050px) {
+@media screen and  (max-width : 1100px) {
     .theory {
-        padding: 2rem 10rem 2rem;
+        padding: 2rem  5rem ;
     }
 }
 
-@media screen and (max-width:950px) {
+@media screen and  (max-width : 950px) {
     .theory {
-        padding: 2rem 8rem 2rem;
-    }
-    .theory h1{
-        margin-bottom: 0;
+        padding: 2rem  4rem ;
     }
 }
+
+
 
 @media screen and (max-width:800px) {
     .theory {
         padding: 2rem 6rem 2rem;
-    }
-    .theory h1{
-        padding: 1.2rem;
     }
 
     .textdivTh p {
@@ -80,7 +80,6 @@
         padding: 2rem 4rem 2rem;
     }
     .theory h1{
-        padding: 0 0.7rem 0.7rem;
         font-size: 35px;
     }
 }
@@ -104,7 +103,6 @@
     }
     .theory h1 {
         font-size: 32px;
-        margin: 0;
     }
     .textdivTh {
         padding: 1rem 0rem;
@@ -117,3 +115,9 @@
         font-size: 18px;
     }
 }
+
+@media screen and (max-width:400px) {
+    .theory h1 {
+        font-size: 28px;
+    }
+  }

@@ -1,5 +1,5 @@
 .technology {
-    padding: 2rem 18rem 2rem;
+    padding: 2rem  20rem ;
     color: black;
     background: white;
     display: flex;
@@ -11,10 +11,12 @@
 .technology h1{
     margin-top: 0;
     text-align: center;
+    font-size: 40px;
 }
 
 .imageT {
     display: flex;
+    justify-content: center;
     flex-direction: row;
 }
 
@@ -39,21 +41,27 @@
     font-size: 22px;
 }
 
-@media screen and (max-width:1350px) {
+@media screen and  (max-width : 1600px) {
     .technology {
-        padding: 2rem 16rem 2rem;
+        padding: 2rem  10rem ;
     }
 }
 
-@media screen and (max-width:1200px) {
+@media screen and  (max-width : 1450px) {
     .technology {
-        padding: 2rem 13rem 2rem;
+        padding: 2rem  8rem ;
     }
 }
 
-@media screen and (max-width:1050px) {
+@media screen and  (max-width : 1100px) {
     .technology {
-        padding: 2rem 10rem 2rem;
+        padding: 2rem  5rem ;
+    }
+}
+
+@media screen and  (max-width : 950px) {
+    .technology {
+        padding: 2rem  4rem ;
     }
 }
 
@@ -61,38 +69,26 @@
     .technology {
         padding: 2rem 8rem 2rem;
     }
-    .technology h1{
-        margin-bottom: 0;
-    }
 }
 
 @media screen and (max-width:800px) {
     .technology {
-        padding: 2rem 6rem 2rem;
+        padding: 2rem  3rem ;
     }
-    .technology h1{
-        padding: 1.2rem;
-    }
-
+ 
     .textdivT p {
         font-size: 20px;
     }
 }
 
 @media screen and (max-width:700px) {
-    .technology {
-        padding: 2rem 4rem 2rem;
-    }
+    
     .technology h1{
-        padding: 0 0.7rem 0.7rem;
         font-size: 35px;
     }
 }
 
 @media screen and (max-width:600px) {
-    .technology {
-        padding: 2rem 3rem 2rem;
-    }
     .textdivT h2{
         font-size: 28px;
     }
@@ -102,9 +98,7 @@
 }
 
 @media screen and (max-width:500px) {
-    .technology {
-        padding: 2rem 2rem 2rem;
-    }
+  
     .technology h1 {
         font-size: 32px;
     }
@@ -119,3 +113,9 @@
         font-size: 16px;
     }
 }
+
+@media screen and (max-width:400px) {
+    .technology h1 {
+        font-size: 28px;
+    }
+  }
