@@ -1,0 +1,195 @@
+.Challenge {
+    padding: 2rem  20rem ;
+    color: black;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.BlackBox{
+    margin:0rem -20rem;
+    text-align: center;
+    color: white;
+    background: black;
+}
+.BlackBox button {
+    font-size: 16px;
+    font-weight: 720;
+    color: black;
+}
+.BlackBox h2 {
+    font-size: 27px;
+    padding:0rem 20.5rem;
+}
+
+.BlackBox button {
+    margin-bottom: 1.8rem ;
+}
+
+.Challenge h1 {
+    font-size: 40px;
+    margin-top: 0;
+}
+
+.TextBlock {
+    padding: 1rem;
+    text-align: left;
+    font-size: large;
+}
+.TextBlock {
+    font-size: large;
+}
+.TextBlock h2,
+.H2 {
+    margin-bottom: 1rem;
+}
+.H2 {
+    font-size: 27px;
+}
+
+.TextBlock p {
+    font-size: 22px;
+}
+
+.TextBlock ol {
+    padding-left: 2rem;
+}
+
+.TextBlock li {
+    font-size: 22px;
+}
+
+@media screen and  (max-width : 1600px) {
+    .Challenge {
+        padding: 2rem  10rem ;
+    }
+}
+
+@media screen and  (max-width : 1450px) {
+    .Challenge {
+        padding: 2rem  8rem ;
+    }
+}
+
+@media screen and  (max-width : 1100px) {
+    .Challenge {
+        padding: 2rem  5rem ;
+    }
+}
+
+@media screen and  (max-width : 950px) {
+    .Challenge {
+        padding: 2rem  4rem ;
+    }
+    .container-slider {
+        height: 25rem;
+    }
+    .btn-slide{
+        width: 50px;
+        height: 50px;
+    }
+    .dot {
+        width: 17px;
+        height: 17px;
+    }
+}
+
+
+@media screen and (max-width:800px) {
+    .Challenge {
+        padding: 2rem 6rem 2rem;
+    }
+    .TextBlock p {
+        font-size: 20px;
+    }
+    .TextBlock li {
+        font-size: 20px;
+    }
+    .container-slider {
+        height: 20rem;
+    }
+    .btn-slide{
+        width: 40px;
+        height: 40px;
+    }
+    .dot {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media screen and (max-width:700px) {
+    .Challenge {
+        padding: 2rem 4rem 2rem;
+    }
+    .Challenge h1{
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .Challenge {
+        padding: 2rem 3rem 2rem;
+    }
+    .TextBlock h2,
+    .H2{
+        font-size: 24px;
+    }
+    .BlackBox h2 {
+        font-size: 24px;
+    }
+    .TextBlock p {
+        font-size: 18px;
+    }
+    .TextBlock li {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .Challenge {
+        padding: 2rem 2rem 2rem;
+    }
+    .Challenge h1 {
+        font-size: 32px;
+    }
+    .TextBlock {
+        padding: 1rem 0rem;
+    }
+    .TextBlock h2,
+    .H2{
+        font-size: 22px;
+        margin-top: 1rem;
+    }
+    .BlackBox h2 {
+        font-size:22px;
+    }
+    .TextBlock p {
+        font-size: 16px;
+    }
+    .TextBlock li {
+        font-size: 16px;
+    }
+    .container-slider {
+        height: 15rem;
+    }
+    .btn-slide{
+        width: 30px;
+        height: 30px;
+    }
+    .btn-slide img {
+        width: 15px;
+        height: 15px;
+    }
+    .dot {
+        width: 11px;
+        height: 11px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .Challenge h1 {
+        font-size: 28px;
+    }
+}

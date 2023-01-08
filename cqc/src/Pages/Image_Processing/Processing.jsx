@@ -207,6 +207,7 @@ const Processing=()=> {
                 { imagePairs.map((pair, index) => (
                     <div key={index} className="services">
                         <div className="first_row">
+                            <div className="empty_block"></div>
                             <div className="input_item">
                                 <p>Name Image Pair</p>
                                 <input
@@ -237,20 +238,24 @@ const Processing=()=> {
                                 {pair.derror && <div className="error_text">Please upload the diffused image!</div>}
                             </div>
                         </div>
+                        <div className="Second_row">
                         <div className="image_row">
+                        <div className='cqc__p'><p>Focused Image</p>  </div>
                             {pair.focused && <img src={pair.furl} className="image_preview" alt="reload"/>}
-                            {!pair.focused &&   <div className='cqc__text'>
-                                                    <p>Focused Image</p>
-                                                </div> }
+
                         </div>
                         <div className="image_row">
-                            {pair.durl && <img src={pair.durl} className="image_preview" alt="reload"/>}
-                            {!pair.durl &&   <div className='cqc__text'>
+                        <div className='cqc__p'>
                                                     <p>Diffused Image</p>
-                                                </div> }
+                                                </div> 
+                            {pair.durl && <img src={pair.durl} className="image_preview" alt="reload"/>}
                         </div>
 
-                        {pair.intrinsic && <div className="image_row"><img src={`${pair.intrinsic}`} className="image_preview" alt="reload"/></div>}
+                        {pair.intrinsic && <div className="image_row">
+                            <div className='cqc__p'>
+                                <p>Result</p>
+                            </div> 
+                            <img src={`${pair.intrinsic}`} className="image_preview" alt="reload"/></div>}
 
                         <div className="second-division">
                             {imagePairs.length !== 1 && (
@@ -259,15 +264,17 @@ const Processing=()=> {
                                 </button>
                             )}
                         </div>
- 
+                        </div>      
                     </div>
 
                 ))}
+                <div className="button_div">
                 <button type="button" onClick={handleServiceAdd} className="dodajRed">
                     Add another image pair
                 </button>
                 <button type="button" onClick={handleSubmit} className="process_button">Process</button>
                 { imagesProcessed && <button type="button" onClick={(e)=>download(e)} className="process_button">Save</button>}
+                </div>
             </div>
         </div>
     )

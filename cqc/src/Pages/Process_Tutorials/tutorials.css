@@ -9,9 +9,9 @@
     text-align: center;
 }
 
-h1 {
+.tutorials h1 {
     font-size: 40px;
-    padding: 2rem;
+    margin-top: 0;
 }
 
 .clip {
@@ -63,41 +63,35 @@ h1 {
     font-size: 22px;
 }
 
-@media screen and (max-width:1350px) {
+@media screen and  (max-width : 1600px) {
     .tutorials {
-        padding: 2rem 16rem 2rem;
+        padding: 2rem  10rem ;
     }
 }
 
-@media screen and (max-width:1200px) {
+@media screen and  (max-width : 1450px) {
     .tutorials {
-        padding: 2rem 13rem 2rem;
+        padding: 2rem  8rem ;
     }
 }
 
-@media screen and (max-width:1050px) {
+@media screen and  (max-width : 1100px) {
     .tutorials {
-        padding: 2rem 10rem 2rem;
+        padding: 2rem  5rem ;
     }
 }
 
-@media screen and (max-width:950px) {
+@media screen and  (max-width : 950px) {
     .tutorials {
-        padding: 2rem 8rem 2rem;
-    }
-    .tutorials h1{
-        margin-bottom: 0;
+        padding: 2rem  4rem ;
     }
 }
+
 
 @media screen and (max-width:800px) {
     .tutorials {
         padding: 2rem 6rem 2rem;
     }
-    .tutorials h1{
-        padding: 1.2rem;
-    }
-
     .textdiv p {
         font-size: 20px;
     }
@@ -111,7 +105,6 @@ h1 {
         padding: 2rem 4rem 2rem;
     }
     .tutorials h1{
-        padding: 0 0.7rem 0.7rem;
         font-size: 35px;
     }
 }
@@ -158,3 +151,9 @@ h1 {
         font-size: 16px;
     }
 }
+
+@media screen and (max-width:400px) {
+    .tutorials h1 {
+        font-size: 28px;
+    }
+  }

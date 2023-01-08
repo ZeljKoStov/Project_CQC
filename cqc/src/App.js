@@ -3,7 +3,7 @@ import {  Route, Routes ,NavLink } from 'react-router-dom';
 
 import './App.css'
 import { Footer, Navbar} from './Component';
-import {Landing, Register, Login, Processing, Technology,Theory, Tutorials} from './Pages';
+import {Landing, Register, Login, Processing, Technology,Theory, Tutorials, Challenge} from './Pages';
 
 const navigation=[
   {name: 'Home', href:'/'},
@@ -46,6 +46,7 @@ const App = () => {
                 <Route path='/Intrinsic_Technology' element={<Technology/>}/>
                 <Route path='/Intrinsic_Theory' element={<Theory/>}/>
                 <Route path='/Process_Tutorials' element={<Tutorials/>}/>
+                <Route path='/Intrinsic_Challenge' element={<Challenge/>}/>
               
               </Routes>
             </div>
