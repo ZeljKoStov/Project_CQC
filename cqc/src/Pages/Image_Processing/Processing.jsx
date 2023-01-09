@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import FileSaver from 'file-saver';
 import JSZip from "jszip"
+import {Loader} from 'react-clip-loader';
+import 'react-clip-loader/dist/index.css'
 import { processing } from "../../api/processing";
 import { RequestAPI } from "../../utils/request-api";
 import './Processing.css'
@@ -20,6 +22,7 @@ const Processing=()=> {
             intrinsic: null
     }]);
     const [count, setCount] = useState(0)
+    const [spinner,setSpinner]=useState(false)
     const [imagesProcessed, setImagesProcessed] = useState(false);
     const handleImagePairRemove = (index) => {
         const list = [...imagePairs];
@@ -99,7 +102,7 @@ const Processing=()=> {
         const list = [...imagePairs];
         let error=false
 
-
+        setSpinner(true);
         imagePairs.map((pair,index)=>{
             if(pair.focused==null) {
                 list[index].ferror=true;
@@ -250,8 +253,8 @@ const Processing=()=> {
                                                 </div> 
                             {pair.durl && <img src={pair.durl} className="image_preview" alt="reload"/>}
                         </div>
-
-                        {pair.intrinsic && <div className="image_row">
+                        {!pair.intrinsic && spinner && <div className="spinner"><Loader small ={true    }/></div>}
+                        {pair.intrinsic  && <div className="image_row">
                             <div className='cqc__p'>
                                 <p>Result</p>
                             </div> 
