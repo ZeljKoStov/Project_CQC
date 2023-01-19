@@ -1,12 +1,13 @@
 .cqc__processing{
     padding: 2rem  20rem ;
-    color: black;
-    background: white;
+    color: white;
+    background: rgb(28, 130, 248);
     display: flex;
+    padding-bottom: 10rem;
+    height: 100%;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    background-size: cover;
 }
 
 
@@ -54,13 +55,13 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    color: white;
+    color: black;
 }
 
 .remove_button {
     margin-right: 1rem;
     margin-top: 1rem;
-    color:#FF4820;
+    color:#000000;
     background-color: white;
     font-weight: 1000;
     font-size: 20px;
@@ -85,12 +86,12 @@
     height: 22rem;
     border-radius: 5px;
     border: 1px solid black;
-    background:  rgb(2, 26, 50);
+    background:  rgb(255, 255, 255);
     margin-bottom: 1rem;
   }
 
   .services p {
-    color: white;
+    color: rgb(0, 0, 0);
   }
 
 
