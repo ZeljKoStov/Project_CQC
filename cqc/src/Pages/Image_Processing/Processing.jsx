@@ -1,23 +1,49 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import FileSaver from 'file-saver';
 import JSZip from "jszip"
+import ClipLoader from "react-spinners/ClipLoader";
 import { processing } from "../../api/processing";
 import { RequestAPI } from "../../utils/request-api";
+import { Modal} from '../../Component';
 import './Processing.css'
 
+
 const Processing=()=> {
+    const [diffused, setDiffused] = useState();
+    const [focused, setFocused] = useState();
+    const [intrinsic, setIntrinsic] = useState();
+
+    const [openModal, setOpenModal] = useState(false);
+    const [index,setIndex]=useState();
+    const [n,setN]=useState('');
+
+    const onSelectDiffused=(event)=>{
+        setDiffused(URL.createObjectURL(event.target.files[0]));
+        console.log(diffused);
+      };
+    
+      const onSelectFocused=(event)=>{
+        setFocused(URL.createObjectURL(event.target.files[0]));
+      };
+    
+    const [loading, setLoading]=useState(false);
+
+    const refreshPage = ()=>{
+        window.location.reload();
+     }
 
     const [imagePairs, setImagePairs] = useState([{ 
-            focused: null, 
-            furl: "", 
-            ferror: false, 
-            diffused: null, 
-            durl:"",
-            derror:false, 
-            name: "",
-            nerror: false,
-            serror: false, 
-            intrinsic: null
+        focused: null, 
+        furl: "", 
+        ferror: false, 
+        diffused: null, 
+        durl:"",
+        derror:false, 
+        name: "",
+        nerror: false,
+        serror: false, 
+        intrinsic: null,
+        ext: "jpeg"
     }]);
     const [count, setCount] = useState(0)
     const [imagesProcessed, setImagesProcessed] = useState(false);
@@ -78,6 +104,14 @@ const Processing=()=> {
         list[index]= item;
         setImagePairs(list);
     }
+
+    const handleExtChange = (e,index,ext) => {
+        const list = [...imagePairs];
+        const item = list[index];
+        item.ext = ext;
+        list[index]= item;
+        setImagePairs(list);
+    }
     
     const handleServiceAdd = () => {
         setImagePairs([...imagePairs, { 
@@ -89,15 +123,19 @@ const Processing=()=> {
             derror:false, 
             name: "",
             nerror: false, 
-            intrinsic: null 
+            intrinsic: null,
+            ext: "jpeg" 
         }]);
     };
     
  
     const handleSubmit = async (e)=>{
+        setLoading(true);
         e.preventDefault();
         const list = [...imagePairs];
         let error=false
+        const contentType = 'image/png';
+       
 
         imagePairs.map((pair,index)=>{
             if(pair.focused==null) {
@@ -108,7 +146,7 @@ const Processing=()=> {
                 list[index].derror=true;
                 error=true;
             } else list[index].derror=false;
-            if(pair.name==""){
+            if(pair.name===""){
                 list[index].nerror=true;
                 error=true;
             } else list[index].nerror=false;
@@ -128,7 +166,8 @@ const Processing=()=> {
                 const formData = new FormData();
                 formData.append("F", pair.focused);
                 formData.append("D", pair.diffused);
-                formData.append("name",pair.name+".jpg")
+                formData.append("name",pair.name)
+                formData.append("ext",pair.ext)
                 try {
                     const response = await RequestAPI(processing(formData));
                     if (response.status === 200) {   
@@ -137,19 +176,22 @@ const Processing=()=> {
                         
                         list[index].intrinsic = response.data
                         console.log(response.data.substring(22));
-                        
                         setImagePairs(list);
 
                         updateUI();
 
                         downloadAuto();
-
+                        
+                        setIntrinsic(URL.createObjectURL(new Blob ([response.data], {type:'image/gif'})));
+                        console.log(intrinsic);
                     }
         
                 } catch (error) {
                     console.log(error);
                 }
+
             } 
+            
         });
         
     }
@@ -160,7 +202,7 @@ const Processing=()=> {
 
         imagePairs.forEach((item) => {
             if(item.intrinsic==null) flag=false;
-            else zip.file(item.name+".jpeg",item.intrinsic.substring(22),{base64: true})
+            else zip.file(item.name+"."+item.ext,item.intrinsic.substring(22),{base64: true})
         })
 
         if(flag){
@@ -196,6 +238,8 @@ const Processing=()=> {
         setCount(rand);
     }
 
+    
+
     return (
         <div className='cqc__processing'>
             <div className='cqc__text'>
@@ -215,14 +259,56 @@ const Processing=()=> {
                                     onChange={(e) => handleNameChange(e, index)}
                                     required
                                 />
-                               {pair.nerror && <div className="error_text">Image Pair Name cannot be empty!</div>}
-                               {pair.serror && <div className="error_text">Image Pair Name cannot contain whitespace caracter!</div>}
+                                {pair.nerror && <div className="error_text">Image Pair Name cannot be empty!</div>}
+                                {pair.serror && <div className="error_text">Image Pair Name cannot contain whitespace caracter!</div>}
+                                <div className="extRow">
+                                    <div>
+                                        JPEG
+                                        <input
+                                        type="radio"
+                                        checked={pair.ext === "jpeg"}
+                                        onChange={(e) => handleExtChange(e, index,"jpeg")}
+                                        />
+                                    </div>
+                                    <div>
+                                        PNG
+                                        <input
+                                        type="radio"
+                                        checked={pair.ext === "png"}
+                                        onChange={(e) => handleExtChange(e, index,"png")}
+                                        />
+                                    </div>
+                                    <div>
+                                        FIT
+                                        <input
+                                        type="radio"
+                                        checked={pair.ext === "fit"}
+                                        onChange={(e) => handleExtChange(e, index,"fit")}
+                                        />
+                                    </div>
+                                    <div>
+                                        FITS
+                                        <input
+                                        type="radio"
+                                        checked={pair.ext === "fits"}
+                                        onChange={(e) => handleExtChange(e, index,"fits")}
+                                        />
+                                    </div>
+                                    <div>
+                                        TIFF
+                                        <input
+                                        type="radio"
+                                        checked={pair.ext === "tiff"}
+                                        onChange={(e) => handleExtChange(e, index,"tiff")}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <div className="input_item">
                                 <p>Upload Focused Image</p>  
                                 <input
                                     type="file"
-                                    onChange={(e) => handleFocusedChange(e, index)}
+                                    onChange={(e) =>{ handleFocusedChange(e, index);onSelectFocused(e)}} 
                                     required
                                 />
                                 {pair.ferror && <div className="error_text">Please upload the foused image!</div>}
@@ -231,7 +317,7 @@ const Processing=()=> {
                                 <p>Upload Diffused Image</p>  
                                 <input
                                     type="file"
-                                    onChange={(e) => handleDiffusedChange(e, index)}
+                                    onChange={(e) => {handleDiffusedChange(e, index);onSelectDiffused(e)}}
                                     required
                                 />
                                 {pair.derror && <div className="error_text">Please upload the diffused image!</div>}
@@ -240,21 +326,49 @@ const Processing=()=> {
                         <div className="Second_row">
                         <div className="image_row">
                         <div className='cqc__p'><p>Focused Image</p>  </div>
-                            {pair.focused && <img src={pair.furl} className="image_preview" alt="reload"/>}
+                            {pair.focused && (
+                             <>  
+                                <img src={pair.furl} className="image_preview" alt="reload" onClick={() => {
+                                    setOpenModal(true)
+                                    setIndex(index)
+                                    setN("furl")
+                                }}/>
+                                
+                            </> 
+                            )}
 
                         </div>
                         <div className="image_row">
                         <div className='cqc__p'>
-                                                    <p>Diffused Image</p>
-                                                </div> 
-                            {pair.durl && <img src={pair.durl} className="image_preview" alt="reload"/>}
+                            <p>Diffused Image</p>
+                        </div> 
+                            {pair.durl && (
+                            <>  
+                                <img src={pair.durl} className="image_preview" alt="reload" onClick={() =>{
+                                     setOpenModal(true)
+                                     setIndex(index)
+                                     setN("durl")
+                                    }} />
+                                     
+                            </> 
+                            )}
                         </div>
                         {pair.intrinsic  && <div className="image_row">
                             <div className='cqc__p'>
                                 <p>Result</p>
                             </div> 
-                            <img src={`${pair.intrinsic}`} className="image_preview" alt="reload"/></div>}
-
+                                <img src={`${pair.intrinsic}`} className="image_preview" alt="reload" onClick={() =>{
+                                     setOpenModal(true)
+                                     setIndex(index)
+                                     setN("intr")
+                                    }} />
+                            </div>
+                        } 
+                        {!pair.intrinsic && loading &&
+                            <div className="spin">
+                              <ClipLoader/>  
+                            </div>
+                        }
                         <div className="second-division">
                             {imagePairs.length !== 1 && (
                                 <button type="button" onClick={() => handleImagePairRemove(index)} className="remove_button">
@@ -266,13 +380,22 @@ const Processing=()=> {
                     </div>
 
                 ))}
+                {openModal&& <Modal  num={n} ind={index} pair={imagePairs} onClose={() => setOpenModal(false)} /> }
+                {!loading &&
                 <div className="button_div">
                 <button type="button" onClick={handleServiceAdd} className="dodajRed">
                     Add another image pair
                 </button>
                 <button type="button" onClick={handleSubmit} className="process_button">Process</button>
-                { imagesProcessed && <button type="button" onClick={(e)=>download(e)} className="process_button">Save</button>}
                 </div>
+                }
+                {loading && <div className="button_div">
+                    <button type="button" onClick={refreshPage} className="dodajRed">
+                        Go to another process
+                    </button>
+                    <button type="button" onClick={(e)=>download(e)} className="process_button">Save</button>
+                    </div>
+                }
             </div>
         </div>
     )

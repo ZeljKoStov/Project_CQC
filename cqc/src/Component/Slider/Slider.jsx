@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import './Slider.css'
 import BtnSlider from './BtnSlider'
 import dataSlider from './dataSlider'
-import slika1 from '../../assets/img1.png'
 
 export default function Slider() {
 

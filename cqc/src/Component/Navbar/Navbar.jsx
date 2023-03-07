@@ -1,8 +1,11 @@
 import React,{ useState,useRef,useEffect} from 'react' ;
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
+import { BiUser } from "react-icons/bi";
 import { NavLink,Link } from 'react-router-dom';
-import { getCookie } from '../../utils/cookies';
+import { getCookie, setCookie} from '../../utils/cookies';
 import { useNavigate } from "react-router-dom";
+import { motion ,AnimatePresence } from "framer-motion";
+
 
 import './navbar.css';
 
@@ -13,9 +16,10 @@ const navigation=[
   {name: 'Process Tutorials', href:'/Process_Tutorials'},
   {name: 'Intrinsic Challenge', href:'/Intrinsic_Challenge'},
   {name: 'Image Processing', href:'/Processing'},
+  {name: 'Web Shop',href:'Web_Shop'}
 ];
 
-const Navbar = ({widChanger, ...rest}) => {
+const Navbar = ({widChanger, signedIn, userName, signOut}) => {
 
   const getWindowsDimensions=()=>{
     const {innerWidth: width, innerHeight: height}=window;
@@ -29,6 +33,7 @@ const Navbar = ({widChanger, ...rest}) => {
   const [signin,setSignIn] = useState(false)
   const [wid, setWid]=useState(getWindowsDimensions());
   const boxRef = useRef();
+  const [vari,setVari]=useState(true);
 
   function useOutsideAlerter(boxRef,toggleMenu) {
     useEffect(() => {
@@ -58,24 +63,66 @@ const Navbar = ({widChanger, ...rest}) => {
     return ()=> window.removeEventListener('resize',handleResize);
   },[]);
 
-  useEffect(() => {
 
+  useEffect(() => {
     const _name = getCookie('_name');
-    setName(_name)
-    setSignIn(true)
+    if(_name!==" "){
+      setName(_name)
+      setSignIn(true)
+    }
     
-  }, [name]);
+  }, [name],[signin]);  
+
+
+  const logOut=()=>{
+    setSignIn(false);
+    setCookie('_jwt'," ");
+    setCookie('_name'," ");
+    setName(" ");
+    signOut();
+  }
 
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
     let path = `/login`; 
     navigate(path);
   }
+
+  const changeR = () =>{ 
+    let path = `/`;
+    const _name = getCookie('_name');
+    if(_name!==" "){
+      setName(_name)
+      setSignIn(true)
+    } 
+    navigate(path);
+  }
+
+  const goToProfil = () =>{ 
+    let path = `/My_Profile`; 
+    navigate(path);
+  }
+
+  setTimeout(()=>{
+    setVari(false);
+  },4050)
   
   return (
     <>
     {useOutsideAlerter(boxRef,toggleMenu)}
-      <div className='cqc__navbar'>
+    <AnimatePresence>
+      {!vari && (
+      <motion.div 
+        key={"frst"}
+        className='cqc__navbar'
+        initial={{opacity:0.8,height:0}}
+        animate={{opacity:1,height:"6rem"}}
+          transition={{
+         
+          duration:0.3,
+          ease:"easeIn"
+         }}
+      > 
         <div className='cqc__navbar_frst'>
           <div className='cqc__navbar_frst-empty'>
           </div>
@@ -83,14 +130,25 @@ const Navbar = ({widChanger, ...rest}) => {
               <p><NavLink to='/'>Center for Quantitative Cytometry</NavLink></p>
           </div>
           <div className='cqc__navbar_frst-end'>
-            <div className='cqc__navbar_frst-sign'>
-              { signin 
-                ? <p>{name}</p>
-                : <p></p>
+              { signedIn
+                ?
+                <> 
+                <div className="login_div"> 
+                    <div className='biuser' onClick={goToProfil}> 
+                      <BiUser size={"2rem"} color={"white"}/>
+                    </div>
+                    <p >{userName}</p>
+                   <button  type='button' onClick={()=> {logOut(); changeR() }}>Sign Out</button>
+                </div>
+                </>
+               : 
+                <>
+                <div className='cqc__navbar_frst-sign'>
+                   <p><NavLink to='Register'>Register</NavLink></p>
+                   <button  type='button' onClick={routeChange}>Sign In</button>
+                </div>
+                </>
               }
-              <p><NavLink to='Register'>Register</NavLink></p>
-              <button  type='button' onClick={routeChange}>Login</button>
-            </div>
             <div className='cqc__navbar_frst-menu' ref={boxRef}>
             {toggleMenu 
               ? <RiCloseLine color="#fff" size={27} onClick={() =>{ setToggleMenu(false);widChanger(true)} } />
@@ -146,7 +204,10 @@ const Navbar = ({widChanger, ...rest}) => {
                 </p>
                 ))}
         </div>
-      </div>
+      </motion.div>
+      )}
+      
+      </AnimatePresence>
     </>
   )
 }

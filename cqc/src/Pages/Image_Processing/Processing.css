@@ -8,8 +8,19 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
+
+    background-color: white;
+    background-size:  contain;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: url(back.jpeg);
 }
 
+.extRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
 .cqc__processing-image {
     flex: 1;
@@ -49,6 +60,9 @@
   font-weight: 600;
   margin-bottom: 0;
 }
+.image_preview{
+  cursor: pointer;
+}
 
 .input_item {
     display: flex;
@@ -86,7 +100,7 @@
     height: 22rem;
     border-radius: 5px;
     border: 1px solid black;
-    background:  rgb(255, 255, 255);
+    background:  rgb(255, 255, 255, 0.7);
     margin-bottom: 1rem;
   }
 
@@ -177,6 +191,10 @@
     cursor: pointer;
     border-radius: 5px;
   }
+
+  .process_button:hover {
+    background-color: #163278;
+  }
   .first-division button {
     padding: 0.5rem 1rem;
     color: white;
@@ -204,6 +222,11 @@
     border-radius: 5px;
   }
 
+  .spin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 @media screen and  (max-width : 1600px) {
     .cqc__processing {
         padding: 2rem  10rem ;

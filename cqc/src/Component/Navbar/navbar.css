@@ -2,22 +2,7 @@
     display: flex;
     flex-direction: column;
     padding: 1rem  1rem 0rem;
- 
-     /* ff 3.6+ */
-     background:-moz-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
-  
-     /* safari 5.1+,chrome 10+ */
-     background:-webkit-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
-  
-     /* opera 11.10+ */
-     background:-o-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
-  
-     /* ie 10+ */
-     background:-ms-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
-  
-     /* global 92%+ browsers support */
-     background:radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
-  
+    background: #021649;
 }
 
 
@@ -159,6 +144,37 @@
     display: none;
 }
 
+.login_div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.login_div button{
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background: #FF4820;
+    
+    
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.login_div p{
+    color: white;
+    margin-left: 0.5rem;
+    margin-right: 2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.biuser :hover {
+    cursor: pointer;
+}
 
 @media screen and  (max-width : 1100px) {
     .cqc__navbar-links_container {

@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.16.5",
+    "@stripe/stripe-js": "^1.48.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.0",
     "file-saver": "^2.0.5",
+    "framer-motion": "^10.2.1",
     "jszip": "^3.10.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
@@ -17,6 +20,7 @@
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "react-slideshow-image": "^4.1.1",
+    "react-spinners": "^0.13.8",
     "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },

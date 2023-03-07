@@ -1,12 +1,20 @@
 import React from 'react';
+import { motion, } from "framer-motion";
 import orignalimage from '../../assets/original-image.jpg';
 import intrinsicimage from '../../assets/intrinsic-image.jpg';
+
 import './technology.css';
 
+document.body.style.overflow="auto";
+
 const Technology = () => {
+
+
   return (
+    <>
+    
     <div className='technology'>
-      
+    
       <h1>Intrinsic Dark</h1>
     
       <div className='imageT'>
@@ -22,6 +30,8 @@ const Technology = () => {
         <p>Can darkness reveal information? Yes! A simple example is suggested in the question, “Are the stars still in the sky during daylight hours?” The basis of Intrinsic Technology involves removing light from an image after it has illuminated the field of view. So, when Intrinsic  darkness is achieved, details in an image are revealed. This website is dedicated to the theory and practical use of this new technology.</p>
       </div>
     </div>
+   
+    </>
   )
 }
 

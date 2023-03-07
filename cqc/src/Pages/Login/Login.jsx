@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setCookie } from '../../utils/cookies';
 import './login.css';
 
-const Login = () => {
+const Login = ({signIn}) => {
 
     const [loginObj, setLoginObj] = useState({
         email: '',
@@ -35,9 +35,12 @@ const Login = () => {
         try {
             const response = await RequestAPI(login(loginObj));
             console.log(response)
-            if (response.status === 200) {
+            if (response.data.success) {
+                console.log(response.data)
                 setCookie('_jwt',response.data.token)
                 setCookie('_name',response.data.name)
+                setCookie('_email',response.data.email)
+                signIn(response.data.name,response.data.email)
                 navigate(`/`);
             }
 
@@ -60,7 +63,7 @@ const Login = () => {
                         <input value ={loginObj['email']} onChange={(e) => onChangeInput(e)} type={'email'} placeholder='youremail@gmail.com' id='email' name='email'/>
                         <label htmlFor='password'>password</label>
                         <input value={loginObj['password']} onChange={(e) => onChangeInput(e)} type={'password'} placeholder='********' id='password' name='password'/>
-                        <button type='submit'>Log In</button>
+                        <button type='submit'>Sign In</button>
                     </form>
                     <button className="link-btn" onClick={routeChange}>Don't have an account? Register here.</button>
                 </div>

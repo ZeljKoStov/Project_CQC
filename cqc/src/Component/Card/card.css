@@ -1,0 +1,43 @@
+.Card_div{
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30rem;
+}
+
+.Card_div h2 {
+    margin: 0;
+    color: black;
+}
+
+.Card_div p {
+    margin: 0;
+    color: black;
+}
+
+.Card_txt_frst{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Card_img img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.Card_price {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-weight: bold;
+}
+
+.Card_price p {
+    font-size: 25px;
+}
+

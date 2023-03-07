@@ -1,18 +1,27 @@
 import React from 'react';
 import Slider from '../../Component/Slider/Slider'
+import { useNavigate } from "react-router-dom";
 
 import "./challenge.css"
 
 
 
 const Chalange = () => {
+
+    let navigate = useNavigate(); 
+    const routeChange = () =>{ 
+      let path = `/Image_Submission`; 
+      navigate(path);
+    }
+
+
   return (
     <div className='Challenge'>
         <h1>Intrinsic Image of the Week</h1>
         <Slider />     
         <div className='BlackBox'>
             <h2>Welcome to our Intrinsic Challenge!</h2>
-            <button onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSf5hFeKHlg7tphUjhKVnNs_8BIiyG4PkID3GbFIs-pvmU0sgA/viewform', '_blank')  }>Image Submission</button>
+            <button onClick={routeChange }>Image Submission</button>
         </div>
         <div className='TextBox'>
             <h2 className='H2'>Intrinsic Image of the Week</h2>

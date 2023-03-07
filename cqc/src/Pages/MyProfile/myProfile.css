@@ -1,0 +1,118 @@
+.containerP{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Profile_container {
+    display:flex;
+    flex-direction: column;
+    width: 50rem;
+    border: solid black 2px;
+    border-radius: 1rem;
+    margin-top: 2rem;
+}
+
+.Frst{
+    display:flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 2rem;
+    padding-bottom: 0.5rem;
+}
+
+.ImageP {
+    flex: 1;
+}
+
+.ImageP img {  
+    width:  100%  ;
+    height: 100% ;
+    aspect-ratio: 7/8;
+    border-radius: 1rem;
+}
+
+.Name {
+    flex: 5;
+}
+
+.Name p {
+    margin-left: 3rem;
+    margin-bottom: 0;
+    font-size: 34px;
+}
+.SecondP {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.TextProfile {
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+.cardField {
+    width: 25rem;
+    height: 10rem;
+}
+
+.divRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.divRow2 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.divColumn {
+    display: flex;
+    flex-direction: Column;
+    align-items: flex-start;
+    border: solid black 2px;
+    border-radius: 1rem;
+}
+
+.small {
+    font-size: 20px;
+    margin-bottom: 0rem;
+}
+
+.bold {
+    margin-left: 0.5rem;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 0rem;        
+}
+
+.btnAdd{
+    display: flex;
+    align-items: flex-end;
+    margin: 2rem;
+}
+
+.btnAdd button {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background: #FF4820;
+    
+    
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.depositInput2{
+    padding: 0.8rem;
+    width: 340px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
