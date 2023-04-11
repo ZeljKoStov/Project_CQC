@@ -13,7 +13,7 @@ const Card = (props) => {
         </div>
         <p>{props.item.content}</p>
         <div className='Card_price'>
-          <p>${props.item.price}</p>
+          <p>${parseFloat(props.item.price).toFixed(2)}</p>
           <button onClick = {()=> {props.onClick(props.item.id)}}>Order</button>
         </div>
     </div>

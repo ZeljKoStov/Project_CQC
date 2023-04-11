@@ -34,7 +34,7 @@
     flex-direction: row;
     align-items: center;
     justify-content:space-around;
- 
+    border-bottom: 1px solid #fff;
 }
 
 .cqc__navbar_second p {
@@ -55,9 +55,9 @@
 }
 
 .cqc__navbar-links_container2 {
-    color: #ffffff;
+    color: #b9bfff;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 24px;
     text-transform: capitalize;
    
@@ -170,6 +170,19 @@
     margin-right: 2rem;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.shoping_cart_container{
+    display: flex;
+    flex-direction: row;
+    color: white;
+    margin-right: 10px;
+    align-items: center;
+}
+
+.shoping_cart{
+    height: 1.6rem;
+    width: 1.6rem;
 }
 
 .biuser :hover {

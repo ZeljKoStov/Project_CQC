@@ -22,12 +22,14 @@ const CARD_OPTIONS = {
 	}
 }
 
-export default function PaymentForm({ onResult , paymentAmount, userEmail}) {
+export default function PaymentForm({ loading, onResult , paymentAmount, userEmail}) {
     const stripe = useStripe()
     const elements = useElements()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        loading(true)
+
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type: "card",
             card: elements.getElement(CardElement)
@@ -36,13 +38,13 @@ export default function PaymentForm({ onResult , paymentAmount, userEmail}) {
         if(!error){
             try {
                 const {id} = paymentMethod
-                const response = await axios.post("http://localhost:3001/users/payment", {
+                const response = await axios.post("https://intrinsic-backend.xyz/users/payment", { //TODO
                     amount: paymentAmount,
                     id: id,
                     email: userEmail
                 })
 
-                console.log(response);
+                loading(false)
 
                 if(response.data.success) {
                     onResult(true)

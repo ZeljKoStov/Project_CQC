@@ -3,7 +3,7 @@ import {  Route, Routes ,NavLink  } from 'react-router-dom';
 import { motion} from "framer-motion";
 import { getCookie, setCookie} from './utils/cookies';
 import { Footer, Navbar,Header} from './Component';
-import { Register, Login, Processing, Technology,Theory, Tutorials, Challenge, Submission,Web,MyProfil} from './Pages';
+import { Register, Login, Processing, Technology,Theory, Tutorials, Challenge, Submission,Web,MyProfil, Checkout, Orders} from './Pages';
 import './App.css'
 
 const navigation=[
@@ -24,6 +24,8 @@ const App = () => {
   const [signedIn, setSignedIn] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+
+  const [orders, setOrders] = useState([])
 
   const min = 1;
   const max = 10;
@@ -65,6 +67,12 @@ const App = () => {
     setSignedIn(false);
   }
 
+  const addOrder = (newOrder) => {
+    const updatedOrders = [...orders, newOrder];
+    setOrders(updatedOrders);
+    console.log(updatedOrders);
+  }
+
 
   return (
     <>
@@ -74,7 +82,7 @@ const App = () => {
           <div className='App-second'>
              <div className='Up'>
                 <nav className={`${sticky ? 'sticky' : '' }`}>
-                  <Navbar  widChanger={setWid} signedIn={signedIn} userName={userName} signOut={signOut} />
+                  <Navbar orders={orders} widChanger={setWid} signedIn={signedIn} userName={userName} signOut={signOut} />
                 </nav>
 
                 <motion.div 
@@ -150,17 +158,19 @@ const App = () => {
               
                   <Routes>
                     <Route path='/' element={<Header prop={vara} />}/>
-                    <Route path='/Register' element={<Register/>} />
+                    <Route path='/Register' element={<Register signIn={signIn}/>} />
+                    <Route path='/Register/:id' element={<Register signIn={signIn}/>} />
                     <Route path='/Login' element={<Login signIn={signIn}/>} />
-                    <Route path='/Register' element={<Login/>}/>
                     <Route path='/Processing' element={<Processing/>}/>
                     <Route path='/Intrinsic_Technology' element={<Technology/>}/>
                     <Route path='/Intrinsic_Theory' element={<Theory/>}/>
                     <Route path='/Process_Tutorials' element={<Tutorials/>} />
                     <Route path='/Intrinsic_Challenge' element={<Challenge/>}/>
                     <Route path='/Image_Submission' element={<Submission/>} />
-                    <Route path='/Web_Shop' element={<Web signedIn={signedIn} userEmail={userEmail}/>}/>
+                    <Route path='/Web_Shop' element={<Web signedIn={signedIn} userEmail={userEmail} addOrder={addOrder}/>}/>
                     <Route path='/My_Profile' element={<MyProfil/>}/>
+                    <Route path='/Checkout' element={<Checkout orders={orders} setOrders={setOrders}/>}/>
+                    <Route path='/Orders' element={<Orders />} />
                   </Routes>
                
                 </div>

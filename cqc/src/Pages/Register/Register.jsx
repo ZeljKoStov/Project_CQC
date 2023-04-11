@@ -1,15 +1,14 @@
-import React , {useState}from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect  } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import { RequestAPI } from '../../utils/request-api'
-import { register } from '../../api/register'
-import { setCookie } from '../../utils/cookies';
+import { register, details } from '../../api/api'
+import { setCookie, getCookie, } from '../../utils/cookies';
 import './register.css';
-import { details } from '../../api/details';
-import back from "./back.jpeg"
+import back from "../../assets/back.jpeg"
 
-import StripeContainer from '../../Component/Stripe/StripeContainer';
+const Register = ({ signIn }) => {
 
-const Register = () => {
+  const { id } = useParams();
 
   const [name, setName] = useState('')
   const [nameError, setNameError] = useState(false)
@@ -38,15 +37,11 @@ const Register = () => {
   const [registerError, setRegisterError] = useState(false)
   const [registerErrorText, setRegisterErrorText] = useState('')
 
-  const [detailsError, setDetailsError] = useState(false)
-  const [detailsErrorText, setDetailsErrorText] = useState('')
-
-  const [amount, setAmount] = useState(10);
-  const [amountError, setAmountError] = useState(false);
-
-  const [success, setSucess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [regStep, setRegStep] = useState(0) //0 je registracija usera, 1 - je unos sippinga i godina, 2 je depozit
+
+  const navigate = useNavigate();
 
   const onNameChanged = (e) => {
     e.preventDefault()
@@ -88,167 +83,181 @@ const Register = () => {
     setPhoneNumder(e.target.value)
   }
 
-  const onAmountChanged = (e) => {
-    e.preventDefault()
-    setAmount(e.target.value)
-  }
-
-
   const submitRegister = async (e) => {
     e.preventDefault();
 
-    if(name==='') {
-      setNameError(true)
-    } else if(email==='') {
-      setEmailError(true)
-    } else if(password==='' || password.length<6) {
-      setPasswordErrorText("Password must be al least 6 caracters!")
-      setPasswordError(true)
-    } else if(password!==confirmPassword) {
-      setPasswordErrorText("Passwords do not match!")
-      setPasswordError(true)
+    if (name === '' || email === '' || password === '' || password.length < 6 || password !== confirmPassword) {
+
+      if (name === '') setNameError(true);
+      else setNameError(false);
+
+      if (email === '') setEmailError(true);
+      else setEmailError(false);
+
+      if (password === '' || password.length < 6) {
+        setPasswordErrorText("Password must be al least 6 caracters!")
+        setPasswordError(true)
+      } else if (password !== confirmPassword) {
+        setPasswordErrorText("Passwords do not match!")
+        setPasswordError(true)
+      } else setPasswordError(false)
+
     } else {
+
+      setNameError(false)
+      setEmailError(false)
+      setPasswordError(false)
+
+      setLoading(true);
+
       const registerObj = {
         name: name,
         email: email,
         password: password,
       }
-  
+
       try {
-          const response = await RequestAPI(register(registerObj));
-          console.log(response)
-          if (response.status === 200) {
-            setCookie('_jwt',response.data.token)
-            setCookie('_name',response.data.name)
-            setCookie('_email',response.data.email)
-            console.log("EMAIL")
-            console.log(response.data.email)
-            setRegStep(1);
-          } else if(response.status === 201) {
-            console.log(response.data)
-            setRegisterErrorText(response.data.error)
-            setRegisterError(true)
-          }
-  
+        const response = await RequestAPI(register(registerObj));
+        setLoading(false);
+        if (response.status === 200) {
+          setCookie('_jwt', response.data.token)
+          setCookie('_name', response.data.name)
+          setCookie('_email', response.data.email)
+          signIn(response.data.name, response.data.email)
+          setRegStep(1);
+        } else if (response.status === 201) {
+          console.log(response.data)
+          setRegisterErrorText(response.data.error)
+          setRegisterError(true)
+        }
+
       } catch (error) {
-          console.log(error);
+        console.log(error);
+        setLoading(false);
       }
-    } 
+    }
   }
 
   const submitDetails = async (e) => {
     e.preventDefault();
 
-    if(address==='') setAddressError(true)
-    else if(state==='') setStateError(true)
-    else if(phoneNumber==='') setPhoneNumberError(true)
-    else if(zipCode==='') setZipCodeError(true)
-    else {
+    if (address === '' || state === '' || phoneNumber === '' || zipCode === '') {
+      if (address === '') setAddressError(true)
+      else setAddressError(false)
+
+      if (state === '') setStateError(true)
+      else setStateError(false)
+
+      if (phoneNumber === '') setPhoneNumberError(true)
+      else setPhoneNumberError(false)
+
+      if (zipCode === '') setZipCodeError(true)
+      else setZipCodeError(false)
+
+    } else {
+      setAddressError(false)
+      setStateError(false)
+      setPhoneNumberError(false)
+      setZipCodeError(false)
+      setLoading(true);
+
+
+      const _email = getCookie('_email');
+      setEmail(_email)
+
       const detailsObj = {
-        email: email,
+        email: _email,
         address: address,
         state: state,
         zipCode: zipCode,
         phoneNumber: phoneNumber
       }
-  
+
       try {
-          const response = await RequestAPI(details(detailsObj));
-          console.log(response)
-          if (response.status === 200) {
-            setRegStep(2);
-          } else if(response.status === 201) {
-            console.log(response.data)
-            setDetailsErrorText(response.data.error)
-            setDetailsError(true)
-          }
-  
+        const response = await RequestAPI(details(detailsObj));
+        setLoading(false)
+        if (response.status === 200) {
+          navigate('/My_Profile');
+        }
+
       } catch (error) {
-          console.log(error);
+        console.log(error);
+        setLoading(false)
       }
-    } 
+    }
   }
 
-  const onPaymentResut = (response) => {
-    if(response) setSucess(true);
-  }
+  useEffect(() => {
+    console.log(id);
+    if (id != null && id != undefined) setRegStep(2);
+  }, [id])
 
   return (
     <>
-       
-       <div className='cqc__header b'>
-         {
-           regStep===0 && <>
-             <div className='title'>
-                 <spam>Registration</spam>
-             </div>
-             <form className="register-form" onSubmit={submitRegister}>
-                 <spam htmlFor='name'>Full name</spam>
-                 <input value ={name} onChange={(e) => onNameChanged(e)} type={'name'}  placeholder='Full Name' id='name' name='name'/>
-                 {nameError && <label className="error_text">Name cannot be empty!</label>}
-                 <spam htmlFor='email'>Email</spam>
-                 <input value ={email} onChange={(e) => onEmailChanged(e)} type={'email'} placeholder='youremail@gmail.com' id='email' name='email'/>
-                 {emailError && <label className="error_text">Email cannot be empty!</label>}
-                 <spam htmlFor='password'>Password</spam>
-                 <input value ={password} onChange={(e) => onPasswordChanged(e)} type={'password'} placeholder='********' id='password' name='password'/>
-                 {passwordError && <label className="error_text">{passwordErrorText}</label>}
-                 <spam htmlFor='password'>Confirm password</spam>
-                 <input value ={confirmPassword} onChange={(e) => onConfirmPasswordChanged(e)} type={'password'} placeholder='********' id='confirm' name='confirm'/>
-                 {registerError && <label className="error_text">{registerErrorText}</label>}
-                 <button className='blue_button' onClick={(e)=> submitRegister(e)}>Register</button>
-             </form>
-           </>
-         }
-         {
-           regStep===1 && <>
-             <div className='title'>
-                 <spam>Add Shipping Details</spam>
-             </div>
-             <form className="register-form" onSubmit={submitDetails}>
-                 <spam htmlFor='address'>Shipping Address</spam>
-                 <input value ={address} onChange={(e) => onAddressChanged(e)} placeholder='Shipping Address' />
-                 {adressError && <label className="error_text">Address cannot be empty!</label>}
-                 <spam htmlFor='address'>State</spam>
-                 <input value ={state} onChange={(e) => onStateChanged(e)} placeholder='State' />
-                 {stateError && <label className="error_text">State cannot be empty!</label>}
-                 <spam htmlFor='address'>Zip Code</spam>
-                 <input value ={zipCode} onChange={(e) => onZipCodeChanged(e)} placeholder='Zip Code' />
-                 {zipCodeError && <label className="error_text">Zip Code cannot be empty!</label>}
-                 <spam htmlFor='address'>Phone Number</spam>
-                 <input value ={phoneNumber} onChange={(e) =>  onPhoneNumberChanged(e)} placeholder='Phone Number'/>
-                 {phoneNumberError && <label className="error_text">Phone Number cannot be empty!</label>}
-                 <button className='blue_button' onClick={(e)=> submitDetails(e)}>Add Shipping Details</button>
-             </form>
-           </>
-         }
-         {
-           regStep===2 && <>
+      <div className='register_container'>
+        <img src={back} alt="Girl in a jacket" className='backgroundImage' />
+        <div className='register_body'>
+          {
+            loading && <div class="reg-spinner-overlay">
+              <div class="reg-spinner"></div>
+            </div>
+          }
+          {
+            regStep === 0 && <>
               <div className='title'>
-                 <spam>Make a Deposit</spam>
+                <spam>Registration</spam>
               </div>
-          
-              { !success ?
-                <>
-                  <spam htmlFor='amount'>Enter Deposit Amount (min $10)</spam>
-                  <input className="depositInput" value ={amount} onChange={(e) => onAmountChanged(e)} type={'number'}  placeholder='$10' id='amount' name='amount'/>
-                  {amountError && <label className="error_text">Amount must be greater then $10!</label>}
-
-                  <div className='cardField'>
-                    <StripeContainer onResult={onPaymentResut} paymentAmount={amount*100} userEmail={email} />
-                  </div>
-                </>
-                :
-                <>
-                  <spam htmlFor='amount'>Payment successfull!</spam>
-                  <spam htmlFor='amount'>Registration completed!</spam>
-                </>
-              }
-
-           </>
-         }
-        </div>    
-          
-       </>
+              <form className="register-form" onSubmit={submitRegister}>
+                <spam htmlFor='name'>Full name</spam>
+                <input value={name} onChange={(e) => onNameChanged(e)} type={'name'} placeholder='Full Name' id='name' name='name' />
+                {nameError && <label className="error_text">Name cannot be empty!</label>}
+                <spam htmlFor='email'>Email</spam>
+                <input value={email} onChange={(e) => onEmailChanged(e)} type={'email'} placeholder='youremail@gmail.com' id='email' name='email' />
+                {emailError && <label className="error_text">Email cannot be empty!</label>}
+                <spam htmlFor='password'>Password</spam>
+                <input value={password} onChange={(e) => onPasswordChanged(e)} type={'password'} placeholder='********' id='password' name='password' />
+                {passwordError && <label className="error_text">{passwordErrorText}</label>}
+                <spam htmlFor='password'>Confirm password</spam>
+                <input value={confirmPassword} onChange={(e) => onConfirmPasswordChanged(e)} type={'password'} placeholder='********' id='confirm' name='confirm' />
+                {registerError && <label className="error_text">{registerErrorText}</label>}
+                <button className='blue_button' onClick={(e) => submitRegister(e)}>Register</button>
+              </form>
+            </>
+          }
+          {
+            regStep === 1 && <>
+              <div className='title'>
+                <spam>Please verify your email address!</spam>
+                <spam>We sent an emil to: {email}</spam>
+              </div>
+            </>
+          }
+          {
+            regStep === 2 && <>
+              <div className='title'>
+                <spam>Email Sucessfuly Verified</spam>
+                <spam>Please Add Shipping Details</spam>
+              </div>
+              <form className="register-form" onSubmit={submitDetails}>
+                <spam htmlFor='address'>Shipping Address</spam>
+                <input value={address} onChange={(e) => onAddressChanged(e)} placeholder='Shipping Address' />
+                {adressError && <label className="error_text">Address cannot be empty!</label>}
+                <spam htmlFor='address'>State</spam>
+                <input value={state} onChange={(e) => onStateChanged(e)} placeholder='State' />
+                {stateError && <label className="error_text">State cannot be empty!</label>}
+                <spam htmlFor='address'>Zip Code</spam>
+                <input value={zipCode} onChange={(e) => onZipCodeChanged(e)} placeholder='Zip Code' />
+                {zipCodeError && <label className="error_text">Zip Code cannot be empty!</label>}
+                <spam htmlFor='address'>Phone Number</spam>
+                <input value={phoneNumber} onChange={(e) => onPhoneNumberChanged(e)} placeholder='Phone Number' />
+                {phoneNumberError && <label className="error_text">Phone Number cannot be empty!</label>}
+                <button className='blue_button' onClick={(e) => submitDetails(e)}>Add Shipping Details</button>
+              </form>
+            </>
+          }
+        </div>
+      </div>
+    </>
   )
 }
 

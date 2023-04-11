@@ -9,7 +9,6 @@
     width: 50rem;
     border: solid black 2px;
     border-radius: 1rem;
-    margin-top: 2rem;
 }
 
 .Frst{
@@ -58,6 +57,10 @@
     height: 10rem;
 }
 
+.cardField input {
+    margin-left: 0px;
+}
+
 .divRow {
     display: flex;
     flex-direction: row;
@@ -96,23 +99,114 @@
     margin: 2rem;
 }
 
-.btnAdd button {
-    padding: 0.5rem 1rem;
-    color: #fff;
-    background: #FF4820;
-    
-    
-    line-height: 25px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
 .depositInput2{
     padding: 0.8rem;
     width: 340px;
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 15px;
+}
+
+.reg-spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .reg-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+
+  .container {
+    text-align: center;
+    display: flex;
+    padding: 2rem;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+  }
+
+  .login_body {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
+
+  .backgroundImage {
+    position: absolute;
+    height: 42rem;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+
+  h1 {
+	text-align: center;
+	margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+.profile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+    height: 27rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    background:  rgb(255, 255, 255, 0.2);
+}
+
+.profile__name {
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+    
+}
+
+td {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+    font-size: 18px;
+}
+
+td:first-child {
+	font-weight: bold;
 }

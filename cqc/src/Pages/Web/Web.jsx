@@ -1,43 +1,91 @@
-import React,  {useState} from 'react'
+import React, { useState } from 'react'
 import './web.css';
 import img from "../../assets/diffuser.png"
-import { Card } from '../../Component'
+import dis from "../../assets/price_discount.png"
+import tele_0 from "../../assets/tele_0.jpeg"
+import tele_1 from "../../assets/tele_1.jpeg"
+import tele_2 from "../../assets/tele_2.jpeg"
+import tele_3 from "../../assets/tele_3.jpeg"
+import tele_4 from "../../assets/tele_4.jpeg"
+import tele_5 from "../../assets/tele_5.jpeg"
+import tele_6 from "../../assets/tele_6.jpeg"
+import { useNavigate } from "react-router-dom";
 import { getCookie } from '../../utils/cookies';
-import { userData } from '../../api/login'
+import { userData, order, getShippingPrice } from '../../api/api'
 import { RequestAPI } from '../../utils/request-api'
-import { order, getShippingPrice } from '../../api/order';
 
-const Web = (signedIn, userEmail) => {
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
-    const data=[
+const images = [
+    {
+        original: tele_0
+    },
+    {
+        original: tele_1,
+    },
+    {
+        original: tele_2
+    },
+    {
+        original: tele_3
+    },
+    {
+        original: tele_4
+    },
+    {
+        original: tele_5,
+    },
+    {
+        original: tele_6,
+    },
+];
+
+const Web = (props, signedIn, userEmail) => {
+
+    const data = [
         [
-            {id:0, title:'Item 1' , content:'This is the description of the item' , image:'img', price: 10},
-            {id:1, title:'Item 2' , content:'This is the description of the item' , image:'img', price: 20},
-            {id:2, title:'Item 3' , content:'This is the description of the item' , image:'img', price: 20}
+            { id: 0, title: 'Item 1', content: 'This is the description of the item', image: 'img', price: 10 },
+            { id: 1, title: 'Item 2', content: 'This is the description of the item', image: 'img', price: 20 },
+            { id: 2, title: 'Item 3', content: 'This is the description of the item', image: 'img', price: 20 }
         ],
         [
-            {id:3, title:'Item 4' , content:'This is the description of the item' , image:'img', price: 30},
-            {id:4, title:'Item 6' , content:'This is the description of the item' , image:'img', price: 40},
-            {id:5, title:'Item 7' , content:'This is the description of the item' , image:'img', price: 40}
+            { id: 3, title: 'Item 4', content: 'This is the description of the item', image: 'img', price: 30 },
+            { id: 4, title: 'Item 6', content: 'This is the description of the item', image: 'img', price: 40 },
+            { id: 5, title: 'Item 7', content: 'This is the description of the item', image: 'img', price: 40 }
         ],
         [
-            {id:6, title:'Item 8' , content:'This is the description of the item' , image:'img', price: 30},
-            {id:7, title:'Item 9' , content:'This is the description of the item' , image:'img', price: 40},
-            {id:8, title:'Item 10' , content:'This is the description of the item' , image:'img', price: 40}
+            { id: 6, title: 'Item 8', content: 'This is the description of the item', image: 'img', price: 30 },
+            { id: 7, title: 'Item 9', content: 'This is the description of the item', image: 'img', price: 40 },
+            { id: 8, title: 'Item 10', content: 'This is the description of the item', image: 'img', price: 40 }
         ],
         [
-            {id:9, title:'Item 11' , content:'This is the description of the item' , image:'img', price: 30},
-            {id:10, title:'Item 12' , content:'This is the description of the item' , image:'img', price: 50}
+            { id: 9, title: 'Item 11', content: 'This is the description of the item', image: 'img', price: 30 },
+            { id: 10, title: 'Item 12', content: 'This is the description of the item', image: 'img', price: 50 }
         ]
     ];
 
     const [itemClicked, setItemCLicked] = useState(false);
     const [item, setItem] = useState({})
-    const [user,setUser] = useState({})
+    const [user, setUser] = useState({})
     const [orderConfirmed, setConfirmOrder] = useState(false)
     const [shipping, setShipping] = useState(0.0)
     const [error, setError] = useState(false)
     const [errorText, setErrorText] = useState("")
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const [diffuserPack, setDiffuserPack] = useState(0);
+    const [diffuserOrdered, setDiffuserOrdered] = useState(false);
+    const [telescope, setTelescope] = useState(0);
+    const [telescopeOrdered, setTelescopeOrdered] = useState(false);
+    const [micro, setMicro] = useState(0);
+    const [microOrdered, setMicroOrdered] = useState(false);
+    const [hand, setHand] = useState(0);
+    const [handOrdered, setHandOrdered] = useState(false);
+    const [token, setToken] = useState(0);
+    const [tokenOrdered, setTokenOrdered] = useState(false);
+
 
     const fetchData = async () => {
         try {
@@ -46,15 +94,16 @@ const Web = (signedIn, userEmail) => {
                 email: email
             }
             const response = await RequestAPI(userData(body));
-            console.log(response)
+
             if (response.status === 200) {
                 setUser(response.data)
                 const shippingRequest = {
-                    destinationZip: response.data.zipCode, 
-                    pounds: 0, 
+                    destinationZip: response.data.zipCode,
+                    pounds: 0,
                     ounces: 1
                 }
                 const response2 = await RequestAPI(getShippingPrice(shippingRequest));
+                setLoading(false)
                 if (response2.status === 200) {
                     setShipping(response2.data.rate)
                 }
@@ -64,120 +113,560 @@ const Web = (signedIn, userEmail) => {
         }
     }
 
-    const handleOnClick = (index) => {
-        if(signedIn){
-            fetchData()
-            const dataIndex = (index-index%3)/3
-            setItem(data[dataIndex][index-dataIndex*3])
-            setItemCLicked(true);
+    const addDiffuserOrder = () => {
+
+        if(diffuserPack == 0){
+            const order = {
+                item: "5 Diffusers + 20 Tokens",
+                tokens: 20,
+                cost: 1500
+            }
+            props.addOrder(order)
         }
+        if(diffuserPack == 1){
+            const order = {
+                item: "10 Diffusers + 40 Tokens",
+                tokens: 40,
+                cost: 2800
+            }
+            props.addOrder(order)
+        }
+        if(diffuserPack == 2){
+            const order = {
+                item: "25 Diffusers + 100 Tokens",
+                tokens: 100,
+                cost: 6200
+            }
+            props.addOrder(order)
+        }
+        if(diffuserPack == 3){
+            const order = {
+                item: "50 Diffusers + 200 Tokens",
+                tokens: 200,
+                cost: 10500
+            }
+            props.addOrder(order)
+        }
+        if(diffuserPack == 4){
+            const order = {
+                item: "100 Diffusers + 400 Tokens",
+                tokens: 400,
+                cost: 19000
+            }
+            props.addOrder(order)
+        }
+        setDiffuserOrdered(true);
     }
 
-    const confirmOrder = async () => {
-        try {
-            const body = {
-                email: user.email,
-                item: item.title,
-                address: user.address,
-                itemPriceInCents: item.price*100,
-                shippingPriceInCents: shipping*100,
+    const addTelescopeOrder = () => {
+
+        if(telescope==0){
+            const order = {
+                item: "AstroDiffuser SystemsTM Objective lens 101 mm (4 in) + 20 Tokens White",
+                tokens: 20,
+                cost: 35000
             }
-            const response = await RequestAPI(order(body));
-            console.log(response)
-            if (response.data.success) {
-                setConfirmOrder(true);
-            } else {
-                setErrorText(response.data.message)
-                setError(true);
-            }
-        } catch (error) {
-            console.log(error);
+            props.addOrder(order)
         }
+        if(telescope==1){
+            const order = {
+                item: "AstroDiffuser SystemsTM Objective lens 101 mm (4 in) + 20 Tokens Black",
+                tokens: 20,
+                cost:  35000
+            }
+            props.addOrder(order)
+        }
+        if(telescope==2){
+            const order = {
+                item: "AstroDiffuser SystemsTM Objective lens 130 mm (5 in) + 20 Tokens White",
+                tokens: 20,
+                cost: 37500
+            }
+            props.addOrder(order)
+        }
+        if(telescope==3){
+            const order = {
+                item: "AstroDiffuser SystemsTM Objective lens 130 mm (5 in) + 20 Tokens Black",
+                tokens: 20,
+                cost:  37500
+            }
+            props.addOrder(order)
+        }
+        if(telescope==4){
+            const order = {
+                item: "AstroDiffuser SystemsTM Objective lens 155 mm (6 in) + 20 Tokens White",
+                tokens: 20,
+                cost: 40000
+            }
+            props.addOrder(order)
+        }
+        if(telescope==5){
+            const order = {
+                item: "AstroDiffuser SystemsTM Objective lens 155 mm (6 in) + 20 Tokens Black",
+                tokens: 20,
+                cost:  40000
+            }
+            props.addOrder(order)
+        }
+        if(telescope==6){
+            const order = {
+                item: "AstroDiffuser SystemsTM Objective lens 203 mm (8 in) + 20 Tokens White",
+                tokens: 20,
+                cost: 45000
+            }
+            props.addOrder(order)
+        }
+        if(telescope==7){
+            const order = {
+                item: "AstroDiffuser SystemsTM Objective lens 203 mm (8 in) + 20 Tokens Black",
+                tokens: 20,
+                cost:  45000
+            }
+            props.addOrder(order)
+        }
+        setTelescopeOrdered(true);
     }
 
-    return ( 
+    const addMicroOrder = () => {
+
+        if(micro == 0){
+            const order = {
+                item: "MicroDiffuser CubesTM for Nikon + 20 Tokens",
+                tokens: 20,
+                cost: 23000
+            }
+            props.addOrder(order)
+        }
+        if(micro == 1){
+            const order = {
+                item: "MicroDiffuser CubesTM for Olympus + 20 Tokens",
+                tokens: 20,
+                cost: 23000
+            }
+            props.addOrder(order)
+        }
+        if(micro == 2){
+            const order = {
+                item: "MicroDiffuser CubesTM for Zeiss + 20 Tokens",
+                tokens: 20,
+                cost: 23000
+            }
+            props.addOrder(order)
+        }
+        if(micro == 3){
+            const order = {
+                item: "MicroDiffuser CubesTM for Leica + 20 Tokens",
+                tokens: 20,
+                cost: 23000
+            }
+            props.addOrder(order)
+        }
+        setMicroOrdered(true);
+    }
+
+    const addHandOrder = () => {
+
+        if(hand==0){
+            const order = {
+                item: "Diameter 101 mm (4 in) + 20 Tokens White",
+                tokens: 20,
+                cost: 3500
+            }
+            props.addOrder(order)
+        }
+        if(hand==1){
+            const order = {
+                item: "Diameter 101 mm (4 in) + 20 Tokens Black",
+                tokens: 20,
+                cost:  3500
+            }
+            props.addOrder(order)
+        }
+        if(hand==2){
+            const order = {
+                item: "Diameter 130 mm (5 in) + 20 Tokens White",
+                tokens: 20,
+                cost: 4000
+            }
+            props.addOrder(order)
+        }
+        if(hand==3){
+            const order = {
+                item: "Diameter 130 mm (5 in) + 20 Tokens Black",
+                tokens: 20,
+                cost:  4000
+            }
+            props.addOrder(order)
+        }
+        if(hand==4){
+            const order = {
+                item: "Diameter 155 mm (6 in) + 20 Tokens White",
+                tokens: 20,
+                cost: 4500
+            }
+            props.addOrder(order)
+        }
+        if(hand==5){
+            const order = {
+                item: "Diameter 155 mm (6 in) + 20 Tokens Black",
+                tokens: 20,
+                cost:  4500
+            }
+            props.addOrder(order)
+        }
+        if(hand==6){
+            const order = {
+                item: "Diameter 203 mm (8 in) + 20 Tokens White",
+                tokens: 20,
+                cost: 5000
+            }
+            props.addOrder(order)
+        }
+        if(hand==7){
+            const order = {
+                item: "Diameter 203 mm (8 in) + 20 Tokens Black",
+                tokens: 20,
+                cost:  5000
+            }
+            props.addOrder(order)
+        }
+        setHandOrdered(true);
+    }
+
+    const addTokenOrder = () => {
+
+        if(token == 0){
+            const order = {
+                item: "Pack of 10 Tokens + 2",
+                tokens: 12,
+                cost: 250
+            }
+            props.addOrder(order)
+        }
+        if(token == 1){
+            const order = {
+                item: "Pack of 25 Tokens +2",
+                tokens: 27,
+                cost: 625
+            }
+            props.addOrder(order)
+        }
+        if(token == 2){
+            const order = {
+                item: "Pack of 50 Tokens +2",
+                tokens: 52,
+                cost: 1250
+            }
+            props.addOrder(order)
+        }
+        if(token == 3){
+            const order = {
+                item: "Pack of 75 Tokens +2",
+                tokens: 77,
+                cost: 1500
+            }
+            props.addOrder(order)
+        }
+        if(token == 4){
+            const order = {
+                item: "Pack of 100 Tokens +2",
+                tokens: 102,
+                cost: 2500
+            }
+            props.addOrder(order)
+        }
+        if(token == 5){
+            const order = {
+                item: "Pack of 200 Tokens +2",
+                tokens: 202,
+                cost: 5000
+            }
+            props.addOrder(order)
+        }
+        setTokenOrdered(true);
+    }
+
+
+    const goToCheckout = () => {
+        navigate('/Checkout');
+    }
+
+    return (
+
         <div className='web_background'>
             {
-                !itemClicked ?
-                <>            
-                    <div className='web_title'>
-                        <h1>Web Shop</h1>
-                        <p>Order your diffusers here</p>
-                    </div>
-                    {data.map((item,index)=>
-                        <div className='web_row'>
-                            {
-                                item[0] &&
-                                <div className='web_item'>
-                                    <Card item = {item[0]} onClick = {handleOnClick} />
-                                </div>
-                            }
-                            {
-                                item[1] &&
-                                <div className='web_item'>
-                                    <Card item = {item[1]} onClick = {handleOnClick}/>
-                                </div>
-                            }
-                            {
-                                item[2] &&
-                                <div className='web_item'>
-                                    <Card item = {item[2]} onClick = {handleOnClick}/>
-                                </div>
-                            }
-                        </div>
-                    )}
-                </>
-                :
-                <>
-                    {
-                        !orderConfirmed ?
-                        <>
-                            <div className='web_title'>
-                                <h1>{item.title}</h1>
-                            </div>
-                            <div className='web_row2'>
-                                {
-                                    <div className='web_item2'>
-                                        <div className='web_item2_div'>
-                                            <img  src={img} alt='img' />
-                                            <p>{item.content}</p>
-                                            <h1>Plase confirm shipping details:</h1>
-                                            <p>{user.name}</p>
-                                            <p>{user.address}</p>
-                                            <p>{user.state}</p>
-                                            <p>{user.zipCode}</p>
-                                            <p>{user.phoneNumber}</p>
-                                            <p>${item.price}</p>
-                                            <p>Shipping cost: ${shipping}</p>
-                                            { error && <div className='errortext'>{errorText}</div>}
-                                            <button class="blue_button" onClick = {()=> {confirmOrder()}}>Confirm Order</button>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </>
-                        :
-                        <>
-                           <div className='web_title'>
-                                <h1>{item.title}</h1>
-                            </div>
-                            <div className='web_row2'>
-                                {
-                                    <div className='web_item2'>
-                                        <div className='web_item2_div'>
-                                            <img  src={img} alt='img' />
-                                            <h1>Order Confirmed!</h1>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </>
-                    }
-
-                    
-                </>
-
+                loading && <div class="reg-spinner-overlay">
+                    <div class="reg-spinner"></div>
+                </div>
             }
+
+            <div className='web_title'>
+                <h1>Welcome to the Intrinsic Web Shop</h1>
+                <p>Intrinsic imaging is a new technology whose potential has yet to be realized in both recreational photography and in specialized imaging in professional fields. This shop provides hardware and access to software that enables you to join us in exploring technology. <br /><br /> The following <b>Diffusers and Tokens</b> are offered to get you started.</p>
+                <h1></h1>
+                <h1>Diffusers</h1>
+                <p>Image sets of Focused and Diffused images are required to produce Intrinsic images. <br /> The following Diffusers are for use with different optical equipment and cameras.</p>
+            </div>
+
+            <div className="web_diffuser_section">
+                <h1>Cell Phone Diffusers</h1>
+                <img className="web_diffuser_img" src={img} alt="img" />
+                <p>These Cell phone Diffusers have been designed to accommodate most every cell phone available in the market. They are easily attached below the camera lens and may be flipped up into position to cover the lens when taking a diffuse image (see the Process Tutorial page).</p>
+                <p><b>Available in packs of</b>: </p>
+                <table>
+                    <tr>
+                        <td>5 Diffusers + 20 Tokens </td>
+                        <td>$15.00 USD</td>
+                        <td><input type="radio" checked={diffuserPack==0} onChange={() => setDiffuserPack(0)} /></td>
+                    </tr>
+                    <tr>
+                        <td>10 Diffusers + 40 Tokens </td>
+                        <td>$28.00 USD</td>
+                        <td><input type="radio" checked={diffuserPack==1} onChange={() => setDiffuserPack(1)} /></td>
+                    </tr>
+                    <tr>
+                        <td>25 Diffusers + 100 Tokens </td>
+                        <td>$62.00 USD</td>
+                        <td><input type="radio" checked={diffuserPack==2} onChange={() => setDiffuserPack(2)} /></td>
+                    </tr>
+                    <tr>
+                        <td>50 Diffusers + 200 Tokens </td>
+                        <td>$105.00 USD</td>
+                        <td><input type="radio" checked={diffuserPack==3} onChange={() => setDiffuserPack(3)} /></td>
+                    </tr>
+                    <tr>
+                        <td>100 Diffusers + 400 Tokens </td>
+                        <td>$190.00 USD</td>
+                        <td><input type="radio" checked={diffuserPack==4} onChange={() => setDiffuserPack(4)} /></td>
+                    </tr>
+                </table>
+                {
+                    diffuserOrdered ?
+                    <div className="web_button_row">
+                        <button className='checkout_button' onClick={()=> setDiffuserOrdered(false)} >Continue Ordering</button>
+                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
+                    </div>
+                    :
+                    <button className='checkout_button' onClick={()=> addDiffuserOrder()} >Add to Cart</button>
+                }
+            </div>
+
+            <div className="web_tele_section">
+                <h1>Telescopes and Large Lens Cameras</h1>
+                <div className="web_tele_img"><ImageGallery items={images} showPlayButton={false} slideDuration={0} /></div>
+                <p>AstroDiffuser SystemsTM</p>
+                <p>Intrinsic imaging with telescopes requires a diffuser system that can move the Diffuser in and out of the path between the field of view and the lens of the objective telescope without disturbing the position of the target in the image. The AstroDiffuserTM System connects the system via a standard USB to a computer and the control software may be opened on the desktop. The system is controllable from a computer at the location of the telescope or remotely from thousands of miles over the internet.</p>
+                <p><b>Available for telescopes and cameras with the following Objective lenses</b>: </p>
+                <table>
+                    <tr>
+                        <td>Objective lens 101 mm (4 in) + 20 Tokens</td>
+                        <td>$350.00 USD</td>
+                        <td><input type="radio" checked={telescope==0} onChange={() => setTelescope(0)} />White</td>
+                        <td><input type="radio" checked={telescope==1} onChange={() => setTelescope(1)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Objective lens 130 mm (5 in) + 20 Tokens</td>
+                        <td>$375.00 USD</td>
+                        <td><input type="radio" checked={telescope==2} onChange={() => setTelescope(2)} />White</td>
+                        <td><input type="radio" checked={telescope==3} onChange={() => setTelescope(3)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Objective lens 155 mm (6 in) + 20 Tokens</td>
+                        <td>$400.00 USD</td>
+                        <td><input type="radio" checked={telescope==4} onChange={() => setTelescope(4)} />White</td>
+                        <td><input type="radio" checked={telescope==5} onChange={() => setTelescope(5)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Objective lens 203 mm (8 in) + 20 Tokens</td>
+                        <td>$450.00 USD</td>
+                        <td><input type="radio" checked={telescope==6} onChange={() => setTelescope(6)} />White</td>
+                        <td><input type="radio" checked={telescope==7} onChange={() => setTelescope(7)} />Black</td>
+                    </tr>
+                </table>
+                <p>Contact us for custom sized AstroDiffuser SystemsTM</p>
+                {
+                    telescopeOrdered ?
+                    <div className="web_button_row">
+                        <button className='checkout_button' onClick={()=> setTelescopeOrdered(false)} >Continue Ordering</button>
+                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
+                    </div>
+                    :
+                    <button className='checkout_button' onClick={()=> addTelescopeOrder()} >Add to Cart</button>
+                }
+            </div>
+
+            <div className="web_micro_section">
+                <h1>Microscopy</h1>
+                <img className="web_diffuser_img" src={img} alt="img" />
+                <p>Intrinsic imaging can easily be performed with a epi-fluorescence microscope by replacing the fluorescence filter cube with our MicroDiffuser CubeTM. By moving the MicroDiffuser CubeTM in and out of the path between the camera and the target slide, Focused and Diffuse image set may be obtained.  </p>
+                <p><b>MicroDiffuser CubesTM for the following fluorescence microscopes are available</b>: </p>
+                <table>
+                    <tr>
+                        <td>Nikon</td>
+                        <td>$230.00 USD</td>
+                        <td><input type="radio" checked={micro==0} onChange={() => setMicro(0)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Olympus</td>
+                        <td>$230.00 USD</td>
+                        <td><input type="radio" checked={micro==1} onChange={() => setMicro(1)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Zeiss</td>
+                        <td>$230.00 USD</td>
+                        <td><input type="radio" checked={micro==2} onChange={() => setMicro(2)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Leica</td>
+                        <td>$230.00 USD</td>
+                        <td><input type="radio" checked={micro==3} onChange={() => setMicro(3)} /></td>
+                    </tr>
+                </table>
+                <p>Contact us for custom sized MicroDiffusersTM</p>
+                {
+                    microOrdered ?
+                    <div className="web_button_row">
+                        <button className='checkout_button' onClick={()=> setMicroOrdered(false)} >Continue Ordering</button>
+                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
+                    </div>
+                    :
+                    <button className='checkout_button' onClick={()=> addMicroOrder()} >Add to Cart</button>
+                }
+            </div>
+
+            <div className="web_hand_section">
+                <h1>Handheld Diffusers</h1>
+                <img className="web_diffuser_img" src={img} alt="img" />
+                <p>For situations where standard diffuser products are not appropriate for the situation, Handheld DiffusersTM may be useful to obtain the diffuse images. </p>
+                <p><b>The following framed Handheld DiffusersTM are available</b>: </p>
+                <table>
+                    <tr>
+                        <td>Diameter 101 mm (4 in) + 20 Tokens</td>
+                        <td>$35.00 USD</td>
+                        <td><input type="radio" checked={hand==0} onChange={() => setHand(0)} />White</td>
+                        <td><input type="radio" checked={hand==1} onChange={() => setHand(1)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Diameter 130 mm (5 in) + 20 Tokens</td>
+                        <td>$40.00 USD</td>
+                        <td><input type="radio" checked={hand==2} onChange={() => setHand(2)} />White</td>
+                        <td><input type="radio" checked={hand==3} onChange={() => setHand(3)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Diameter 155 mm (6 in) + 20 Tokens</td>
+                        <td>$45.00 USD</td>
+                        <td><input type="radio" checked={hand==4} onChange={() => setHand(4)} />White</td>
+                        <td><input type="radio" checked={hand==5} onChange={() => setHand(5)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Diameter 203 mm (8 in) + 20 Tokens</td>
+                        <td>$50.00 USD</td>
+                        <td><input type="radio" checked={hand==6} onChange={() => setHand(6)} />White</td>
+                        <td><input type="radio" checked={hand==7} onChange={() => setHand(7)} />Black</td>
+                    </tr>
+                </table>
+                {
+                    handOrdered ?
+                    <div className="web_button_row">
+                        <button className='checkout_button' onClick={()=> setHandOrdered(false)} >Continue Ordering</button>
+                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
+                    </div>
+                    :
+                    <button className='checkout_button' onClick={()=> addHandOrder()} >Add to Cart</button>
+                }
+            </div>
+
+
+            <div className="web_token_section">
+                <h1>Tokens</h1>
+                <p>Tokens are the pathway to Intrinsic Processing. Each Token provides for intrinsic processing of one image set. To help participants get started, 2 free Tokens are included with every purchase from the Intrinsic Web Shop.</p>
+                <p><b>Tokens are available in the following Packets</b>: </p>
+                <table>
+                    <tr>
+                        <td>Pack of   10 Tokens + 2</td>
+                        <td>$2.50 USD</td>
+                        <td><input type="radio" checked={token==0} onChange={() => setToken(0)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of    25 Tokens +2</td>
+                        <td>$6.25 USD</td>
+                        <td><input type="radio" checked={token==1} onChange={() => setToken(1)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of    50 Tokens +2</td>
+                        <td>$12.50 USD</td>
+                        <td><input type="radio" checked={token==2} onChange={() => setToken(2)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of    75 Tokens +2</td>
+                        <td>$15.00 USD</td>
+                        <td><input type="radio" checked={token==3} onChange={() => setToken(3)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of   100 Tokens +2</td>
+                        <td>$25.00 USD</td>
+                        <td><input type="radio" checked={token==4} onChange={() => setToken(4)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of   200 Tokens +2</td>
+                        <td>$50.00 USD</td>
+                        <td><input type="radio" checked={token==5} onChange={() => setToken(5)} /></td>
+                    </tr>
+                </table>
+                {
+                    tokenOrdered ?
+                    <div className="web_button_row">
+                        <button className='checkout_button' onClick={()=> setTokenOrdered(false)} >Continue Ordering</button>
+                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
+                    </div>
+                    :
+                    <button className='checkout_button' onClick={()=> addTokenOrder()} >Add to Cart</button>
+                }
+            </div>
+
+            {/* <>
+                        {
+                            !orderConfirmed ?
+                                <>
+                                    <div className='web_title'>
+                                        <h1>{item.title}</h1>
+                                    </div>
+                                    <div className='web_row2'>
+                                        {
+                                            <div className='web_item2'>
+                                                <div className='web_item2_div'>
+                                                    <img src={img} alt='img' />
+                                                    <p>{item.content}</p>
+                                                    <p>Item cost: ${parseFloat(item.price).toFixed(2)}</p>
+                                                    <p>Shipping cost: ${parseFloat(shipping).toFixed(2)}</p>
+                                                    <button class="blue_button" onClick={() => { confirmOrder() }}>Add To Cart</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div className='web_title'>
+                                        <h1>{item.title}</h1>
+                                    </div>
+                                    <div className='web_row2'>
+                                        {
+                                            <div className='web_item2'>
+                                                <div className='web_item2_div'>
+                                                    <img src={img} alt='img' />
+                                                    <h1>Item Added to Cart</h1>
+                                                    <button class="blue_button" onClick={() => { goToCheckout() }}>Go To Checkout</button>
+                                                    <button class="blue_button" onClick={() => { continueOrdering() }}>Continue Ordering</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </>
+                        }
+
+
+                    </> */}
 
         </div>
     )

@@ -1,231 +1,252 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import FileSaver from 'file-saver';
 import JSZip from "jszip"
-import ClipLoader from "react-spinners/ClipLoader";
-import { processing } from "../../api/processing";
+import { getCookie } from '../../utils/cookies';
+import { processing } from "../../api/api";
 import { RequestAPI } from "../../utils/request-api";
-import { Modal} from '../../Component';
+import { Modal } from '../../Component';
 import './Processing.css'
+import { useEffect } from "react";
 
 
-const Processing=()=> {
-    const [diffused, setDiffused] = useState();
-    const [focused, setFocused] = useState();
-    const [intrinsic, setIntrinsic] = useState();
+const Processing = () => {
 
     const [openModal, setOpenModal] = useState(false);
-    const [index,setIndex]=useState();
-    const [n,setN]=useState('');
+    const [index, setIndex] = useState();
+    const [n, setN] = useState('');
 
-    const onSelectDiffused=(event)=>{
-        setDiffused(URL.createObjectURL(event.target.files[0]));
-        console.log(diffused);
-      };
-    
-      const onSelectFocused=(event)=>{
-        setFocused(URL.createObjectURL(event.target.files[0]));
-      };
-    
-    const [loading, setLoading]=useState(false);
-
-    const refreshPage = ()=>{
-        window.location.reload();
-     }
-
-    const [imagePairs, setImagePairs] = useState([{ 
-        focused: null, 
-        furl: "", 
-        ferror: false, 
-        diffused: null, 
-        durl:"",
-        derror:false, 
+    const [imagePairs, setImagePairs] = useState([{
+        focused: null,
+        fext: "",
+        furl: "",
+        ferror: false,
+        diffused: null,
+        dext: "",
+        durl: "",
+        derror: false,
         name: "",
+        doterror: false,
         nerror: false,
-        serror: false, 
+        serror: false,
+        exterror: false,
         intrinsic: null,
-        ext: "jpeg"
     }]);
+
+    const [loading, setLoading] = useState(false);
+    const [processed, setProcesed] = useState(false);
     const [count, setCount] = useState(0)
-    const [imagesProcessed, setImagesProcessed] = useState(false);
+
     const handleImagePairRemove = (index) => {
         const list = [...imagePairs];
         list.splice(index, 1);
         setImagePairs(list);
     };
 
-    const handleFocusedChange = (e,index) => {
+    const resetImagePairs = () => {
+        console.log("RESET");
+        setLoading(false);
+        setProcesed(false);
+        setOpenModal(false);
+
+        setImagePairs([]);
+        updateUI();
+    }
+
+    useEffect(() => {
+        if (imagePairs.length == 0) handleServiceAdd()
+    }, [imagePairs])
+
+    const handleFocusedChange = (e, index) => {
         const f = e.target.files[0];
+        const fileName = f.name;
+        const extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+
         const list = [...imagePairs];
         const item = list[index];
-        item.focused = f;
 
-        console.log(f);
-        let fileReader
-        fileReader = new FileReader();
-        fileReader.onload = (e) => {
-            const { result } = e.target;
-            item.furl=result
-            updateUI();
+        if (item.intrinsic == null) {
+            item.focused = f;
+            item.fext = extension;
+
+            let fileReader
+            fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                const { result } = e.target;
+                item.furl = result
+                updateUI();
+            }
+            fileReader.readAsDataURL(item.focused);
+
+            list[index] = item;
+            setImagePairs(list);
         }
-        fileReader.readAsDataURL(item.focused);
-
-        list[index]= item;
-        setImagePairs(list);
-        console.log(imagePairs);
     }
 
-    const handleDiffusedChange = (e,index) => {
+    const handleDiffusedChange = (e, index) => {
         const d = e.target.files[0];
+        const fileName = d.name;
+        const extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+
         const list = [...imagePairs];
         const item = list[index];
-        item.diffused = d;
 
-        let fileReader
-        fileReader = new FileReader();
-        fileReader.onload = (e) => {
-            const { result } = e.target;
-            item.durl=result
-            updateUI();
+        if (item.intrinsic == null) {
+            item.diffused = d;
+            item.dext = extension;
+
+            let fileReader
+            fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                const { result } = e.target;
+                item.durl = result
+                updateUI();
+            }
+            fileReader.readAsDataURL(item.diffused);
+
+            list[index] = item;
+
+            setImagePairs(list);
         }
-        fileReader.readAsDataURL(item.diffused);
-        
-        list[index]= item;
-
-        setImagePairs(list);
     }
 
-
-
-    const handleNameChange = (e,index) => {
+    const handleNameChange = (e, index) => {
         const name = e.target.value;
         const list = [...imagePairs];
         const item = list[index];
         item.name = name;
-        list[index]= item;
+        list[index] = item;
         setImagePairs(list);
     }
 
-    const handleExtChange = (e,index,ext) => {
-        const list = [...imagePairs];
-        const item = list[index];
-        item.ext = ext;
-        list[index]= item;
-        setImagePairs(list);
-    }
-    
     const handleServiceAdd = () => {
-        setImagePairs([...imagePairs, { 
-            focused: null, 
-            furl: "", 
-            ferror: false, 
-            diffused: null, 
-            durl:"",
-            derror:false, 
+        setImagePairs([...imagePairs, {
+            focused: null,
+            fext: "",
+            furl: "",
+            ferror: false,
+            diffused: null,
+            dext: "",
+            durl: "",
+            derror: false,
             name: "",
-            nerror: false, 
+            doterror: false,
+            nerror: false,
+            serror: false,
+            exterror: false,
             intrinsic: null,
-            ext: "jpeg" 
         }]);
     };
-    
- 
-    const handleSubmit = async (e)=>{
-        setLoading(true);
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const list = [...imagePairs];
-        let error=false
-        const contentType = 'image/png';
-       
+        let error = false
 
-        imagePairs.map((pair,index)=>{
-            if(pair.focused==null) {
-                list[index].ferror=true;
-                error=true;
-            } else list[index].ferror=false;
-            if(pair.diffused==null){
-                list[index].derror=true;
-                error=true;
-            } else list[index].derror=false;
-            if(pair.name===""){
-                list[index].nerror=true;
-                error=true;
-            } else list[index].nerror=false;
-            if(pair.name.indexOf(' ') >= 0){
-                list[index].serror=true;
-                error=true;
-            } else list[index].serror=false;
+        imagePairs.map((pair, index) => {
+            if (pair.focused == null) {
+                list[index].ferror = true;
+                error = true;
+            } else list[index].ferror = false;
+            if (pair.diffused == null) {
+                list[index].derror = true;
+                error = true;
+            } else list[index].derror = false;
+            if (pair.name === "") {
+                list[index].nerror = true;
+                error = true;
+            } else list[index].nerror = false;
+            if (pair.name.includes(".")) {
+                list[index].doterror = true;
+                error = true;
+            } else list[index].doterror = false;
+            if (pair.name.indexOf(' ') >= 0) {
+                list[index].serror = true;
+                error = true;
+            } else list[index].serror = false;
+            if (list[index].dext != list[index].fext) {
+                list[index].exterror = true;
+                error = true;
+            } else list[index].exterror = false;
         })
 
-        if(error){
+        if (error) {
             setImagePairs(list);
             updateUI();
-        } 
-        else imagePairs.map( async (pair, index) => {
-            if(pair.diffused!= null && pair.focused!=null && pair.name!= null){
+        } else {
+            setLoading(true);
+            imagePairs.map(async (pair, index) => {
+                if (pair.diffused != null && pair.focused != null && pair.name != null) {
 
-                const formData = new FormData();
-                formData.append("F", pair.focused);
-                formData.append("D", pair.diffused);
-                formData.append("name",pair.name)
-                formData.append("ext",pair.ext)
-                try {
-                    const response = await RequestAPI(processing(formData));
-                    if (response.status === 200) {   
+                    const formData = new FormData();
+                    formData.append("F", pair.focused);
+                    formData.append("D", pair.diffused);
+                    formData.append("name", pair.name);
+                    formData.append("ext", pair.fext);
+                    const email = getCookie('_email')
+                    formData.append("email", email)
+                    try {
+                        const response = await RequestAPI(processing(formData));
+                        if (response.status === 200) {
 
-                        const list = [...imagePairs];
-                        
-                        list[index].intrinsic = response.data
-                        console.log(response.data.substring(22));
-                        setImagePairs(list);
+                            const list = [...imagePairs];
 
-                        updateUI();
+                            list[index].intrinsic = response.data
+                            console.log(response.data.substring(22));
+                            setImagePairs(list);
 
-                        downloadAuto();
-                        
-                        setIntrinsic(URL.createObjectURL(new Blob ([response.data], {type:'image/gif'})));
-                        console.log(intrinsic);
+                            updateUI();
+
+                            downloadAuto();
+                        }
+
+                    } catch (error) {
+                        console.log(error);
                     }
-        
-                } catch (error) {
-                    console.log(error);
+
                 }
 
-            } 
-            
-        });
-        
+            });
+
+        }
     }
 
-    const downloadAuto = ()=>{
+    const downloadAuto = () => {
         var flag = true;
         const zip = new JSZip();
 
         imagePairs.forEach((item) => {
-            if(item.intrinsic==null) flag=false;
-            else zip.file(item.name+"."+item.ext,item.intrinsic.substring(22),{base64: true})
+            if (item.intrinsic == null) flag = false;
+            else {
+                zip.file(item.name + "_F." + item.fext, item.focused)
+                zip.file(item.name + "_D." + item.fext, item.diffused)
+                zip.file(item.name + "_I." + item.fext, item.intrinsic.substring(22), { base64: true })
+            }
         })
 
-        if(flag){
-            setImagesProcessed(true);
-            zip.generateAsync({type:"blob"}).then(function(content) {
-                
+        if (flag) {
+            setLoading(false);
+            setProcesed(true);
+            zip.generateAsync({ type: "blob" }).then(function (content) {
                 FileSaver.saveAs(content, "intrinsic.zip");
             });
         }
 
     }
 
-    const download = (e)=>{
+    const download = (e) => {
         e.preventDefault();
 
         const zip = new JSZip();
 
         imagePairs.forEach((item) => {
-            zip.file(item.name+".jpeg",item.intrinsic.substring(22),{base64: true})
+            zip.file(item.name + "_F." + item.fext, item.focused)
+            zip.file(item.name + "_D." + item.fext, item.diffused)
+            zip.file(item.name + "_I." + item.fext, item.intrinsic.substring(22), { base64: true })
         })
 
-        zip.generateAsync({type:"blob"}).then(function(content) {
-            
+        zip.generateAsync({ type: "blob" }).then(function (content) {
+
             FileSaver.saveAs(content, "intrinsic.zip");
         });
     }
@@ -238,8 +259,6 @@ const Processing=()=> {
         setCount(rand);
     }
 
-    
-
     return (
         <div className='cqc__processing'>
             <div className='cqc__text'>
@@ -247,7 +266,7 @@ const Processing=()=> {
                 <p>Upload your Focused and Diffused image pairs here</p>
             </div>
             <div className="form-field">
-                { imagePairs.map((pair, index) => (
+                {imagePairs.map((pair, index) => (
                     <div key={index} className="services">
                         <div className="first_row">
                             <div className="empty_block"></div>
@@ -261,139 +280,120 @@ const Processing=()=> {
                                 />
                                 {pair.nerror && <div className="error_text">Image Pair Name cannot be empty!</div>}
                                 {pair.serror && <div className="error_text">Image Pair Name cannot contain whitespace caracter!</div>}
-                                <div className="extRow">
-                                    <div>
-                                        JPEG
-                                        <input
-                                        type="radio"
-                                        checked={pair.ext === "jpeg"}
-                                        onChange={(e) => handleExtChange(e, index,"jpeg")}
-                                        />
-                                    </div>
-                                    <div>
-                                        PNG
-                                        <input
-                                        type="radio"
-                                        checked={pair.ext === "png"}
-                                        onChange={(e) => handleExtChange(e, index,"png")}
-                                        />
-                                    </div>
-                                    <div>
-                                        FIT
-                                        <input
-                                        type="radio"
-                                        checked={pair.ext === "fit"}
-                                        onChange={(e) => handleExtChange(e, index,"fit")}
-                                        />
-                                    </div>
-                                    <div>
-                                        FITS
-                                        <input
-                                        type="radio"
-                                        checked={pair.ext === "fits"}
-                                        onChange={(e) => handleExtChange(e, index,"fits")}
-                                        />
-                                    </div>
-                                    <div>
-                                        TIFF
-                                        <input
-                                        type="radio"
-                                        checked={pair.ext === "tiff"}
-                                        onChange={(e) => handleExtChange(e, index,"tiff")}
-                                        />
-                                    </div>
-                                </div>
+                                {pair.doterror && <div className="error_text">Image Pair Name cannot contain dot "." caracter!</div>}
+                                {pair.exterror && <div className="error_text">The Images you selected have different extensions!</div>}
                             </div>
                             <div className="input_item">
-                                <p>Upload Focused Image</p>  
+                                <p>Upload Focused Image</p>
                                 <input
                                     type="file"
-                                    onChange={(e) =>{ handleFocusedChange(e, index);onSelectFocused(e)}} 
+                                    onChange={(e) => { handleFocusedChange(e, index); }}
                                     required
                                 />
                                 {pair.ferror && <div className="error_text">Please upload the foused image!</div>}
                             </div>
                             <div className="input_item">
-                                <p>Upload Diffused Image</p>  
+                                <p>Upload Diffused Image</p>
                                 <input
                                     type="file"
-                                    onChange={(e) => {handleDiffusedChange(e, index);onSelectDiffused(e)}}
+                                    onChange={(e) => { handleDiffusedChange(e, index); }}
                                     required
                                 />
                                 {pair.derror && <div className="error_text">Please upload the diffused image!</div>}
                             </div>
                         </div>
                         <div className="Second_row">
-                        <div className="image_row">
-                        <div className='cqc__p'><p>Focused Image</p>  </div>
-                            {pair.focused && (
-                             <>  
-                                <img src={pair.furl} className="image_preview" alt="reload" onClick={() => {
-                                    setOpenModal(true)
-                                    setIndex(index)
-                                    setN("furl")
-                                }}/>
-                                
-                            </> 
-                            )}
+                            <div className="image_row">
+                                <div className='cqc__p'><p>Focused Image</p>  </div>
+                                {pair.fext == "fit" || pair.fext == "tiff" || pair.fext == "fits" || pair.fext == "FIT" || pair.fext == "TIFF" || pair.fext == "FITS" ?
+                                    <div className="image_preview" >Preview Not Available for {pair.fext} extension!</div>
+                                    :
+                                    <>
+                                        {pair.focused && (
+                                            <>
+                                                <img src={pair.furl} className="image_preview" alt="reload" onClick={() => {
+                                                    setOpenModal(true)
+                                                    setIndex(index)
+                                                    setN("furl")
+                                                }} />
 
-                        </div>
-                        <div className="image_row">
-                        <div className='cqc__p'>
-                            <p>Diffused Image</p>
-                        </div> 
-                            {pair.durl && (
-                            <>  
-                                <img src={pair.durl} className="image_preview" alt="reload" onClick={() =>{
-                                     setOpenModal(true)
-                                     setIndex(index)
-                                     setN("durl")
-                                    }} />
-                                     
-                            </> 
-                            )}
-                        </div>
-                        {pair.intrinsic  && <div className="image_row">
-                            <div className='cqc__p'>
-                                <p>Result</p>
-                            </div> 
-                                <img src={`${pair.intrinsic}`} className="image_preview" alt="reload" onClick={() =>{
-                                     setOpenModal(true)
-                                     setIndex(index)
-                                     setN("intr")
-                                    }} />
+                                            </>
+                                        )}
+                                    </>
+                                }
                             </div>
-                        } 
-                        {!pair.intrinsic && loading &&
-                            <div className="spin">
-                              <ClipLoader/>  
+                            <div className="image_row">
+                                <div className='cqc__p'>
+                                    <p>Diffused Image</p>
+                                </div>
+                                {pair.dext == "fit" || pair.dext == "tiff" || pair.dext == "fits" || pair.dext == "FIT" || pair.dext == "TIFF" || pair.dext == "FITS" ?
+                                    <div className="image_preview" >Preview Not Available for {pair.dext} extension!</div>
+                                    :
+                                    <>
+                                        {pair.durl && (
+                                            <>
+                                                <img src={pair.durl} className="image_preview" alt="reload" onClick={() => {
+                                                    setOpenModal(true)
+                                                    setIndex(index)
+                                                    setN("durl")
+                                                }} />
+                                            </>
+                                        )}
+                                    </>
+                                }
+
                             </div>
-                        }
-                        <div className="second-division">
-                            {imagePairs.length !== 1 && (
-                                <button type="button" onClick={() => handleImagePairRemove(index)} className="remove_button">
-                                    X
-                                </button>
-                            )}
+                            {pair.intrinsic && <div className="image_row">
+                                <div className='cqc__p'>
+                                    <p>Intrinsic</p>
+                                </div>
+                                {pair.fext == "fit" || pair.fext == "tiff" || pair.fext == "fits" || pair.fext == "FIT" || pair.fext == "TIFF" || pair.fext == "FITS" ?
+                                    <div className="image_preview" >Preview Not Available for {pair.fext} extension!</div>
+                                    :
+                                    <>
+                                        <img src={`${pair.intrinsic}`} className="image_preview" alt="reload" onClick={() => {
+                                            setOpenModal(true)
+                                            setIndex(index)
+                                            setN("intr")
+                                        }} />
+                                    </>
+                                }
+                            </div>
+                            }
+                            {!pair.intrinsic && loading &&
+                                <div className="spin">
+                                    <div class="reg-spinner"></div>
+                                </div>
+                            }
+                            <div className="second-division">
+                                {imagePairs.length !== 1 && (
+                                    <button type="button" onClick={() => handleImagePairRemove(index)} className="remove_button">
+                                        X
+                                    </button>
+                                )}
+                            </div>
                         </div>
-                        </div>      
                     </div>
 
                 ))}
-                {openModal&& <Modal  num={n} ind={index} pair={imagePairs} onClose={() => setOpenModal(false)} /> }
-                {!loading &&
-                <div className="button_div">
-                <button type="button" onClick={handleServiceAdd} className="dodajRed">
-                    Add another image pair
-                </button>
-                <button type="button" onClick={handleSubmit} className="process_button">Process</button>
-                </div>
-                }
-                {loading && <div className="button_div">
-                    <button type="button" onClick={refreshPage} className="dodajRed">
-                        Go to another process
-                    </button>
-                    <button type="button" onClick={(e)=>download(e)} className="process_button">Save</button>
+                {openModal && <Modal num={n} ind={index} pair={imagePairs} onClose={() => setOpenModal(false)} />}
+                {processed ?
+                    <div className="button_div">
+                        <button type="button" onClick={resetImagePairs} className="dodajRed">
+                            New Image Set
+                        </button>
+                        <button type="button" onClick={(e) => download(e)} className="process_button">
+                            Save Images
+                        </button>
+                    </div>
+                    :
+                    <div className="button_div">
+                        <button type="button" onClick={handleServiceAdd} className="dodajRed" disabled={loading}>
+                            Add another image pair
+                        </button>
+                        <button type="button" onClick={handleSubmit} className="process_button" disabled={loading}>
+                            Process Images
+                        </button>
                     </div>
                 }
             </div>

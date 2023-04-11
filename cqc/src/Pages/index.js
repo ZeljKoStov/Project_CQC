@@ -9,3 +9,5 @@ export {default as Challenge} from './Intrinsic_Challenge/Chalange';
 export {default as Submission} from './Image_Submission/Image_Submission';
 export {default as Web} from './Web/Web';
 export {default as MyProfil} from './MyProfile/MyProfile'
+export {default as Checkout} from  './Checkout/Checkout'
+export {default as Orders} from './Orders/Orders'
