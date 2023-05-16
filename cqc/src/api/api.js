@@ -57,6 +57,20 @@ export const register = (body) => ({
     isAuthorize: false,
 });
 
+export const vote = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/vote`,
+    isAuthorize: false,
+});
+
+export const submit = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/submit`,
+    isAuthorize: false,
+});
+
 export const addOrder = async (email, _orders, address, tokens, callback ) => {
     try {
         fetch(`${getBaseUrl}/users/order`, {

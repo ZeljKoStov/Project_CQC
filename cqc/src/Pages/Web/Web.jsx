@@ -2,13 +2,6 @@ import React, { useState } from 'react'
 import './web.css';
 import img from "../../assets/diffuser.png"
 import dis from "../../assets/price_discount.png"
-import tele_0 from "../../assets/tele_0.jpeg"
-import tele_1 from "../../assets/tele_1.jpeg"
-import tele_2 from "../../assets/tele_2.jpeg"
-import tele_3 from "../../assets/tele_3.jpeg"
-import tele_4 from "../../assets/tele_4.jpeg"
-import tele_5 from "../../assets/tele_5.jpeg"
-import tele_6 from "../../assets/tele_6.jpeg"
 import { useNavigate } from "react-router-dom";
 import { getCookie } from '../../utils/cookies';
 import { userData, order, getShippingPrice } from '../../api/api'
@@ -17,53 +10,45 @@ import { RequestAPI } from '../../utils/request-api'
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
-const images = [
-    {
-        original: tele_0
-    },
-    {
-        original: tele_1,
-    },
-    {
-        original: tele_2
-    },
-    {
-        original: tele_3
-    },
-    {
-        original: tele_4
-    },
-    {
-        original: tele_5,
-    },
-    {
-        original: tele_6,
-    },
-];
+import tele_0 from "../../assets/telescope/tele_0.jpeg"
+import tele_1 from "../../assets/telescope/tele_1.jpeg"
+import tele_2 from "../../assets/telescope/tele_2.jpeg"
+import tele_3 from "../../assets/telescope/tele_3.jpeg"
+import tele_4 from "../../assets/telescope/tele_4.jpeg"
+import tele_5 from "../../assets/telescope/tele_5.jpeg"
+import tele_6 from "../../assets/telescope/tele_6.jpeg"
+import tele_7 from "../../assets/telescope/telescope_1.JPG"
+import tele_8 from "../../assets/telescope/telescope_2.JPG"
+
+import cube_0 from "../../assets/cube/cube_0.JPG"
+import cube_1 from "../../assets/cube/cube_1.JPG"
+import cube_2 from "../../assets/cube/cube_2.JPG"
+import cube_3 from "../../assets/cube/cube_3.JPG"
+import cube_4 from "../../assets/cube/cube_4.JPG"
+import cube_5 from "../../assets/cube/cube_5.JPG"
+import cube_6 from "../../assets/cube/cube_6.JPG"
+import cube_7 from "../../assets/cube/cube_7.JPG"
+
+import mobile_1 from "../../assets/mobilediffusers/mobile_1.JPG"
+import mobile_2 from "../../assets/mobilediffusers/mobile_2.JPG"
+import mobile_3 from "../../assets/mobilediffusers/mobile_3.JPG"
+
+import hand_1 from "../../assets/handheld/hand_1.jpeg"
+import hand_2 from "../../assets/handheld/hand_2.JPG"
+import hand_3 from "../../assets/handheld/hand_3.JPG"
+import hand_4 from "../../assets/handheld/hand_4.JPG"
+import hand_5 from "../../assets/handheld/hand_5.JPG"
+import hand_6 from "../../assets/handheld/hand_6.JPG"
+import hand_7 from "../../assets/handheld/hand_7.JPG"
+import hand_8 from "../../assets/handheld/hand_8.JPG"
+import hand_9 from "../../assets/handheld/hand_9.JPG"
+
+const telescope_images = [{original: tele_0},{original: tele_1},{original: tele_2},{original: tele_3},{original: tele_4},{original: tele_5},{original: tele_6},{original: tele_7},{original: tele_8}];
+const hand_images = [{original: hand_1},{original: hand_2},{original: hand_3},{original: hand_4},{original: hand_5},{original: hand_6},{original: hand_7},{original: hand_8},{original: hand_9}];
+const mobile_images = [{original: mobile_1},{original: mobile_2},{original: mobile_3}]
+const cube_images = [{original: cube_0},{original: cube_1},{original: cube_2},{original: cube_3},{original: cube_4},{original: cube_5},{original: cube_6},{original: cube_7}]
 
 const Web = (props, signedIn, userEmail) => {
-
-    const data = [
-        [
-            { id: 0, title: 'Item 1', content: 'This is the description of the item', image: 'img', price: 10 },
-            { id: 1, title: 'Item 2', content: 'This is the description of the item', image: 'img', price: 20 },
-            { id: 2, title: 'Item 3', content: 'This is the description of the item', image: 'img', price: 20 }
-        ],
-        [
-            { id: 3, title: 'Item 4', content: 'This is the description of the item', image: 'img', price: 30 },
-            { id: 4, title: 'Item 6', content: 'This is the description of the item', image: 'img', price: 40 },
-            { id: 5, title: 'Item 7', content: 'This is the description of the item', image: 'img', price: 40 }
-        ],
-        [
-            { id: 6, title: 'Item 8', content: 'This is the description of the item', image: 'img', price: 30 },
-            { id: 7, title: 'Item 9', content: 'This is the description of the item', image: 'img', price: 40 },
-            { id: 8, title: 'Item 10', content: 'This is the description of the item', image: 'img', price: 40 }
-        ],
-        [
-            { id: 9, title: 'Item 11', content: 'This is the description of the item', image: 'img', price: 30 },
-            { id: 10, title: 'Item 12', content: 'This is the description of the item', image: 'img', price: 50 }
-        ]
-    ];
 
     const [itemClicked, setItemCLicked] = useState(false);
     const [item, setItem] = useState({})
@@ -405,13 +390,18 @@ const Web = (props, signedIn, userEmail) => {
                 <p>Intrinsic imaging is a new technology whose potential has yet to be realized in both recreational photography and in specialized imaging in professional fields. This shop provides hardware and access to software that enables you to join us in exploring technology. <br /><br /> The following <b>Diffusers and Tokens</b> are offered to get you started.</p>
                 <h1></h1>
                 <h1>Diffusers</h1>
-                <p>Image sets of Focused and Diffused images are required to produce Intrinsic images. <br /> The following Diffusers are for use with different optical equipment and cameras.</p>
+                <p>Obtaining Intrinsic Images requires three elements, a digital camera, a diffuser, and access to an intrinsic processing program. If you have a digital camera, you can acquire the diffuser and access to the Intrinsic processing program from this Web Shop.<br /> To show our appreciation of your participation of this novel technology, we have provided you with free processing Tokens with each order.</p>
             </div>
 
             <div className="web_diffuser_section">
                 <h1>Cell Phone Diffusers</h1>
-                <img className="web_diffuser_img" src={img} alt="img" />
-                <p>These Cell phone Diffusers have been designed to accommodate most every cell phone available in the market. They are easily attached below the camera lens and may be flipped up into position to cover the lens when taking a diffuse image (see the Process Tutorial page).</p>
+                <div className='image_text_row'>
+                    <div className="web_tele_img"><ImageGallery items={mobile_images} showPlayButton={false} slideDuration={0} /></div>
+                    <p>
+                        These Cell phone Diffusers have been designed to accommodate most every cell phone available in the market. They are easily attached below the camera lens and may be flipped up into position to cover the lens when taking a diffuse image (see the Process Tutorial page). <br/> <br/>
+                        Cell phones and tablets come in many different sizes and configurations. However, the size of the camera lens on these units have a diameter of less that 2 cm and are grouped within 4 cm. To accommodate most of these units, we provider a diffusing element 5x7 cm that can be positioned on the unit to cover and uncover the camera lenses with a just a single finger, as shown in the tutorials of this website.
+                    </p>
+                </div>
                 <p><b>Available in packs of</b>: </p>
                 <table>
                     <tr>
@@ -451,11 +441,65 @@ const Web = (props, signedIn, userEmail) => {
                 }
             </div>
 
+            <div className="web_hand_section">
+                <h1>Handheld Diffusers</h1>
+                <div className='image_text_row'>
+                    <div className="web_tele_img"><ImageGallery items={hand_images} showPlayButton={false} slideDuration={0} /></div>
+                    <p>
+                        For situations where standard diffuser products are not appropriate for the situation, Handheld DiffusersTM may be useful to obtain the diffuse images. <br/><br/>
+                        For camera units that are not cell phones or tablets, the simplest method to obtain Intrinsic image sets is with of a handheld Diffuser provided that the camera is mounted on a tripod or similar structure to steady the field of view. The diffuser must have a larger diameter than the camera lens. The Diffuser is held close to the camera lens without touching it.
+                    </p>
+                </div>
+               
+                <p><b>The following framed Handheld DiffusersTM are available</b>: </p>
+                <table>
+                    <tr>
+                        <td>Diameter 101 mm (4 in) + 20 Tokens</td>
+                        <td>$35.00 USD</td>
+                        <td><input type="radio" checked={hand==0} onChange={() => setHand(0)} />White</td>
+                        <td><input type="radio" checked={hand==1} onChange={() => setHand(1)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Diameter 130 mm (5 in) + 20 Tokens</td>
+                        <td>$40.00 USD</td>
+                        <td><input type="radio" checked={hand==2} onChange={() => setHand(2)} />White</td>
+                        <td><input type="radio" checked={hand==3} onChange={() => setHand(3)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Diameter 155 mm (6 in) + 20 Tokens</td>
+                        <td>$45.00 USD</td>
+                        <td><input type="radio" checked={hand==4} onChange={() => setHand(4)} />White</td>
+                        <td><input type="radio" checked={hand==5} onChange={() => setHand(5)} />Black</td>
+                    </tr>
+                    <tr>
+                        <td>Diameter 203 mm (8 in) + 20 Tokens</td>
+                        <td>$50.00 USD</td>
+                        <td><input type="radio" checked={hand==6} onChange={() => setHand(6)} />White</td>
+                        <td><input type="radio" checked={hand==7} onChange={() => setHand(7)} />Black</td>
+                    </tr>
+                </table>
+                {
+                    handOrdered ?
+                    <div className="web_button_row">
+                        <button className='checkout_button' onClick={()=> setHandOrdered(false)} >Continue Ordering</button>
+                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
+                    </div>
+                    :
+                    <button className='checkout_button' onClick={()=> addHandOrder()} >Add to Cart</button>
+                }
+            </div>
+
             <div className="web_tele_section">
                 <h1>Telescopes and Large Lens Cameras</h1>
-                <div className="web_tele_img"><ImageGallery items={images} showPlayButton={false} slideDuration={0} /></div>
+                <div className='image_text_row'>
+                    <div className="web_tele_img"><ImageGallery items={telescope_images} showPlayButton={false} slideDuration={0} /></div>
+                    <p>
+                        Intrinsic imaging with telescopes requires a diffuser system that can move the Diffuser in and out of the path between the field of view and the lens of the objective telescope without disturbing the position of the target in the image. The AstroDiffuserTM System connects the system via a standard USB to a computer and the control software may be opened on the desktop. The system is controllable from a computer at the location of the telescope or remotely from thousands of miles over the internet. <br/> <br/> 
+                        Cameras that have large objective lenses, such as telescopes and Telescopic cameras may require a remote-control Diffuser so that the field of view remains steady when obtaining the focused and diffused image set, especially when done by remote operation via computer. These Diffusers have a control box that connects directly to the computer through a USB plug and to the Diffuser unit via an ethernet cable.
+                    </p>
+                </div>
+                
                 <p>AstroDiffuser SystemsTM</p>
-                <p>Intrinsic imaging with telescopes requires a diffuser system that can move the Diffuser in and out of the path between the field of view and the lens of the objective telescope without disturbing the position of the target in the image. The AstroDiffuserTM System connects the system via a standard USB to a computer and the control software may be opened on the desktop. The system is controllable from a computer at the location of the telescope or remotely from thousands of miles over the internet.</p>
                 <p><b>Available for telescopes and cameras with the following Objective lenses</b>: </p>
                 <table>
                     <tr>
@@ -497,8 +541,14 @@ const Web = (props, signedIn, userEmail) => {
 
             <div className="web_micro_section">
                 <h1>Microscopy</h1>
-                <img className="web_diffuser_img" src={img} alt="img" />
-                <p>Intrinsic imaging can easily be performed with a epi-fluorescence microscope by replacing the fluorescence filter cube with our MicroDiffuser CubeTM. By moving the MicroDiffuser CubeTM in and out of the path between the camera and the target slide, Focused and Diffuse image set may be obtained.  </p>
+                <div className='image_text_row'>
+                    <div className="web_tele_img"><ImageGallery items={cube_images} showPlayButton={false} slideDuration={0} /></div>
+                    <p>
+                        Intrinsic imaging can easily be performed with a epi-fluorescence microscope by replacing the fluorescence filter cube with our MicroDiffuser CubeTM. By moving the MicroDiffuser CubeTM in and out of the path between the camera and the target slide, Focused and Diffuse image set may be obtained.  <br/><br/>
+                        Diffusers can be used with a microscope in two ways. Stereomicroscopes and low magnification (less then 100x) microscopes can use small handheld Diffusers by placing them between the sample slider and the objective lens. For high magnification, the diffuser needs to be between the camera and the objective lens. For epi- fluorescence microscopes, this is easily accomplished by replacing one of the fluorescence filter cubes with a Diffuser cube, shown below. Otherwise, a filter wheel containing a Diffuser needs to be adapted to the high magnification microscope (not offered in this Web Shop).
+                    </p>
+            
+                </div>
                 <p><b>MicroDiffuser CubesTM for the following fluorescence microscopes are available</b>: </p>
                 <table>
                     <tr>
@@ -534,52 +584,10 @@ const Web = (props, signedIn, userEmail) => {
                 }
             </div>
 
-            <div className="web_hand_section">
-                <h1>Handheld Diffusers</h1>
-                <img className="web_diffuser_img" src={img} alt="img" />
-                <p>For situations where standard diffuser products are not appropriate for the situation, Handheld DiffusersTM may be useful to obtain the diffuse images. </p>
-                <p><b>The following framed Handheld DiffusersTM are available</b>: </p>
-                <table>
-                    <tr>
-                        <td>Diameter 101 mm (4 in) + 20 Tokens</td>
-                        <td>$35.00 USD</td>
-                        <td><input type="radio" checked={hand==0} onChange={() => setHand(0)} />White</td>
-                        <td><input type="radio" checked={hand==1} onChange={() => setHand(1)} />Black</td>
-                    </tr>
-                    <tr>
-                        <td>Diameter 130 mm (5 in) + 20 Tokens</td>
-                        <td>$40.00 USD</td>
-                        <td><input type="radio" checked={hand==2} onChange={() => setHand(2)} />White</td>
-                        <td><input type="radio" checked={hand==3} onChange={() => setHand(3)} />Black</td>
-                    </tr>
-                    <tr>
-                        <td>Diameter 155 mm (6 in) + 20 Tokens</td>
-                        <td>$45.00 USD</td>
-                        <td><input type="radio" checked={hand==4} onChange={() => setHand(4)} />White</td>
-                        <td><input type="radio" checked={hand==5} onChange={() => setHand(5)} />Black</td>
-                    </tr>
-                    <tr>
-                        <td>Diameter 203 mm (8 in) + 20 Tokens</td>
-                        <td>$50.00 USD</td>
-                        <td><input type="radio" checked={hand==6} onChange={() => setHand(6)} />White</td>
-                        <td><input type="radio" checked={hand==7} onChange={() => setHand(7)} />Black</td>
-                    </tr>
-                </table>
-                {
-                    handOrdered ?
-                    <div className="web_button_row">
-                        <button className='checkout_button' onClick={()=> setHandOrdered(false)} >Continue Ordering</button>
-                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
-                    </div>
-                    :
-                    <button className='checkout_button' onClick={()=> addHandOrder()} >Add to Cart</button>
-                }
-            </div>
-
-
             <div className="web_token_section">
-                <h1>Tokens</h1>
+                <h1>Intrinsic Tokens</h1>
                 <p>Tokens are the pathway to Intrinsic Processing. Each Token provides for intrinsic processing of one image set. To help participants get started, 2 free Tokens are included with every purchase from the Intrinsic Web Shop.</p>
+                <p>Once the Intrinsic image sets have been obtained, they need to be processed on this website using an Intrinsic Token per image set. Tokens may be purchased in quantities listed below. As you process image sets, your balance of Tokens is displayed in the processing window.</p>
                 <p><b>Tokens are available in the following Packets</b>: </p>
                 <table>
                     <tr>
@@ -623,51 +631,6 @@ const Web = (props, signedIn, userEmail) => {
                     <button className='checkout_button' onClick={()=> addTokenOrder()} >Add to Cart</button>
                 }
             </div>
-
-            {/* <>
-                        {
-                            !orderConfirmed ?
-                                <>
-                                    <div className='web_title'>
-                                        <h1>{item.title}</h1>
-                                    </div>
-                                    <div className='web_row2'>
-                                        {
-                                            <div className='web_item2'>
-                                                <div className='web_item2_div'>
-                                                    <img src={img} alt='img' />
-                                                    <p>{item.content}</p>
-                                                    <p>Item cost: ${parseFloat(item.price).toFixed(2)}</p>
-                                                    <p>Shipping cost: ${parseFloat(shipping).toFixed(2)}</p>
-                                                    <button class="blue_button" onClick={() => { confirmOrder() }}>Add To Cart</button>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </>
-                                :
-                                <>
-                                    <div className='web_title'>
-                                        <h1>{item.title}</h1>
-                                    </div>
-                                    <div className='web_row2'>
-                                        {
-                                            <div className='web_item2'>
-                                                <div className='web_item2_div'>
-                                                    <img src={img} alt='img' />
-                                                    <h1>Item Added to Cart</h1>
-                                                    <button class="blue_button" onClick={() => { goToCheckout() }}>Go To Checkout</button>
-                                                    <button class="blue_button" onClick={() => { continueOrdering() }}>Continue Ordering</button>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </>
-                        }
-
-
-                    </> */}
-
         </div>
     )
 }

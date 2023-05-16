@@ -5,6 +5,7 @@ import { getCookie, setCookie} from './utils/cookies';
 import { Footer, Navbar,Header} from './Component';
 import { Register, Login, Processing, Technology,Theory, Tutorials, Challenge, Submission,Web,MyProfil, Checkout, Orders} from './Pages';
 import './App.css'
+import back from "./assets/back.jpeg"
 
 const navigation=[
   {name: 'Home', href:'/' },
@@ -155,9 +156,9 @@ const App = () => {
                 
                 
                 <div className='Page'>
-              
+                  
                   <Routes>
-                    <Route path='/' element={<Header prop={vara} />}/>
+                    <Route path='/' element={<Header prop={vara} userEmail={userEmail} />}/>
                     <Route path='/Register' element={<Register signIn={signIn}/>} />
                     <Route path='/Register/:id' element={<Register signIn={signIn}/>} />
                     <Route path='/Login' element={<Login signIn={signIn}/>} />
@@ -166,20 +167,15 @@ const App = () => {
                     <Route path='/Intrinsic_Theory' element={<Theory/>}/>
                     <Route path='/Process_Tutorials' element={<Tutorials/>} />
                     <Route path='/Intrinsic_Challenge' element={<Challenge/>}/>
-                    <Route path='/Image_Submission' element={<Submission/>} />
+                    <Route path='/Image_Submission' element={<Submission userEmail={userEmail} />} />
                     <Route path='/Web_Shop' element={<Web signedIn={signedIn} userEmail={userEmail} addOrder={addOrder}/>}/>
                     <Route path='/My_Profile' element={<MyProfil/>}/>
                     <Route path='/Checkout' element={<Checkout orders={orders} setOrders={setOrders}/>}/>
                     <Route path='/Orders' element={<Orders />} />
                   </Routes>
-               
                 </div>
 
               </div>
-                
-                <div className='footer'>
-                  <Footer/>
-                </div>
           </div>
           </>
         )}

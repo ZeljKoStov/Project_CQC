@@ -14,8 +14,9 @@
 }
 
 .web_title {
-    width: 100%;
+    width: 85%;
     height: 100%;
+    align-self: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -149,7 +150,7 @@
     flex-direction: column;
     padding-top: 20px;
     justify-content: top;
-    height: 59rem;
+    height: 61rem;
     align-self: center;
     color: black;
     margin-top: 30px;
@@ -208,7 +209,7 @@
     flex-direction: column;
     padding-top: 20px;
     justify-content: top;
-    height: 72rem;
+    height: 65rem;
     align-self: center;
     color: black;
     margin-top: 30px;
@@ -247,7 +248,7 @@
     flex-direction: column;
     padding-top: 20px;
     justify-content: top;
-    height: 53rem;
+    height: 62rem;
     align-self: center;
     color: black;
     margin-top: 30px;
@@ -280,13 +281,22 @@
     width: 450px;
 }
 
+.image_text_row{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    width: 70%;
+    justify-content: space-around;
+    gap: 2rem;
+}
+
 
 .web_hand_section{
     display: flex;
     flex-direction: column;
     padding-top: 20px;
     justify-content: top;
-    height: 49rem;
+    height: 58rem;
     align-self: center;
     color: black;
     margin-top: 30px;
@@ -316,7 +326,7 @@
     flex-direction: column;
     padding-top: 20px;
     justify-content: top;
-    height: 37rem;
+    height: 42rem;
     align-self: center;
     color: black;
     margin-top: 30px;
