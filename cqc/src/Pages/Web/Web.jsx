@@ -20,14 +20,13 @@ import tele_6 from "../../assets/telescope/tele_6.jpeg"
 import tele_7 from "../../assets/telescope/telescope_1.JPG"
 import tele_8 from "../../assets/telescope/telescope_2.JPG"
 
-import cube_0 from "../../assets/cube/cube_0.JPG"
-import cube_1 from "../../assets/cube/cube_1.JPG"
-import cube_2 from "../../assets/cube/cube_2.JPG"
-import cube_3 from "../../assets/cube/cube_3.JPG"
-import cube_4 from "../../assets/cube/cube_4.JPG"
-import cube_5 from "../../assets/cube/cube_5.JPG"
-import cube_6 from "../../assets/cube/cube_6.JPG"
-import cube_7 from "../../assets/cube/cube_7.JPG"
+import cube_1 from "../../assets/cube/cube_1.jpeg"
+import cube_2 from "../../assets/cube/cube_2.jpeg"
+import cube_3 from "../../assets/cube/cube_3.jpeg"
+import cube_4 from "../../assets/cube/cube_4.jpeg"
+import cube_5 from "../../assets/cube/cube_5.jpeg"
+import cube_6 from "../../assets/cube/cube_6.jpeg"
+import cube_7 from "../../assets/cube/cube_7.jpeg"
 
 import mobile_1 from "../../assets/mobilediffusers/mobile_1.JPG"
 import mobile_2 from "../../assets/mobilediffusers/mobile_2.JPG"
@@ -46,7 +45,7 @@ import hand_9 from "../../assets/handheld/hand_9.JPG"
 const telescope_images = [{original: tele_0},{original: tele_1},{original: tele_2},{original: tele_3},{original: tele_4},{original: tele_5},{original: tele_6},{original: tele_7},{original: tele_8}];
 const hand_images = [{original: hand_1},{original: hand_2},{original: hand_3},{original: hand_4},{original: hand_5},{original: hand_6},{original: hand_7},{original: hand_8},{original: hand_9}];
 const mobile_images = [{original: mobile_1},{original: mobile_2},{original: mobile_3}]
-const cube_images = [{original: cube_0},{original: cube_1},{original: cube_2},{original: cube_3},{original: cube_4},{original: cube_5},{original: cube_6},{original: cube_7}]
+const cube_images = [{original: cube_1},{original: cube_2},{original: cube_3},{original: cube_4},{original: cube_5},{original: cube_6},{original: cube_7}]
 
 const Web = (props, signedIn, userEmail) => {
 
@@ -544,32 +543,16 @@ const Web = (props, signedIn, userEmail) => {
                 <div className='image_text_row'>
                     <div className="web_tele_img"><ImageGallery items={cube_images} showPlayButton={false} slideDuration={0} /></div>
                     <p>
-                        Intrinsic imaging can easily be performed with a epi-fluorescence microscope by replacing the fluorescence filter cube with our MicroDiffuser CubeTM. By moving the MicroDiffuser CubeTM in and out of the path between the camera and the target slide, Focused and Diffuse image set may be obtained.  <br/><br/>
-                        Diffusers can be used with a microscope in two ways. Stereomicroscopes and low magnification (less then 100x) microscopes can use small handheld Diffusers by placing them between the sample slider and the objective lens. For high magnification, the diffuser needs to be between the camera and the objective lens. For epi- fluorescence microscopes, this is easily accomplished by replacing one of the fluorescence filter cubes with a Diffuser cube, shown below. Otherwise, a filter wheel containing a Diffuser needs to be adapted to the high magnification microscope (not offered in this Web Shop).
+                        Intrinsic imaging can easily be performed with any microscope that has a digital camera. Choose a field of view, focus, and take an image. Stereoscopes can use Handheld Diffusers of appropriate diameter. Then place the MicroDiffuserTM over the specimen and take a Diffused image of the same field of view. This image set can then be entered into the Intrinsic Processing program.  <br/><br/>
+                        When using objective lenses of 10x or below, the framed MicroDiffuserTM can be simply placed over the microscope slid. When using objective lenses greater than 10x, where the framed MicroDiffuserTM cannot fit under the objective lens, then use the Diffuser with the white tab to fit between the objective lens and the microscope slide.
                     </p>
             
                 </div>
-                <p><b>MicroDiffuser CubesTM for the following fluorescence microscopes are available</b>: </p>
+                <p><b>A set of MicroDiffusersTM contain two framed MicroDiffusers and two frameless MicroDiffusers. </b>: </p>
                 <table>
                     <tr>
-                        <td>Nikon</td>
-                        <td>$230.00 USD</td>
+                        <td>$20.00 USD</td>
                         <td><input type="radio" checked={micro==0} onChange={() => setMicro(0)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Olympus</td>
-                        <td>$230.00 USD</td>
-                        <td><input type="radio" checked={micro==1} onChange={() => setMicro(1)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Zeiss</td>
-                        <td>$230.00 USD</td>
-                        <td><input type="radio" checked={micro==2} onChange={() => setMicro(2)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Leica</td>
-                        <td>$230.00 USD</td>
-                        <td><input type="radio" checked={micro==3} onChange={() => setMicro(3)} /></td>
                     </tr>
                 </table>
                 <p>Contact us for custom sized MicroDiffusersTM</p>
@@ -583,6 +566,7 @@ const Web = (props, signedIn, userEmail) => {
                     <button className='checkout_button' onClick={()=> addMicroOrder()} >Add to Cart</button>
                 }
             </div>
+
 
             <div className="web_token_section">
                 <h1>Intrinsic Tokens</h1>
