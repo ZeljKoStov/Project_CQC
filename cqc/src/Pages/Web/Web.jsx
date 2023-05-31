@@ -27,25 +27,30 @@ import cube_4 from "../../assets/cube/cube_4.jpeg"
 import cube_5 from "../../assets/cube/cube_5.jpeg"
 import cube_6 from "../../assets/cube/cube_6.jpeg"
 import cube_7 from "../../assets/cube/cube_7.jpeg"
+import cube_8 from "../../assets/cube/micro-new-1.jpeg"
+import cube_9 from "../../assets/cube/micro-new-2.jpeg"
+import cube_10 from "../../assets/cube/micro-new-3.jpeg"
 
 import mobile_1 from "../../assets/mobilediffusers/mobile_1.JPG"
 import mobile_2 from "../../assets/mobilediffusers/mobile_2.JPG"
 import mobile_3 from "../../assets/mobilediffusers/mobile_3.JPG"
 
-import hand_1 from "../../assets/handheld/hand_1.jpeg"
-import hand_2 from "../../assets/handheld/hand_2.JPG"
+import hand_1 from "../../assets/handheld/hand_1.jpg"
+import hand_2 from "../../assets/handheld/hand_2.jpg"
 import hand_3 from "../../assets/handheld/hand_3.JPG"
-import hand_4 from "../../assets/handheld/hand_4.JPG"
-import hand_5 from "../../assets/handheld/hand_5.JPG"
-import hand_6 from "../../assets/handheld/hand_6.JPG"
-import hand_7 from "../../assets/handheld/hand_7.JPG"
-import hand_8 from "../../assets/handheld/hand_8.JPG"
-import hand_9 from "../../assets/handheld/hand_9.JPG"
+import hand_4 from "../../assets/handheld/hand_4.jpg"
+import hand_5 from "../../assets/handheld/hand_5.jpg"
+import hand_6 from "../../assets/handheld/hand_6.jpg"
+import hand_7 from "../../assets/handheld/hand_7.jpg"
+import hand_8 from "../../assets/handheld/hand_8.jpg"
+import hand_9 from "../../assets/handheld/hand_9.jpg"
+import hand_10 from "../../assets/handheld/hand_10.jpg"
+import hand_11 from "../../assets/handheld/hand_11.jpg"
 
 const telescope_images = [{original: tele_0},{original: tele_1},{original: tele_2},{original: tele_3},{original: tele_4},{original: tele_5},{original: tele_6},{original: tele_7},{original: tele_8}];
-const hand_images = [{original: hand_1},{original: hand_2},{original: hand_3},{original: hand_4},{original: hand_5},{original: hand_6},{original: hand_7},{original: hand_8},{original: hand_9}];
+const hand_images = [{original: hand_1},{original: hand_2},{original: hand_3},{original: hand_4},{original: hand_5},{original: hand_6},{original: hand_7},{original: hand_8},{original: hand_9},{original: hand_10},{original: hand_11}];
 const mobile_images = [{original: mobile_1},{original: mobile_2},{original: mobile_3}]
-const cube_images = [{original: cube_1},{original: cube_2},{original: cube_3},{original: cube_4},{original: cube_5},{original: cube_6},{original: cube_7}]
+const cube_images = [{original: cube_1},{original: cube_2},{original: cube_3},{original: cube_4},{original: cube_5},{original: cube_6},{original: cube_7},{original: cube_8},{original: cube_9},{original: cube_10}]
 
 const Web = (props, signedIn, userEmail) => {
 
@@ -101,41 +106,46 @@ const Web = (props, signedIn, userEmail) => {
 
         if(diffuserPack == 0){
             const order = {
+                itemType: 0,
                 item: "5 Diffusers + 20 Tokens",
                 tokens: 20,
-                cost: 1500
+                amountInCents: 1500
             }
             props.addOrder(order)
         }
         if(diffuserPack == 1){
             const order = {
+                itemType: 0,
                 item: "10 Diffusers + 40 Tokens",
                 tokens: 40,
-                cost: 2800
+                amountInCents: 2800
             }
             props.addOrder(order)
         }
         if(diffuserPack == 2){
             const order = {
+                itemType: 0,
                 item: "25 Diffusers + 100 Tokens",
                 tokens: 100,
-                cost: 6200
+                amountInCents: 6200
             }
             props.addOrder(order)
         }
         if(diffuserPack == 3){
             const order = {
+                itemType: 0,
                 item: "50 Diffusers + 200 Tokens",
                 tokens: 200,
-                cost: 10500
+                amountInCents: 10500
             }
             props.addOrder(order)
         }
         if(diffuserPack == 4){
             const order = {
+                itemType: 0,
                 item: "100 Diffusers + 400 Tokens",
                 tokens: 400,
-                cost: 19000
+                amountInCents: 19000
             }
             props.addOrder(order)
         }
@@ -146,14 +156,16 @@ const Web = (props, signedIn, userEmail) => {
 
         if(telescope==0){
             const order = {
+                itemType: 1,
                 item: "AstroDiffuser SystemsTM Objective lens 101 mm (4 in) + 20 Tokens White",
                 tokens: 20,
-                cost: 35000
+                amountInCents: 35000
             }
             props.addOrder(order)
         }
         if(telescope==1){
             const order = {
+                itemType: 1,
                 item: "AstroDiffuser SystemsTM Objective lens 101 mm (4 in) + 20 Tokens Black",
                 tokens: 20,
                 cost:  35000
@@ -162,49 +174,55 @@ const Web = (props, signedIn, userEmail) => {
         }
         if(telescope==2){
             const order = {
+                itemType: 1,
                 item: "AstroDiffuser SystemsTM Objective lens 130 mm (5 in) + 20 Tokens White",
                 tokens: 20,
-                cost: 37500
+                amountInCents: 37500
             }
             props.addOrder(order)
         }
         if(telescope==3){
             const order = {
+                itemType: 1,
                 item: "AstroDiffuser SystemsTM Objective lens 130 mm (5 in) + 20 Tokens Black",
                 tokens: 20,
-                cost:  37500
+                amountInCents:  37500
             }
             props.addOrder(order)
         }
         if(telescope==4){
             const order = {
+                itemType: 1,
                 item: "AstroDiffuser SystemsTM Objective lens 155 mm (6 in) + 20 Tokens White",
                 tokens: 20,
-                cost: 40000
+                amountInCents: 40000
             }
             props.addOrder(order)
         }
         if(telescope==5){
             const order = {
+                itemType: 1,
                 item: "AstroDiffuser SystemsTM Objective lens 155 mm (6 in) + 20 Tokens Black",
                 tokens: 20,
-                cost:  40000
+                amountInCents:  40000
             }
             props.addOrder(order)
         }
         if(telescope==6){
             const order = {
+                itemType: 1,
                 item: "AstroDiffuser SystemsTM Objective lens 203 mm (8 in) + 20 Tokens White",
                 tokens: 20,
-                cost: 45000
+                amountInCents: 45000
             }
             props.addOrder(order)
         }
         if(telescope==7){
             const order = {
+                itemType: 1,
                 item: "AstroDiffuser SystemsTM Objective lens 203 mm (8 in) + 20 Tokens Black",
                 tokens: 20,
-                cost:  45000
+                amountInCents:  45000
             }
             props.addOrder(order)
         }
@@ -215,33 +233,10 @@ const Web = (props, signedIn, userEmail) => {
 
         if(micro == 0){
             const order = {
-                item: "MicroDiffuser CubesTM for Nikon + 20 Tokens",
+                itemType: 2,
+                item: "A set of MicroDiffusersTM contain two framed MicroDiffusers and two frameless MicroDiffusers. ",
                 tokens: 20,
-                cost: 23000
-            }
-            props.addOrder(order)
-        }
-        if(micro == 1){
-            const order = {
-                item: "MicroDiffuser CubesTM for Olympus + 20 Tokens",
-                tokens: 20,
-                cost: 23000
-            }
-            props.addOrder(order)
-        }
-        if(micro == 2){
-            const order = {
-                item: "MicroDiffuser CubesTM for Zeiss + 20 Tokens",
-                tokens: 20,
-                cost: 23000
-            }
-            props.addOrder(order)
-        }
-        if(micro == 3){
-            const order = {
-                item: "MicroDiffuser CubesTM for Leica + 20 Tokens",
-                tokens: 20,
-                cost: 23000
+                amountInCents: 2000
             }
             props.addOrder(order)
         }
@@ -252,65 +247,73 @@ const Web = (props, signedIn, userEmail) => {
 
         if(hand==0){
             const order = {
+                itemType: 3,
                 item: "Diameter 101 mm (4 in) + 20 Tokens White",
                 tokens: 20,
-                cost: 3500
+                amountInCents: 3500
             }
             props.addOrder(order)
         }
         if(hand==1){
             const order = {
+                itemType: 3,
                 item: "Diameter 101 mm (4 in) + 20 Tokens Black",
                 tokens: 20,
-                cost:  3500
+                amountInCents:  3500
             }
             props.addOrder(order)
         }
         if(hand==2){
             const order = {
+                itemType: 3,
                 item: "Diameter 130 mm (5 in) + 20 Tokens White",
                 tokens: 20,
-                cost: 4000
+                amountInCents: 4000
             }
             props.addOrder(order)
         }
         if(hand==3){
             const order = {
+                itemType: 3,
                 item: "Diameter 130 mm (5 in) + 20 Tokens Black",
                 tokens: 20,
-                cost:  4000
+                amountInCents:  4000
             }
             props.addOrder(order)
         }
         if(hand==4){
             const order = {
+                itemType: 3,
                 item: "Diameter 155 mm (6 in) + 20 Tokens White",
                 tokens: 20,
-                cost: 4500
+                amountInCents: 4500
             }
             props.addOrder(order)
         }
         if(hand==5){
             const order = {
+                itemType: 3,
                 item: "Diameter 155 mm (6 in) + 20 Tokens Black",
                 tokens: 20,
-                cost:  4500
+                amountInCents:  4500
             }
             props.addOrder(order)
         }
         if(hand==6){
             const order = {
+                itemType: 3,
                 item: "Diameter 203 mm (8 in) + 20 Tokens White",
                 tokens: 20,
-                cost: 5000
+                amountInCents: 5000
             }
             props.addOrder(order)
         }
         if(hand==7){
             const order = {
+                itemType: 3,
                 item: "Diameter 203 mm (8 in) + 20 Tokens Black",
                 tokens: 20,
-                cost:  5000
+                amountInCents:  5000
             }
             props.addOrder(order)
         }
@@ -321,49 +324,55 @@ const Web = (props, signedIn, userEmail) => {
 
         if(token == 0){
             const order = {
+                itemType: 4,
                 item: "Pack of 10 Tokens + 2",
                 tokens: 12,
-                cost: 250
+                amountInCents: 250
             }
             props.addOrder(order)
         }
         if(token == 1){
             const order = {
+                itemType: 4,
                 item: "Pack of 25 Tokens +2",
                 tokens: 27,
-                cost: 625
+                amountInCents: 625
             }
             props.addOrder(order)
         }
         if(token == 2){
             const order = {
+                itemType: 4,
                 item: "Pack of 50 Tokens +2",
                 tokens: 52,
-                cost: 1250
+                amountInCents: 1250
             }
             props.addOrder(order)
         }
         if(token == 3){
             const order = {
+                itemType: 4,
                 item: "Pack of 75 Tokens +2",
                 tokens: 77,
-                cost: 1500
+                amountInCents: 1500
             }
             props.addOrder(order)
         }
         if(token == 4){
             const order = {
+                itemType: 4,
                 item: "Pack of 100 Tokens +2",
                 tokens: 102,
-                cost: 2500
+                amountInCents: 2500
             }
             props.addOrder(order)
         }
         if(token == 5){
             const order = {
+                itemType: 4,
                 item: "Pack of 200 Tokens +2",
                 tokens: 202,
-                cost: 5000
+                amountInCents: 5000
             }
             props.addOrder(order)
         }

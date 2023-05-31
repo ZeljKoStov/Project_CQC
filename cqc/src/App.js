@@ -71,7 +71,12 @@ const App = () => {
   const addOrder = (newOrder) => {
     const updatedOrders = [...orders, newOrder];
     setOrders(updatedOrders);
-    console.log(updatedOrders);
+  }
+
+  const removeOrder = (index) => {
+    const updatedOrders = [...orders];
+    updatedOrders.splice(index, 1);
+    setOrders(updatedOrders);
   }
 
 
@@ -170,7 +175,7 @@ const App = () => {
                     <Route path='/Image_Submission' element={<Submission userEmail={userEmail} />} />
                     <Route path='/Web_Shop' element={<Web signedIn={signedIn} userEmail={userEmail} addOrder={addOrder}/>}/>
                     <Route path='/My_Profile' element={<MyProfil/>}/>
-                    <Route path='/Checkout' element={<Checkout orders={orders} setOrders={setOrders}/>}/>
+                    <Route path='/Checkout' element={<Checkout orders={orders} setOrders={setOrders} removeOrder={removeOrder}/>}/>
                     <Route path='/Orders' element={<Orders />} />
                   </Routes>
                 </div>

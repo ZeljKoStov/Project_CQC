@@ -1,0 +1,37 @@
+.cart-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+  }
+  
+  .item-image {
+    height: 2rem;
+    width: 2rem;
+    margin-right: 10px;
+  }
+  
+  .item-image img {
+    height: 2rem;
+    width: 2rem;
+  }
+  
+  .item-details {
+    flex: 1;
+  }
+  
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 5px;
+  }
+  
+  .item-title {
+    margin: 0;
+  }
+  
+  .item-description {
+    margin: 0;
+  }

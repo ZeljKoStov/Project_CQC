@@ -6,8 +6,13 @@ import { RequestAPI } from '../../utils/request-api'
 import { getCookie } from '../../utils/cookies';
 import { MdSentimentSatisfiedAlt } from 'react-icons/md';
 import StripeContainer from '../../Component/Stripe/StripeContainer';
+import OrderItem from '../../Component/OrderItem/OrderItem';
 
-const Checkout = ({ orders, setOrders }) => {
+import { useNavigate } from "react-router-dom";
+
+const Checkout = ({ orders, setOrders, removeOrder }) => {
+
+    let navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [dataFetched, setDataFetched] = useState(false);
@@ -23,7 +28,7 @@ const Checkout = ({ orders, setOrders }) => {
 
     useEffect(() => {
         if (!dataFetched) {
-            setTotalItemCost(orders.reduce((accumulator, order) => { return accumulator + order.cost; }, 0))
+            setTotalItemCost(orders.reduce((accumulator, order) => { return accumulator + order.amountInCents; }, 0))
             setTokens(orders.reduce((accumulator, order) => { return accumulator + order.tokens; }, 0))
             fetchData()
             setDataFetched(true);
@@ -50,9 +55,14 @@ const Checkout = ({ orders, setOrders }) => {
     }
 
     const confirmOrder = async () => {
-
-        
         setConfirm(1);
+    }
+
+    const goToWebShop = () => {
+        let path = `/Web_Shop`;
+        navigate(path);
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
     }
 
     const onPaymentResut = (response) => {
@@ -61,14 +71,15 @@ const Checkout = ({ orders, setOrders }) => {
             orders.map((order) => {
                 _orders.push({
                     item: order.item,
-                    amountInCents: order.cost,
+                    itemType: order.itemType,
+                    amountInCents: order.amountInCents,
                     shippingPriceInCents: order.shippingPriceInCents,
                     tokens: order.tokens
                 })
             })
 
             try {
-                addOrder(email, _orders, address, tokens, orderCallback)
+                addOrder(email, _orders, address, tokens,totalItemCost,0, orderCallback)
             } catch (error) {
                 console.log(error);
             }
@@ -80,6 +91,13 @@ const Checkout = ({ orders, setOrders }) => {
         setOrders([])
         setConfirm(2)
         console.log(response);
+    }
+
+    const removeOrderIndexed = (index) => {
+        removeOrder(index)
+        orders.splice(index, 1);
+        setTotalItemCost(orders.reduce((accumulator, order) => { return accumulator + order.amountInCents; }, 0))
+        setTokens(orders.reduce((accumulator, order) => { return accumulator + order.tokens; }, 0))
     }
 
     return (
@@ -95,72 +113,71 @@ const Checkout = ({ orders, setOrders }) => {
                         }
                         <div className='checkout_title'>Checkout</div>
 
-                        <div className='checkout_row2'>
-                            {
-                                confirm == 0 &&
-                                <div className='checkout_item2'>
-                                    <div className='checkout_item2_div'>
-                                        <div className="orders-container">
-                                            <label>Orders:</label>
-                                            <table>
-                                                {orders.map((order, index) => (
-                                                    <tr>
-                                                        <td>{order.item}</td>
-                                                        <td>${parseFloat(order.cost / 100).toFixed(2)} USD</td>
-                                                    </tr>
-                                                ))}
-                                                
-                                                <tr>
-                                                    <td>Total: </td>
-                                                    <td>${parseFloat(totalItemCost / 100).toFixed(2)} USD</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>New Tokens: </td>
-                                                    <td>{tokens}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shipping Adress: </td>
-                                                    <td>{address}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <button class="checkout_confirm_button" onClick={() => { confirmOrder() }}>Confirm Order</button>
-                                    </div>
-                                </div>
-                            }
-                            {
-                                confirm == 1 &&
-                                <div className='checkout_item2'>
-                                    <div className='checkout_item2_div'>
-                                            <table>
-                                                <tr>
-                                                    <td>All items cost:</td>
-                                                    <td>${parseFloat(totalItemCost / 100).toFixed(2)} USD</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shiping cost:</td>
-                                                    <td>${parseFloat(totalShippingCost / 100).toFixed(2)} USD</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Total amount:</td>
-                                                    <td>${parseFloat((totalShippingCost + totalItemCost) / 100).toFixed(2)} USD</td>
-                                                </tr>
-                                            </table>
-                                        <div className='payment_div'>
-                                            <StripeContainer loading={setLoading} onResult={onPaymentResut} paymentAmount={totalShippingCost + totalItemCost} userEmail={email} />
-                                        </div>
-                                    </div>
-                                </div>
-                            }
+                        {
+                            confirm == 0 &&
 
-                            {
-                                confirm == 2 &&
-                                <div className='checkout_item2'>
-                                    <div className='checkout_item2_div'>
-                                        <h1>Items order!</h1>
+                            <div className="cart">
+                                <h2 className="cart-title">Orders:</h2>
+                                {orders.map((item, index) => (
+                                    <OrderItem item={item} removeOrder={ (e)=>removeOrderIndexed(index) } />
+                                ))}
+                                <table>
+                                    <tr>
+                                        <td>Total: </td>
+                                        <td>${parseFloat(totalItemCost / 100).toFixed(2)} USD</td>
+                                    </tr>
+                                    <tr>
+                                        <td>New Tokens: </td>
+                                        <td>{tokens}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shipping Adress: </td>
+                                        <td>{address}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><button class="checkout_confirm_button" onClick={() => { confirmOrder() }}>Confirm Order</button></td>
+                                        <td><button class="checkout_confirm_button" onClick={() => { goToWebShop() }}>Continue Ordering</button></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        }
+
+
+                        <div className='checkout_row2'>
+                        {
+                            confirm == 1 &&
+                            <div className='checkout_item2'>
+                                <div className='checkout_item2_div'>
+                                    <table>
+                                        <tr>
+                                            <td>All items cost:</td>
+                                            <td>${parseFloat(totalItemCost / 100).toFixed(2)} USD</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shiping cost:</td>
+                                            <td>${parseFloat(totalShippingCost / 100).toFixed(2)} USD</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total amount:</td>
+                                            <td>${parseFloat((totalShippingCost + totalItemCost) / 100).toFixed(2)} USD</td>
+                                        </tr>
+                                    </table>
+                                    <div className='payment_div'>
+                                        <StripeContainer loading={setLoading} onResult={onPaymentResut} paymentAmount={totalShippingCost + totalItemCost} userEmail={email} />
                                     </div>
                                 </div>
-                            }
+                            </div>
+                        }
+
+                        {
+                            confirm == 2 &&
+                            <div className='checkout_item2'>
+                                <div className='checkout_item2_div'>
+                                    <h1>Items order!</h1>
+                                </div>
+                            </div>
+                        }
+
                         </div>
 
 

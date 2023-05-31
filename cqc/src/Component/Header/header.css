@@ -108,10 +108,11 @@
 }
 
 .header_video_row {
-    margin-top: 2rem;
+    margin-top: 7rem;
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    margin-bottom: 5rem;
 }
 
 .header_image_gallery {
@@ -132,6 +133,10 @@
 }
 
 .header_submission_image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
     height: auto;
     width: 50%;
 }

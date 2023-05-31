@@ -6,7 +6,7 @@ import back from "../../assets/back.jpeg"
 import { useEffect } from 'react';
 import { MdInsertEmoticon } from 'react-icons/md';
 import "./Orders.css"
-
+import OrderItem from '../../Component/OrderItem/OrderItem';
 
 const Orders = () => {
 
@@ -50,42 +50,46 @@ const Orders = () => {
 
 
     return (
-        <div className='web_background'>
-            {
-                loading && <div class="reg-spinner-overlay">
-                    <div class="reg-spinner"></div>
-                </div>
-            }
-            {
-                <>
-                    <div className='web_title'>
-                        <h1>Orders</h1>
+        <div className='container'>
+            <img src={back} alt="Girl in a jacket" className='backgroundImage' />
+            <div className='checkout_body'>
+                {
+                    loading && <div class="reg-spinner-overlay">
+                        <div class="reg-spinner"></div>
                     </div>
-                    {orders.map((item, index) =>
-                        <div className='web_row'>
-                            {
-                                <div className='order_item'>
-                                    <div>{item.address}</div>
-                                    <div>{item.createdAt}</div>
-                                </div>
+                }
+                <div className='checkout_title'>My Orders</div>
 
-                            }
-                            {/* {
-                                    item[1] &&
-                                    <div className='web_item'>
-                                        <Card item={item[1]} onClick={handleOnClick} />
-                                    </div>
-                                }
-                                {
-                                    item[2] &&
-                                    <div className='web_item'>
-                                        <Card item={item[2]} onClick={handleOnClick} />
-                                    </div>
-                                } */}
-                        </div>
-                    )}
+                <>
+                    {
+                        orders.map((item) => (
+                            <div className="cart">
+                                {item.items.map((it) => (
+                                    <OrderItem item={it} />
+                                ))}
+                                <table>
+                                    <tr>
+                                        <td>Total: </td>
+                                        <td>${parseFloat(item.totalPriceInCents / 100).toFixed(2)} USD</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shipping Adress: </td>
+                                        <td>{item.address}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status: </td>
+                                        <td>{item.status}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        ))
+           
+                    }
+
                 </>
-            }
+
+            </div>
+
 
         </div>
     )

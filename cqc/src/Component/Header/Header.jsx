@@ -178,7 +178,7 @@ const Header = ({ prop, userEmail }) => {
                     </ol>
                     <p>All image sets that have not been processed will be processed and saved (Focused, Diffused and Intrinsic) in the Intrinsic Images folder that is automatically generated in your computer.</p>
                     <br />
-                    <h1>Top Intrinsic Images of the Week</h1>
+                    <h1>Intrinsic Images of the Week</h1>
                     {
                         index != -1 &&
                         <div className='header_submissions'>
@@ -192,12 +192,14 @@ const Header = ({ prop, userEmail }) => {
                                     setOpenModal(true)
                                     setImageToShow(focused[index])
                                 }} />
+                                <h1>Original</h1>
                             </div>
                             <div className='header_submission_image'>
                                 <img src={intrinsic[index]} alt="reload" onClick={() => {
                                     setOpenModal(true)
                                     setImageToShow(intrinsic[index])
                                 }} />
+                                <h1>Intrinsic</h1>
                             </div>
                             <FontAwesomeIcon
                                 icon={faChevronRight}

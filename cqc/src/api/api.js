@@ -1,5 +1,5 @@
-const getBaseUrl = "https://intrinsic-backend.xyz";
-//const getBaseUrl = "http://localhost:3001";
+//const getBaseUrl = "https://intrinsic-backend.xyz";
+const getBaseUrl = "http://localhost:3001";
 
 export const login = (body) => ({
     body,
@@ -71,8 +71,10 @@ export const submit = (body) => ({
     isAuthorize: false,
 });
 
-export const addOrder = async (email, _orders, address, tokens, callback ) => {
+export const addOrder = async (email, _orders, address, tokens,totalCost,totalShipping, callback ) => {
     try {
+        console.log("API");
+        console.log(_orders);
         fetch(`${getBaseUrl}/users/order`, {
             method: "POST",
             headers: {
@@ -82,8 +84,8 @@ export const addOrder = async (email, _orders, address, tokens, callback ) => {
                 email: email,
                 items: _orders,
                 address: address,
-                totalPriceInCents: _orders.reduce((accumulator, order) => { return accumulator + order.cost; }, 0),
-                totalShippingInCents: _orders.reduce((accumulator, order) => { return accumulator + order.shippingPriceInCents; }, 0),
+                totalPriceInCents: totalCost,
+                totalShippingInCents: totalShipping,
                 tokens: tokens
             })
         })
