@@ -1,17 +1,42 @@
 .technology {
-    padding: 2rem  20rem ;
-    color: black;
-    background: white;
+    position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
-   
+    align-items: center;
+    gap: 30px;
+    height: 80rem;
+    margin-top: 5rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    width: 100%;
+    align-self: center;
+    left: 0;
+    top: 0;
+
 }
-.technology h1{
-    margin-top: 0;
+
+.technology_text_white {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.technology_text_white spam {
+    font-size: 3em;
+    padding-bottom: 0rem;
+    margin-bottom: 0;
+}
+
+
+.technology_text_white p {
+    padding: 1rem 2rem 0rem;
     text-align: center;
-    font-size: 40px;
+    font-size: 24px;
+    line-height: 31px;
+    color: white;
 }
 
 .imageT {
@@ -25,99 +50,41 @@
     height: 100%;
 }
 
-.textdivT {
-    padding: 1rem;
-    text-align: left;
+.technology_img {
+    width: 75%;
+    height: 100%;
 }
 
-.textdivT h2{
+.technology_black_text {
+    width: 55%;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     color: black;
-    font-size: 30px;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    text-align: justify;
 }
 
-.textdivT p {
-    font-size: 22px;
+
+
+.header_text_white {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    margin-bottom: 2rem;
 }
 
-  
-
-@media screen and  (max-width : 1600px) {
-    .technology {
-        padding: 2rem  10rem ;
-    }
+.header_text_white spam {
+    font-size: 3em;
+    padding-bottom: 0rem;
+    margin-bottom: 0;
 }
 
-@media screen and  (max-width : 1450px) {
-    .technology {
-        padding: 2rem  8rem ;
-    }
-}
 
-@media screen and  (max-width : 1100px) {
-    .technology {
-        padding: 2rem  5rem ;
-    }
+.header_text_white p {
+    padding: 1rem 2rem 0rem;
+    text-align: center;
+    font-size: 24px;
+    line-height: 31px;
+    color: white;
 }
-
-@media screen and  (max-width : 950px) {
-    .technology {
-        padding: 2rem  4rem ;
-    }
-}
-
-@media screen and (max-width:950px) {
-    .technology {
-        padding: 2rem 8rem 2rem;
-    }
-}
-
-@media screen and (max-width:800px) {
-    .technology {
-        padding: 2rem  3rem ;
-    }
- 
-    .textdivT p {
-        font-size: 20px;
-    }
-}
-
-@media screen and (max-width:700px) {
-    
-    .technology h1{
-        font-size: 35px;
-    }
-}
-
-@media screen and (max-width:600px) {
-    .textdivT h2{
-        font-size: 28px;
-    }
-    .textdivT p {
-        font-size: 18px;
-    }
-}
-
-@media screen and (max-width:500px) {
-  
-    .technology h1 {
-        font-size: 32px;
-    }
-    .textdivT {
-        padding: 1rem 0rem;
-    }
-    .textdivT h2{
-        font-size: 26px;
-        margin-top: 1rem;
-    }
-    .textdivT p {
-        font-size: 16px;
-    }
-}
-
-@media screen and (max-width:400px) {
-    .technology h1 {
-        font-size: 28px;
-    }
-  }

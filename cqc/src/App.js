@@ -3,14 +3,13 @@ import {  Route, Routes ,NavLink  } from 'react-router-dom';
 import { motion} from "framer-motion";
 import { getCookie, setCookie} from './utils/cookies';
 import { Footer, Navbar,Header} from './Component';
-import { Register, Login, Processing, Technology,Theory, Tutorials, Challenge, Submission,Web,MyProfil, Checkout, Orders} from './Pages';
+import { Register, Login, Processing, Technology, Tutorials, Challenge, Submission,Web,MyProfil, Checkout, Orders} from './Pages';
 import './App.css'
 import back from "./assets/back.jpeg"
 
 const navigation=[
   {name: 'Home', href:'/' },
   {name: 'Intrinsic Technology', href:'/Intrinsic_Technology'},
-  {name: 'Intrinsic Theory', href:'/Intrinsic_Theory'},
   {name: 'Process Tutorials', href:'/Process_Tutorials'},
   {name: 'Intrinsic Challenge', href:'/Intrinsic_Challenge'},
   {name: 'Image Processing', href:'/Processing'},
@@ -169,7 +168,6 @@ const App = () => {
                     <Route path='/Login' element={<Login signIn={signIn}/>} />
                     <Route path='/Processing' element={<Processing/>}/>
                     <Route path='/Intrinsic_Technology' element={<Technology/>}/>
-                    <Route path='/Intrinsic_Theory' element={<Theory/>}/>
                     <Route path='/Process_Tutorials' element={<Tutorials/>} />
                     <Route path='/Intrinsic_Challenge' element={<Challenge/>}/>
                     <Route path='/Image_Submission' element={<Submission userEmail={userEmail} />} />

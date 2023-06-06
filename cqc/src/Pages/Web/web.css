@@ -14,7 +14,7 @@
 }
 
 .web_title {
-    width: 85%;
+    width: 100%;
     height: 100%;
     align-self: center;
     display: flex;
@@ -37,10 +37,11 @@
 }
 
 .web_title p {
-    width: 75%;
+    width: 55%;
     font-size: 20px;
     margin-top: 20px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    text-align: justify;
 }
 
 .web_item {
@@ -160,6 +161,15 @@
     background: rgb(255, 255, 255, 0.7);
 }
 
+
+.web_diffuser_section h1{
+    font-weight: normal;
+}
+
+.web_diffuser_section sup{
+    font-size: 16px;
+}
+
 .web_diffuser_img {
     width: 400px;
     align-self: center;
@@ -169,6 +179,8 @@
 .web_diffuser_section p {
     width: 70%;
     align-self: center;
+    text-align: justify;
+    
 }
 
 .web_diffuser_section table {
@@ -218,7 +230,13 @@
     border: 1px solid black;
     background: rgb(255, 255, 255, 0.7);
 }
+.web_tele_section h1{
+    font-weight: normal;
+}
 
+.web_tele_section sup{
+    font-size: 16px;
+}
 .web_tele_img {
     width: 400px;
     align-self: center;
@@ -231,6 +249,7 @@
 .web_tele_section p {
     width: 80%;
     align-self: center;
+    text-align: justify;
 }
 
 .web_tele_section table {
@@ -257,7 +276,13 @@
     border: 1px solid black;
     background: rgb(255, 255, 255, 0.7);
 }
+.web_micro_section h1{
+    font-weight: normal;
+}
 
+.web_micro_section sup{
+    font-size: 16px;
+}
 .web_micro_section table {
     width: 400px;
     align-self: center;
@@ -271,6 +296,7 @@
 .web_micro_section p {
     width: 80%;
     align-self: center;
+    text-align: justify;
 }
 
 .web_button_row{
@@ -306,9 +332,18 @@
     background: rgb(255, 255, 255, 0.7);
 }
 
+.web_hand_section h1{
+    font-weight: normal;
+}
+
+.web_hand_section sup{
+    font-size: 16px;
+}
+
 .web_hand_section p {
     width: 60%;
     align-self: center;
+    text-align: justify;
 }
 
 .web_hand_section table {
@@ -336,6 +371,22 @@
     background: rgb(255, 255, 255, 0.7);
 }
 
+.web_token_section h1{
+    font-weight: normal;
+}
+
+.web_token_section sup{
+    font-size: 16px;
+}
+
+.web_diffuser_section h1{
+    font-weight: normal;
+}
+
+.web_diffuser_section sup{
+    font-size: 16px;
+}
+
 .web_token_section table {
     width: 400px;
     align-self: center;
@@ -349,5 +400,6 @@
 .web_token_section p {
     width: 60%;
     align-self: center;
+    text-align: justify;
 }
 

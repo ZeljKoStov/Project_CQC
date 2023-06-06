@@ -13,7 +13,6 @@ import './navbar.css';
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Intrinsic Technology', href: '/Intrinsic_Technology' },
-  { name: 'Intrinsic Theory', href: '/Intrinsic_Theory' },
   { name: 'Process Tutorials', href: '/Process_Tutorials' },
   { name: 'Intrinsic Challenge', href: '/Intrinsic_Challenge' },
   { name: 'Image Processing', href: '/Processing' },
