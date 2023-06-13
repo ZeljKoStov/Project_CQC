@@ -1,5 +1,5 @@
-//const getBaseUrl = "https://intrinsic-backend.xyz";
-const getBaseUrl = "http://localhost:3001";
+const getBaseUrl = "https://intrinsic-backend.xyz";
+//const getBaseUrl = "http://localhost:3001";
 
 export const login = (body) => ({
     body,
@@ -68,6 +68,34 @@ export const submit = (body) => ({
     body,
     method: 'POST',
     url: `${getBaseUrl}/users/submit`,
+    isAuthorize: false,
+});
+
+export const getSubs = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/getSubs`,
+    isAuthorize: false,
+});
+
+export const getFocused = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/getFocused`,
+    isAuthorize: false,
+});
+
+export const getDiffused = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/getDiffused`,
+    isAuthorize: false,
+});
+
+export const getIntrinsic = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/getIntrinsic`,
     isAuthorize: false,
 });
 

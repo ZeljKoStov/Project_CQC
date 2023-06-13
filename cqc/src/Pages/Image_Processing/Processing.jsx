@@ -263,7 +263,7 @@ const Processing = () => {
         <div className='cqc__processing'>
             <div className='cqc__text'>
                 <h1>Image Processing</h1>
-                <p>Upload your Focused and Diffused image pairs here</p>
+                <p>Upload your Original and Diffused image pairs here</p>
             </div>
             <div className="form-field">
                 {imagePairs.map((pair, index) => (
@@ -304,7 +304,7 @@ const Processing = () => {
                         </div>
                         <div className="Second_row">
                             <div className="image_row">
-                                <div className='cqc__p'><p>Focused Image</p>  </div>
+                                <div className='cqc__p'><p>Original Image</p>  </div>
                                 {pair.fext == "fit" || pair.fext == "tiff" || pair.fext == "fits" || pair.fext == "FIT" || pair.fext == "TIFF" || pair.fext == "FITS" ?
                                     <div className="image_preview" >Preview Not Available for {pair.fext} extension!</div>
                                     :

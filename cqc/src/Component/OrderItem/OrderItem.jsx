@@ -2,44 +2,34 @@ import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
-import tele_0 from "../../assets/telescope/tele_0.jpg"
-import tele_1 from "../../assets/telescope/tele_1.jpg"
-import tele_2 from "../../assets/telescope/tele_2.jpg"
-import tele_5 from "../../assets/telescope/tele_5.jpg"
-import tele_6 from "../../assets/telescope/tele_6.jpg"
-import tele_7 from "../../assets/telescope/telescope_1.jpg"
-import tele_8 from "../../assets/telescope/telescope_2.jpg"
+import astro_1 from "../../assets/astro/astro_1.jpeg"
+import astro_2 from "../../assets/astro/astro_2.jpeg"
+import astro_3 from "../../assets/astro/astro_3.jpeg"
+import astro_4 from "../../assets/astro/astro_4.jpeg"
+import astro_5 from "../../assets/astro/astro_5.jpeg"
+import astro_6 from "../../assets/astro/astro_6.jpeg"
+import astro_7 from "../../assets/astro/astro_7.jpeg"
 
 
-import cube_1 from "../../assets/cube/cube_1.jpeg"
-import cube_2 from "../../assets/cube/cube_2.jpg"
-import cube_3 from "../../assets/cube/cube_3.jpg"
-import cube_4 from "../../assets/cube/cube_4.jpg"
-import cube_5 from "../../assets/cube/cube_5.jpg"
-import cube_6 from "../../assets/cube/cube_6.jpg"
-import cube_7 from "../../assets/cube/cube_7.jpg"
-import cube_8 from "../../assets/cube/micro-new-1.jpg"
-import cube_9 from "../../assets/cube/micro-new-2.jpg"
-import cube_10 from "../../assets/cube/micro-new-3.jpg"
+import micro_1 from "../../assets/micro/micro_1.jpg"
+import micro_2 from "../../assets/micro/micro_2.jpg"
+import micro_3 from "../../assets/micro/micro_3.jpg"
+import micro_4 from "../../assets/micro/micro_4.jpg"
 
-import mobile_1 from "../../assets/mobilediffusers/cell_1.jpg"
-import mobile_2 from "../../assets/mobilediffusers/cell_2.jpg"
-import mobile_3 from "../../assets/mobilediffusers/cell_3.jpg"
+import attach_1 from "../../assets/attach/attach_1.jpeg"
+import attach_2 from "../../assets/attach/attach_2.jpeg"
+import attach_3 from "../../assets/attach/attach_3.jpeg"
+import attach_4 from "../../assets/attach/attach_4.jpeg"
 
-import hand_1 from "../../assets/handheld/hand_1.jpg"
-import hand_2 from "../../assets/handheld/hand_2.jpg"
-import hand_3 from "../../assets/handheld/hand_3.JPG"
-import hand_4 from "../../assets/handheld/hand_4.jpg"
-import hand_5 from "../../assets/handheld/hand_5.jpg"
-import hand_6 from "../../assets/handheld/hand_6.jpg"
-import hand_8 from "../../assets/handheld/hand_8.jpg"
-import hand_9 from "../../assets/handheld/hand_9.jpg"
-import hand_11 from "../../assets/handheld/hand_11.jpg"
+import hand_1 from "../../assets/hand/hand_1.jpeg"
+import hand_2 from "../../assets/hand/hand_2.jpeg"
+import hand_3 from "../../assets/hand/hand_3.jpeg"
+import hand_4 from "../../assets/hand/hand_4.jpeg"
 
-const telescope_images = [{ original: tele_0 }, { original: tele_1 }, { original: tele_2 }, { original: tele_5 }, { original: tele_6 }, { original: tele_7 }, { original: tele_8 }];
-const hand_images = [{ original: hand_1 }, { original: hand_2 }, { original: hand_3 }, { original: hand_4 }, { original: hand_5 }, { original: hand_6 }, { original: hand_8 }, { original: hand_9 }, { original: hand_11 }];
-const mobile_images = [{ original: mobile_1 }, { original: mobile_2 }, { original: mobile_3 }]
-const cube_images = [{ original: cube_1 }, { original: cube_2 }, { original: cube_3 }, { original: cube_4 }, { original: cube_5 }, { original: cube_6 }, { original: cube_7 }, { original: cube_8 }, { original: cube_9 }, { original: cube_10 }]
+const telescope_images = [{ original: astro_1 }, { original: astro_2 }, { original: astro_3 }, { original: astro_4 }, { original: astro_5 }, { original: astro_6 }, { original: astro_7 }];
+const hand_images = [{ original: hand_1 }, { original: hand_2 }, { original: hand_3 }, { original: hand_4 }];
+const mobile_images = [{ original: attach_1 }, { original: attach_2 }, { original: attach_3 }, { original: attach_4 }]
+const micro_images = [{ original: micro_1},{ original:micro_2},{ original:micro_3},{ original:micro_4}]
 
 const OrderItem = ({ item, removeOrder }) => {
     return (
@@ -47,7 +37,7 @@ const OrderItem = ({ item, removeOrder }) => {
             <div className="item-image">
                 {item.itemType == 0 && <ImageGallery items={mobile_images} showPlayButton={false} slideDuration={0} />}
                 {item.itemType == 1 && <ImageGallery items={telescope_images} showPlayButton={false} slideDuration={0} />}
-                {item.itemType == 2 && <ImageGallery items={cube_images} showPlayButton={false} slideDuration={0} />}
+                {item.itemType == 2 && <ImageGallery items={micro_images} showPlayButton={false} slideDuration={0} />}
                 {item.itemType == 3 && <ImageGallery items={hand_images} showPlayButton={false} slideDuration={0} />}
             </div>
             <div className="item-details">
@@ -62,7 +52,7 @@ const OrderItem = ({ item, removeOrder }) => {
                     </p>}
                     {item.itemType == 1 && <p>
                         Intrinsic imaging with telescopes requires a diffuser system that can move the Diffuser in and out of the path between the field of view and the lens of the objective telescope without disturbing the position of the target in the image. The AstroDiffuserTM System connects the system via a standard USB to a computer and the control software may be opened on the desktop. The system is controllable from a computer at the location of the telescope or remotely from thousands of miles over the internet. <br /> <br />
-                        Cameras that have large objective lenses, such as telescopes and Telescopic cameras may require a remote-control Diffuser so that the field of view remains steady when obtaining the focused and diffused image set, especially when done by remote operation via computer. These Diffusers have a control box that connects directly to the computer through a USB plug and to the Diffuser unit via an ethernet cable.
+                        Cameras that have large objective lenses, such as telescopes and Telescopic cameras may require a remote-control Diffuser so that the field of view remains steady when obtaining the Original and Diffused image set, especially when done by remote operation via computer. These Diffusers have a control box that connects directly to the computer through a USB plug and to the Diffuser unit via an ethernet cable.
                     </p>}
                     {item.itemType == 2 && <p>
                         Intrinsic imaging can easily be performed with any microscope that has a digital camera. Choose a field of view, focus, and take an image. Stereoscopes can use Handheld Diffusers of appropriate diameter. Then place the MicroDiffuserTM over the specimen and take a Diffused image of the same field of view. This image set can then be entered into the Intrinsic Processing program.  <br /><br />

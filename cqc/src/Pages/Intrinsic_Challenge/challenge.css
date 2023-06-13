@@ -1,12 +1,16 @@
 .Challenge {
-    padding: 2rem  20rem ;
-    color: black;
-    background: white;
+    padding: 2rem 10rem;
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    overflow: hidden;
+
+    background-color: white;
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: url(back.jpeg);
 }
 .BlackBox{
     margin:0rem -20rem;
@@ -31,6 +35,12 @@
 .Challenge h1 {
     font-size: 40px;
     margin-top: 0;
+}
+
+.TextBox{
+    width: 60%;
+    align-self: center;
+    color: black;
 }
 
 .TextBlock {
@@ -193,4 +203,28 @@
     .Challenge h1 {
         font-size: 28px;
     }
+}
+
+.challange_submissions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 60%;
+    align-self: center;
+}
+
+.challange_submission_image {
+    height: auto;
+    width: 50%;
+}
+
+.challange_submission_image img {
+    height: 600px;
+    width: auto;
+}
+
+.challange_submission_button {
+    height: auto;
+    width: 1rem;
 }

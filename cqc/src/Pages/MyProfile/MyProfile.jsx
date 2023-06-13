@@ -24,6 +24,7 @@ const MyProfile = () => {
     const [newState, setNewState] = useState("");
     const [newZipCode, setNewZipCode] = useState("");
     const [newPhoneNumber, setNewPhoneNumber] = useState("")
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const [adressError, setAddressError] = useState(false);
     const [stateError, setStateError] = useState(false);
@@ -64,6 +65,10 @@ const MyProfile = () => {
                 setPhoneNumber(response.data.phoneNumber)
                 setNewPhoneNumber(response.data.phoneNumber)
                 setTokens(response.data.tokens)
+
+                if(response.data.admin!= undefined && response.data.admin!=null && response.data.admin==true){
+                    setIsAdmin(true);
+                }
             }
         } catch (error) {
             console.log(error);
@@ -201,6 +206,13 @@ const MyProfile = () => {
                             <td>Processing Tokens:</td>
                             <td>{tokens}</td>
                         </tr>
+                        {
+                            isAdmin &&
+                            <tr>
+                                <td>Admin Panel</td>
+                                <td><button className="link-btn" onClick={() => { navigate("/Admin") }} >Go To Admin</button></td>
+                            </tr>
+                        }
 
 
                     </table>

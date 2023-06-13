@@ -1,0 +1,119 @@
+.Admin {
+    padding: 2rem 10rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    background-color: white;
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: url(back.jpeg);
+}
+
+.admin_submissions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 60%;
+    align-self: center;
+}
+
+.admin_image {
+    height: auto;
+    width: 50%;
+}
+
+.admin_image img {
+    height: 600px;
+    width: auto;
+}
+
+.admin_button {
+    height: auto;
+    width: 1rem;
+}
+
+.Admin h1 {
+    font-size: 40px;
+    margin-top: 0;
+}
+
+.TextBox{
+    width: 60%;
+    align-self: center;
+    color: black;
+}
+
+.TextBlock {
+    padding: 1rem;
+    text-align: left;
+    font-size: large;
+}
+.TextBlock {
+    font-size: large;
+}
+.TextBlock h2,
+.H2 {
+    margin-bottom: 1rem;
+}
+.H2 {
+    font-size: 27px;
+}
+
+.TextBlock p {
+    font-size: 22px;
+}
+
+.TextBlock ol {
+    padding-left: 2rem;
+}
+
+.TextBlock li {
+    font-size: 22px;
+}
+
+
+.admin_services {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 22rem;
+    border-radius: 5px;
+    border: 1px solid black;
+    background:  rgb(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+  }
+
+  .admin-form-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin_input_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 2rem;
+    width: 20rem;
+    color: black;
+}
+
+.admin_spin {
+    display: flex;
+    width: 10rem;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .Admin_Second_row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex: 75%;
+  }

@@ -11,43 +11,39 @@ import Gallery  from '../../Component/Gallery/Gallery'
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
-import tele_0 from "../../assets/telescope/tele_0.jpg"
-import tele_1 from "../../assets/telescope/tele_1.jpg"
-import tele_2 from "../../assets/telescope/tele_2.jpg"
-import tele_5 from "../../assets/telescope/tele_5.jpg"
-import tele_6 from "../../assets/telescope/tele_6.jpg"
-import tele_7 from "../../assets/telescope/telescope_1.jpg"
-import tele_8 from "../../assets/telescope/telescope_2.jpg"
+import astro_1 from "../../assets/astro/astro_1.jpeg"
+import astro_2 from "../../assets/astro/astro_2.jpeg"
+import astro_3 from "../../assets/astro/astro_3.jpeg"
+import astro_4 from "../../assets/astro/astro_4.jpeg"
+import astro_5 from "../../assets/astro/astro_5.jpeg"
+import astro_6 from "../../assets/astro/astro_6.jpeg"
+import astro_7 from "../../assets/astro/astro_7.jpeg"
 
-import cube_1 from "../../assets/cube/cube_1.jpeg"
-import cube_2 from "../../assets/cube/cube_2.jpg"
-import cube_3 from "../../assets/cube/cube_3.jpg"
-import cube_4 from "../../assets/cube/cube_4.jpg"
-import cube_5 from "../../assets/cube/cube_5.jpg"
-import cube_6 from "../../assets/cube/cube_6.jpg"
-import cube_7 from "../../assets/cube/cube_7.jpg"
-import cube_8 from "../../assets/cube/micro-new-1.jpg"
-import cube_9 from "../../assets/cube/micro-new-2.jpg"
-import cube_10 from "../../assets/cube/micro-new-3.jpg"
 
-import mobile_1 from "../../assets/mobilediffusers/cell_1.jpg"
-import mobile_2 from "../../assets/mobilediffusers/cell_2.jpg"
-import mobile_3 from "../../assets/mobilediffusers/cell_3.jpg"
+import micro_1 from "../../assets/micro/micro_1.jpg"
+import micro_2 from "../../assets/micro/micro_2.jpg"
+import micro_3 from "../../assets/micro/micro_3.jpg"
+import micro_4 from "../../assets/micro/micro_4.jpg"
 
-import hand_1 from "../../assets/handheld/hand_1.jpg"
-import hand_2 from "../../assets/handheld/hand_2.jpg"
-import hand_3 from "../../assets/handheld/hand_3.JPG"
-import hand_4 from "../../assets/handheld/hand_4.jpg"
-import hand_5 from "../../assets/handheld/hand_5.jpg"
-import hand_6 from "../../assets/handheld/hand_6.jpg"
-import hand_8 from "../../assets/handheld/hand_8.jpg"
-import hand_9 from "../../assets/handheld/hand_9.jpg"
-import hand_11 from "../../assets/handheld/hand_11.jpg"
+import attach_1 from "../../assets/attach/attach_1.jpeg"
+import attach_2 from "../../assets/attach/attach_2.jpeg"
+import attach_3 from "../../assets/attach/attach_3.jpeg"
+import attach_4 from "../../assets/attach/attach_4.jpeg"
 
-const telescope_images = [tele_0,tele_1,tele_2,tele_5,tele_6,tele_7,tele_8];
-const hand_images = [hand_1,hand_2,hand_3,hand_4,hand_5,hand_6,hand_8,hand_9,hand_11];
-const mobile_images = [ mobile_1, mobile_2,mobile_3 ]
-const cube_images = [cube_1,cube_2,cube_3,cube_4,cube_5,cube_6,cube_7,cube_8,cube_9,cube_10]
+import hand_1 from "../../assets/hand/hand_1.jpeg"
+import hand_2 from "../../assets/hand/hand_2.jpeg"
+import hand_3 from "../../assets/hand/hand_3.jpeg"
+import hand_4 from "../../assets/hand/hand_4.jpeg"
+
+
+import silver_token from "../../assets/silver_token.gif"
+
+const astro_images = [astro_1,astro_2,astro_3,astro_4,astro_5,astro_6,astro_7];
+const hand_images = [hand_1,hand_2,hand_3,hand_4];
+const attach_images = [ attach_1,attach_2,attach_3,attach_4 ]
+const micro_images = [micro_1,micro_2,micro_3,micro_4]
+
+const s_token = [silver_token]
 
 const Web = (props, signedIn, userEmail) => {
 
@@ -396,11 +392,11 @@ const Web = (props, signedIn, userEmail) => {
             </div>
 
             <div className="web_diffuser_section">
-                <h1><b>AttachableDiffusers</b><sup>TM</sup></h1>
+                <h1><b>AttachableDiffusers</b><sup className='supBig'>TM</sup></h1>
                 <div className='image_text_row'>
-                    <div className="web_tele_img"><Gallery images={mobile_images}/></div>
+                    <div className="web_tele_img"><Gallery images={attach_images}/></div>
                     <p>
-                        Cell phones and tablets come in many different sizes and configurations. The AttachableDiffusers<sup>TM</sup> are designed to accommodate most every cell phone and tablet. They easily attached below the camera lens and may be flipped up into position with one finger to cover the lens to take a diffuse image. Refer to the Tutorial Page for details of how to use each of the Products.
+                        Cell phones and tablets come in many different sizes and configurations. The AttachableDiffusers<sup className='supSmall'>TM</sup> are designed to accommodate most every cell phone and tablet. They easily attached below the camera lens and may be flipped up into position with one finger to cover the lens to take a diffuse image. Refer to the Tutorial Page for details of how to use each of the Products.
                     </p>
                 </div>
                 <h3><b>Available in packs of</b>: </h3>
@@ -443,15 +439,15 @@ const Web = (props, signedIn, userEmail) => {
             </div>
 
             <div className="web_hand_section">
-                <h1><b>HandheldDiffusers </b><sup>TM</sup></h1>
+                <h1><b>HandheldDiffusers</b><sup className='supBig'>TM</sup></h1>
                 <div className='image_text_row'>
                     <div className="web_tele_img"><Gallery images={hand_images}/></div>
                     <p>
-                        For situations where AttachableDiffusers<sup>TM</sup> are not appropriate for the situation, HandheldDiffusers<sup>TM</sup> may be used to obtain the diffuse images. The most common situation is when the camera is mounted on a tripod and exposure periods are less than of 10 seconds. The HandheldDiffuser<sup>TM</sup> is simply held close to the camera lens without touching it during the exposure. This procedure ensures that the field of view is the same for the Original and Diffuse image.
+                        For situations where AttachableDiffusers<sup className='supSmall'>TM</sup> are not appropriate for the situation, HandheldDiffusers<sup className='supSmall'>TM</sup> may be used to obtain the diffuse images. The most common situation is when the camera is mounted on a tripod and exposure periods are less than of 10 seconds. The HandheldDiffuser<sup className='supSmall'>TM</sup> is simply held close to the camera lens without touching it during the exposure. This procedure ensures that the field of view is the same for the Original and Diffuse image.
                     </p>
                 </div>
                
-                <h3><b>The following framed Handheld Diffusers<sup>TM</sup> are available</b>: </h3>
+                <h3><b>The following framed Handheld Diffusers<sup className='supSmall'>TM</sup> are available</b>: </h3>
                 <table>
                     <tr>
                         <td>Diameter 101 mm (4 in) + 20 Tokens</td>
@@ -491,22 +487,22 @@ const Web = (props, signedIn, userEmail) => {
 
 
             <div className="web_micro_section">
-                <h1><b>MicroDiffusers</b><sup>TM</sup></h1>
+                <h1><b>MicroDiffusers</b><sup className='supBig'>TM</sup></h1>
                 <div className='image_text_row'>
-                    <div className="web_tele_img"><Gallery images={cube_images} /></div>
+                    <div className="web_tele_img"><Gallery images={micro_images} /></div>
                     <p>
-                    Intrinsic imaging can easily be performed with any microscope that has a digital camera. Choose a field of view, focus, and take an image. When using objective lenses of 10x or below, place the framed MicroDiffuser<sup>TM</sup> on microscope slide, and take a diffuse image. When using objective lenses greater than 10x where the framed MicroDiffuser<sup>TM</sup> cannot fit under the objective lens, slip the Diffuser with the white hand tab between the objective lens and the microscope slide and take a diffuse image. Imaging with stereo microscopes can use HandheldDiffusers of appropriate diameter.
+                    Intrinsic imaging can easily be performed with any microscope that has a digital camera. Choose a field of view, focus, and take an image. When using objective lenses of 10x or below, place the framed MicroDiffuser<sup className='supSmall'>TM</sup> on microscope slide, and take a diffuse image. When using objective lenses greater than 10x where the framed MicroDiffuser<sup className='supSmall'>TM</sup> cannot fit under the objective lens, slip the Diffuser with the white hand tab between the objective lens and the microscope slide and take a diffuse image. Imaging with stereo microscopes can use HandheldDiffusers of appropriate diameter.
                       </p>
             
                 </div>
-                <h3><b>A set of MicroDiffusersTM contain two framed MicroDiffusers and two frameless MicroDiffusers. </b>: </h3>
+                <h3><b>A set of MicroDiffusers<sup className='supSmall'>TM</sup> contain two framed MicroDiffusers and two frameless MicroDiffusers. </b>: </h3>
                 <table>
                     <tr>
                         <td>$20.00 USD</td>
                         <td><input type="radio" checked={micro==0} onChange={() => setMicro(0)} /></td>
                     </tr>
                 </table>
-                <h3>Contact us for custom sized MicroDiffusersTM</h3>
+                <h3>Contact us for custom sized MicroDiffusers<sup className='supSmall'>TM</sup></h3>
                 {
                     microOrdered ?
                     <div className="web_button_row">
@@ -519,12 +515,12 @@ const Web = (props, signedIn, userEmail) => {
             </div>
 
             <div className="web_tele_section">
-                <h1><b>AstroDiffusers</b><sup>TM</sup></h1>
+                <h1><b>AstroDiffusers</b><sup className='supBig'>TM</sup></h1>
                 <h1><b>(Telescopes and Telephoto Cameras)</b></h1>
                 <div className='image_text_row'>
-                <div className="web_tele_img"><Gallery images={telescope_images} /></div>
+                <div className="web_tele_img"><Gallery images={astro_images} /></div>
                     <p>
-                        Intrinsic astro-imaging controlled by computer where a Diffuser is remotely moved in and out of the path between the field of view and the lens of the objective telescope. Our AstroDiffuser<sup>TM</sup> System connects the control box to a computer via a standard USB and is controlled by AstroDiffuser<sup>TM</sup> software that appears on the desktop. The AstroDiffuser Unit attaches to the object end of the telescope via a Velcro band. The system is powered by a 5 – 12v DC source.
+                        Intrinsic astro-imaging controlled by computer where a Diffuser is remotely moved in and out of the path between the field of view and the lens of the objective telescope. Our AstroDiffuser<sup className='supSmall'>TM</sup> System connects the control box to a computer via a standard USB and is controlled by AstroDiffuser<sup className='supSmall'>TM</sup> software that appears on the desktop. The AstroDiffuser Unit attaches to the object end of the telescope via a Velcro band. The system is powered by a 5 – 12v DC source.
                     </p>
                 </div>
                 <h3><b>Available for telescopes and cameras with the following Objective lenses</b>: </h3>
@@ -554,7 +550,7 @@ const Web = (props, signedIn, userEmail) => {
                         <td><input type="radio" checked={telescope==7} onChange={() => setTelescope(7)} />Black</td>
                     </tr>
                 </table>
-                <h3>Contact us for custom sized AstroDiffuser SystemsTM</h3>
+                <h3>Contact us for custom sized AstroDiffuser Systems<sup className='supSmall'>TM</sup></h3>
                 {
                     telescopeOrdered ?
                     <div className="web_button_row">
@@ -570,8 +566,13 @@ const Web = (props, signedIn, userEmail) => {
 
             <div className="web_token_section">
                 <h1>Intrinsic Processing Tokens</h1>
-                <p>Tokens provide the pathway to Intrinsic Processing. Each Token processes one Original and Diffuse image set. To help participants get started, at least 2 free Tokens are included with every purchase from the Web Shop.</p>
-                <p>Image sets can be processed on this website using one Token per image set. Tokens may be purchased in quantities listed below. As you process image sets, your balance of Tokens is displayed in youjr account profile as well as on the processing page.</p>
+                <div className='image_text_row_coin'>
+                    <img src={silver_token} alt="Gallery" />
+                </div>
+                
+                <div className='image_text_row_coin'>
+                    <p>Tokens provide the pathway to Intrinsic Processing. Each Token processes one Original and Diffuse image set. To help participants get started, at least 2 free Tokens are included with every purchase from the Web Shop. <br/><br/> Image sets can be processed on this website using one Token per image set. Tokens may be purchased in quantities listed below. As you process image sets, your balance of Tokens is displayed in youjr account profile as well as on the processing page.</p>
+                </div>
                 <h3><b>Tokens are available in the following Packets</b>: </h3>
                 <table>
                     <tr>

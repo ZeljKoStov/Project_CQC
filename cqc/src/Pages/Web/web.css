@@ -166,10 +166,6 @@
     font-weight: normal;
 }
 
-.web_diffuser_section sup{
-    font-size: 16px;
-}
-
 .web_diffuser_img {
     width: 400px;
     align-self: center;
@@ -234,9 +230,6 @@
     font-weight: normal;
 }
 
-.web_tele_section sup{
-    font-size: 16px;
-}
 .web_tele_img {
     width: 400px;
     align-self: center;
@@ -280,9 +273,6 @@
     font-weight: normal;
 }
 
-.web_micro_section sup{
-    font-size: 16px;
-}
 .web_micro_section table {
     width: 400px;
     align-self: center;
@@ -316,6 +306,15 @@
     gap: 2rem;
 }
 
+.image_text_row_coin{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    width: 75%;
+    justify-content: center;
+    gap: 1rem;
+}
+
 
 .web_hand_section{
     display: flex;
@@ -334,10 +333,6 @@
 
 .web_hand_section h1{
     font-weight: normal;
-}
-
-.web_hand_section sup{
-    font-size: 16px;
 }
 
 .web_hand_section p {
@@ -361,7 +356,7 @@
     flex-direction: column;
     padding-top: 20px;
     justify-content: top;
-    height: 42rem;
+    height: 60rem;
     align-self: center;
     color: black;
     margin-top: 30px;
@@ -375,16 +370,8 @@
     font-weight: normal;
 }
 
-.web_token_section sup{
-    font-size: 16px;
-}
-
 .web_diffuser_section h1{
     font-weight: normal;
-}
-
-.web_diffuser_section sup{
-    font-size: 16px;
 }
 
 .web_token_section table {
@@ -403,3 +390,10 @@
     text-align: justify;
 }
 
+.supBig {
+    font-size: 16px;
+}
+
+.supSmall {
+    font-size: 8px;
+}

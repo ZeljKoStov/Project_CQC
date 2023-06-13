@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import './image_Submission.css'
 import submission_image from '../../assets/Submission.png';
 import { RequestAPI } from '../../utils/request-api'
-import { submit } from '../../api/api'
+import { getSubs, submit } from '../../api/api'
+
 
 const Submission = ({ userEmail }) => {
 
@@ -13,9 +14,9 @@ const Submission = ({ userEmail }) => {
     navigate(path);
   }
 
-  const [diffused, setDiffused] = useState();
-  const [focused, setFocused] = useState();
-  const [intrinsic, setIntrinsic] = useState();
+  const [diffused, setDiffused] = useState(null);
+  const [focused, setFocused] = useState(null);
+  const [intrinsic, setIntrinsic] = useState(null);
   const [ext, setExt] = useState("");
   const [subject, setSubject] = useState("");
   const [desc, setDesc] = useState("");
@@ -85,34 +86,34 @@ const Submission = ({ userEmail }) => {
         </div>
         <div className='Submission_Subject'>
           <h3>Subject Matter of the Images</h3>
-          <input
-            type="text"
+          <textarea
+            className='subbmission_text_block'
             value={subject}
             onChange={onSubjectChanged}
           />
         </div>
         <div className='Submission_Description'>
           <h3>Description of the Field of View and Camera Settings</h3>
-          <input
-            type="text"
+          <textarea
+            className='subbmission_text_block'
             value={desc}
             onChange={onDescChanged}
           />
         </div>
         <div className='Submission_Upload'>
           <div className="input_item">
-            <p>Diffused Image Submission</p>
+            <p>Original Image Submission</p>
             <input
               type="file"
-              onChange={onSelectDiffused}
+              onChange={onSelectFocused}
               multiple
             />
           </div>
           <div className="input_item">
-            <p>Focused Image Submission</p>
+            <p>Diffused Image Submission</p>
             <input
               type="file"
-              onChange={onSelectFocused}
+              onChange={onSelectDiffused}
               multiple
             />
           </div>
@@ -126,23 +127,33 @@ const Submission = ({ userEmail }) => {
           </div>
         </div>
 
-        <div className="Second_row">
-          <div className="image_row">
-            <div className='cqc__p'><p>Diffused Image</p>  </div>
-            {diffused && <a href={URL.createObjectURL(diffused)} target="_blank" rel="noreferrer"><img src={URL.createObjectURL(diffused)} className="image_preview" alt="reload" /></a>}
+        {
+          (diffused != null || intrinsic != null || focused != null) &&
+          <div className="Second_row">
+            <div className="image_row">
+              <div className='cqc__p'><p>Original Image</p>  </div>
+              {focused && <a href={URL.createObjectURL(focused)} target="_blank" rel="noreferrer"><img src={URL.createObjectURL(focused)} className="image_preview" alt="reload" /></a>}
+            </div>
+            <div className="image_row">
+              <div className='cqc__p'><p>Diffused Image</p>  </div>
+              {diffused && <a href={URL.createObjectURL(diffused)} target="_blank" rel="noreferrer"><img src={URL.createObjectURL(diffused)} className="image_preview" alt="reload" /></a>}
+            </div>
+            <div className="image_row">
+              <div className='cqc__p'><p>Intrinsic Image</p>  </div>
+              {intrinsic && <a href={URL.createObjectURL(intrinsic)} target="_blank" rel="noreferrer"><img src={URL.createObjectURL(intrinsic)} className="image_preview" alt="reload" /></a>}
+            </div>
           </div>
-          <div className="image_row">
-            <div className='cqc__p'><p>Focused Image</p>  </div>
-            {focused && <a href={URL.createObjectURL(focused)} target="_blank" rel="noreferrer"><img src={URL.createObjectURL(focused)} className="image_preview" alt="reload" /></a>}
-          </div>
-          <div className="image_row">
-            <div className='cqc__p'><p>Intrinsic Image</p>  </div>
-            {intrinsic && <a href={URL.createObjectURL(intrinsic)} target="_blank" rel="noreferrer"><img src={URL.createObjectURL(intrinsic)} className="image_preview" alt="reload" /></a>}
-          </div>
-        </div>
+        }
+
         <div className='sub'>
+          {
+            diffused != null && intrinsic != null && focused != null && userEmail != "" ?
+              <button className='Sub' onClick={(e) => onSubmit(e)}>Submit</button>
+              :
+              <div className='cqc__p'><p>Please sign in to your account and enter all the images to Submit</p></div>
+          }
           <button className='Back' onClick={routeChange}>Back</button>
-          <button className='Sub' onClick={(e) => onSubmit(e)}>Submit</button>
+
         </div>
       </div>
     </div>

@@ -10,3 +10,4 @@ export {default as Web} from './Web/Web';
 export {default as MyProfil} from './MyProfile/MyProfile'
 export {default as Checkout} from  './Checkout/Checkout'
 export {default as Orders} from './Orders/Orders'
+export {default as Admin} from './Admin/Admin'

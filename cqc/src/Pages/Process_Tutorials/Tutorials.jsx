@@ -24,7 +24,7 @@ const Tutorials = () => {
       <br />
 
       <h2>Obtaining Image Sets</h2>
-      <p>Producing an Intrinsic image requires a set of Focused and Diffused images of the same field of view. The images are taken one after the other to insure that the camera settings, environmental conditions and field of view are the same for both exposures. </p>
+      <p>Producing an Intrinsic image requires a set of Original and Diffused images of the same field of view. The images are taken one after the other to insure that the camera settings, environmental conditions and field of view are the same for both exposures. </p>
       <ol>
         <li>Have the Diffusing element such that the diffusing material can cover and uncover the camera lens. </li>
         <li>Set the camera to the desired the exposure parameters. </li>
@@ -48,16 +48,16 @@ const Tutorials = () => {
         <li>Sign in</li>
         <li>Press the Image Processing button</li>
       </ol>
-      <p>All image sets that have not been processed will be processed and saved (Focused, Diffused and Intrinsic) in the Intrinsic Images folder that is automatically generated on your cell phone.</p>
+      <p>All image sets that have not been processed will be processed and saved (Original, Diffused and Intrinsic) in the Intrinsic Images folder that is automatically generated on your cell phone.</p>
       <p><i>For Computers</i></p>
       <ol>
         <li>Sign in</li>
         <li>Press the Image Processing button</li>
-        <li>Upload and review the Focused and Diffused image sets by navigating to their location in the computer.</li>
+        <li>Upload and review the Original and Diffused image sets by navigating to their location in the computer.</li>
         <li>Name the image set for future reference.</li>
         <li>Press the Process button, or enter additional image sets for batch processing. </li>
       </ol>
-      <p>All image sets that have not been processed will be processed and saved (Focused, Diffused and Intrinsic) in the Intrinsic Images folder that is automatically generated in your computer.</p>
+      <p>All image sets that have not been processed will be processed and saved (Original, Diffused and Intrinsic) in the Intrinsic Images folder that is automatically generated in your computer.</p>
 
     </div>
   )

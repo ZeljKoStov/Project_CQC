@@ -21,6 +21,8 @@ const Gallery = ({ images }) => {
         setIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
       };
 
+
+
     return (
         <div className='gallery'>
             <img src={images[index]} alt="Gallery" onClick={() => {

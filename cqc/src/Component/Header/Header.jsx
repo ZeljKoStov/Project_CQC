@@ -189,10 +189,10 @@ const Header = ({ prop, userEmail }) => {
                     <br />
                     <h1>The Challenge</h1>
                     <ol>
-                        <li>Obtain a Focused and Diffused set of images of a subject interest.</li>
+                        <li>Obtain a Original and Diffused set of images of a subject interest.</li>
                         <li>Process the image set with the Intrinsic Process available in this website.</li>
                         <li>Press the Image Submission button to access the Submission form.</li>
-                        <li>Enter your information in the Submission form and upload your complete image set (Focused, Diffuse and Intrinsic). Also, tell us a little about the subject you submitted and the camera and settings used.</li>
+                        <li>Enter your information in the Submission form and upload your complete image set (Original, Diffuse and Intrinsic). Also, tell us a little about the subject you submitted and the camera and settings used.</li>
                     </ol>
 
                     <button type='button' className='blue_button' onClick={goToSubmission}>Image Submission</button>
