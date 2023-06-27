@@ -98,19 +98,6 @@
 }
 
 
-.cqc__navbar_frst-sign button,
-.cqc__navbar_frst-menu_container button {
-    padding: 0.5rem 1rem;
-    color: #fff;
-    background: #FF4820;
-    
-    
-    line-height: 25px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
 .cqc__navbar_frst-menu {
     margin-left: 1rem;
 
@@ -151,19 +138,6 @@
     align-items: center;
 }
 
-.login_div button{
-    padding: 0.5rem 1rem;
-    color: #fff;
-    background: #FF4820;
-    
-    
-    line-height: 25px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
 .login_div p{
     color: white;
     margin-left: 0.5rem;
@@ -188,6 +162,19 @@
 .biuser :hover {
     cursor: pointer;
 }
+
+.login_button {
+    color: white;
+    background: red;
+    line-height: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 6.5rem;
+}
+
+
 
 @media screen and  (max-width : 1100px) {
     .cqc__navbar-links_container {

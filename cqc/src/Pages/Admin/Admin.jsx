@@ -6,7 +6,8 @@ import { getSubs, getFocused, getDiffused, getIntrinsic } from '../../api/api'
 
 import "./Admin.css"
 
-import f0 from "../../assets/week/f0.jpg"
+
+import f1 from "../../assets/week/week1_f.jpg"
 import { MdClear } from "react-icons/md"
 
 
@@ -15,7 +16,7 @@ const Admin = ({ userEmail }) => {
 
     const [count, setCount] = useState(0)
     const [openModal, setOpenModal] = useState(false);
-    const [imageToShow, setImageToShow] = useState(f0);
+    const [imageToShow, setImageToShow] = useState(f1);
     const [subs, setSubs] = useState([{
         email: "",
         subject: "",

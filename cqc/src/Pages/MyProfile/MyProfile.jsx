@@ -7,8 +7,11 @@ import { details } from '../../api/api'
 import './myProfile.css';
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import silver_token from "../../assets/silver_token.gif"
+
 
 const MyProfile = () => {
+
 
     const [dataFetched, setDataFetched] = useState(false);
     const [name, setName] = useState("");
@@ -66,7 +69,7 @@ const MyProfile = () => {
                 setNewPhoneNumber(response.data.phoneNumber)
                 setTokens(response.data.tokens)
 
-                if(response.data.admin!= undefined && response.data.admin!=null && response.data.admin==true){
+                if (response.data.admin != undefined && response.data.admin != null && response.data.admin == true) {
                     setIsAdmin(true);
                 }
             }
@@ -203,8 +206,18 @@ const MyProfile = () => {
                             <td><button className="link-btn" onClick={() => { navigate("/Orders") }} >View Orders</button></td>
                         </tr>
                         <tr>
-                            <td>Processing Tokens:</td>
-                            <td>{tokens}</td>
+                            <td>
+                                <div className='profile_tokens_row_coin'>
+                                    <img className="token_animation" src={silver_token} alt="Gallery" />
+                                    <p>Processing Tokens: </p>
+                                </div>
+                                
+                                </td>
+                            <td>
+                                <div className='profile_tokens_row_coin'>
+                                    <p>{tokens} </p>
+                                </div>
+                            </td>
                         </tr>
                         {
                             isAdmin &&

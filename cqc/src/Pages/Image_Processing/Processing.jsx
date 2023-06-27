@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileSaver from 'file-saver';
 import JSZip from "jszip"
 import { getCookie } from '../../utils/cookies';
-import { processing } from "../../api/api";
+import { processing, userData } from "../../api/api";
 import { RequestAPI } from "../../utils/request-api";
+import { useNavigate } from "react-router-dom";
 import { Modal } from '../../Component';
 import './Processing.css'
-import { useEffect } from "react";
+import silver_token from "../../assets/silver_token.gif"
 
 
 const Processing = () => {
 
     const [openModal, setOpenModal] = useState(false);
     const [index, setIndex] = useState();
+    const [usersTokens, setUsersTokens] = useState(0);
     const [n, setN] = useState('');
 
     const [imagePairs, setImagePairs] = useState([{
@@ -33,8 +35,39 @@ const Processing = () => {
     }]);
 
     const [loading, setLoading] = useState(false);
+    const [dataFetched, setDataFetched] = useState(false);
     const [processed, setProcesed] = useState(false);
     const [count, setCount] = useState(0)
+
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        if (!dataFetched) {
+            fetchData()
+            setDataFetched(true);
+        }
+    });
+
+    const fetchData = async () => {
+        try {
+
+            const email = getCookie('_email')
+            const body = {
+                email: email
+            }
+            const response = await RequestAPI(userData(body));
+            if (response.status === 200) {
+                setUsersTokens(response.data.tokens)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const goToWebShop = () => {
+        window.scrollTo(0, 0);
+        navigate(`/Web_Shop`);
+    }
 
     const handleImagePairRemove = (index) => {
         const list = [...imagePairs];
@@ -184,7 +217,7 @@ const Processing = () => {
                     formData.append("name", pair.name);
                     formData.append("ext", pair.fext);
                     const email = getCookie('_email')
-                    formData.append("email", email)
+                    formData.append("email", email);
                     try {
                         const response = await RequestAPI(processing(formData));
                         if (response.status === 200) {
@@ -192,12 +225,12 @@ const Processing = () => {
                             const list = [...imagePairs];
 
                             list[index].intrinsic = response.data
-                            console.log(response.data.substring(22));
                             setImagePairs(list);
 
                             updateUI();
 
                             downloadAuto();
+                            
                         }
 
                     } catch (error) {
@@ -227,6 +260,7 @@ const Processing = () => {
         if (flag) {
             setLoading(false);
             setProcesed(true);
+            fetchData()
             zip.generateAsync({ type: "blob" }).then(function (content) {
                 FileSaver.saveAs(content, "intrinsic.zip");
             });
@@ -284,7 +318,7 @@ const Processing = () => {
                                 {pair.exterror && <div className="error_text">The Images you selected have different extensions!</div>}
                             </div>
                             <div className="input_item">
-                                <p>Upload Focused Image</p>
+                                <p>Upload Original Image</p>
                                 <input
                                     type="file"
                                     onChange={(e) => { handleFocusedChange(e, index); }}
@@ -377,6 +411,7 @@ const Processing = () => {
 
                 ))}
                 {openModal && <Modal num={n} ind={index} pair={imagePairs} onClose={() => setOpenModal(false)} />}
+                
                 {processed ?
                     <div className="button_div">
                         <button type="button" onClick={resetImagePairs} className="dodajRed">
@@ -391,11 +426,27 @@ const Processing = () => {
                         <button type="button" onClick={handleServiceAdd} className="dodajRed" disabled={loading}>
                             Add another image pair
                         </button>
-                        <button type="button" onClick={handleSubmit} className="process_button" disabled={loading}>
+                        <button type="button" onClick={handleSubmit} className="process_button" disabled={loading || imagePairs.length>usersTokens}>
                             Process Images
                         </button>
                     </div>
                 }
+                {
+                    imagePairs.length>usersTokens && 
+                        <div className="button_div">
+                            <p className="black_text">Not enough processing tokens!</p>
+                            <button className='blue_button' onClick={(e) => goToWebShop(e)}>Buy more tokens</button>
+                        </div>
+                }
+                <div className="tokens_row">
+                     <p>Image pairs to process: {imagePairs.length} <br/>Available Processing Tokens: {usersTokens}</p>
+                </div>
+
+                <div className="tokens_row">
+                    <div className='tokens_row_coin'>
+                        <img src={silver_token} alt="Gallery" />
+                    </div>
+                </div>
             </div>
         </div>
     )

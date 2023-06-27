@@ -241,13 +241,31 @@ const Web = (props, signedIn, userEmail) => {
         if(hand==0){
             const order = {
                 itemType: 3,
+                item: "Diameter 75 mm (3 in) + 20 Tokens White",
+                tokens: 20,
+                amountInCents: 3000
+            }
+            props.addOrder(order)
+        }
+        if(hand==1){
+            const order = {
+                itemType: 3,
+                item: "Diameter 75 mm (4 in) + 20 Tokens Black",
+                tokens: 20,
+                amountInCents:  3000
+            }
+            props.addOrder(order)
+        }
+        if(hand==2){
+            const order = {
+                itemType: 3,
                 item: "Diameter 101 mm (4 in) + 20 Tokens White",
                 tokens: 20,
                 amountInCents: 3500
             }
             props.addOrder(order)
         }
-        if(hand==1){
+        if(hand==3){
             const order = {
                 itemType: 3,
                 item: "Diameter 101 mm (4 in) + 20 Tokens Black",
@@ -256,7 +274,7 @@ const Web = (props, signedIn, userEmail) => {
             }
             props.addOrder(order)
         }
-        if(hand==2){
+        if(hand==4){
             const order = {
                 itemType: 3,
                 item: "Diameter 130 mm (5 in) + 20 Tokens White",
@@ -265,7 +283,7 @@ const Web = (props, signedIn, userEmail) => {
             }
             props.addOrder(order)
         }
-        if(hand==3){
+        if(hand==5){
             const order = {
                 itemType: 3,
                 item: "Diameter 130 mm (5 in) + 20 Tokens Black",
@@ -274,7 +292,7 @@ const Web = (props, signedIn, userEmail) => {
             }
             props.addOrder(order)
         }
-        if(hand==4){
+        if(hand==6){
             const order = {
                 itemType: 3,
                 item: "Diameter 155 mm (6 in) + 20 Tokens White",
@@ -283,7 +301,7 @@ const Web = (props, signedIn, userEmail) => {
             }
             props.addOrder(order)
         }
-        if(hand==5){
+        if(hand==7){
             const order = {
                 itemType: 3,
                 item: "Diameter 155 mm (6 in) + 20 Tokens Black",
@@ -292,7 +310,7 @@ const Web = (props, signedIn, userEmail) => {
             }
             props.addOrder(order)
         }
-        if(hand==6){
+        if(hand==8){
             const order = {
                 itemType: 3,
                 item: "Diameter 203 mm (8 in) + 20 Tokens White",
@@ -301,7 +319,7 @@ const Web = (props, signedIn, userEmail) => {
             }
             props.addOrder(order)
         }
-        if(hand==7){
+        if(hand==9){
             const order = {
                 itemType: 3,
                 item: "Diameter 203 mm (8 in) + 20 Tokens Black",
@@ -391,6 +409,59 @@ const Web = (props, signedIn, userEmail) => {
                 <p>Obtaining Intrinsic Images requires three elements, a digital camera, a diffuser, and access to an intrinsic processing program. If you have a digital camera, you can acquire the diffuser and access to the Intrinsic processing program from this Web Shop. To show our appreciation of your participation of this novel technology, we have provided you with free processing Tokens with each order. The following <b>Diffusers and Tokens</b> are offered to get you started.</p>
             </div>
 
+            <div className="web_token_section">
+                <h1>Intrinsic Processing Tokens</h1>
+                <div className='image_text_row_coin'>
+                    <img src={silver_token} alt="Gallery" />
+                </div>
+                
+                <div className='image_text_row_coin'>
+                    <p>Tokens provide the pathway to Intrinsic Processing. Each Token processes one Original and Diffuse image set. To help participants get started, at least 2 free Tokens are included with every purchase from the Web Shop. <br/><br/> Image sets can be processed on this website using one Token per image set. Tokens may be purchased in quantities listed below. As you process image sets, your balance of Tokens is displayed in your account profile as well as on the processing page.</p>
+                </div>
+                <h3><b>Tokens are available in the following Packets</b>: </h3>
+                <table>
+                    <tr>
+                        <td>Pack of   10 Tokens + 2</td>
+                        <td>$2.50 USD</td>
+                        <td><input type="radio" checked={token==0} onChange={() => setToken(0)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of    25 Tokens +2</td>
+                        <td>$6.25 USD</td>
+                        <td><input type="radio" checked={token==1} onChange={() => setToken(1)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of    50 Tokens +2</td>
+                        <td>$12.50 USD</td>
+                        <td><input type="radio" checked={token==2} onChange={() => setToken(2)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of    75 Tokens +2</td>
+                        <td>$15.00 USD</td>
+                        <td><input type="radio" checked={token==3} onChange={() => setToken(3)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of   100 Tokens +2</td>
+                        <td>$25.00 USD</td>
+                        <td><input type="radio" checked={token==4} onChange={() => setToken(4)} /></td>
+                    </tr>
+                    <tr>
+                        <td>Pack of   200 Tokens +2</td>
+                        <td>$50.00 USD</td>
+                        <td><input type="radio" checked={token==5} onChange={() => setToken(5)} /></td>
+                    </tr>
+                </table>
+                {
+                    tokenOrdered ?
+                    <div className="web_button_row">
+                        <button className='checkout_button' onClick={()=> setTokenOrdered(false)} >Continue Ordering</button>
+                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
+                    </div>
+                    :
+                    <button className='checkout_button' onClick={()=> addTokenOrder()} >Add to Cart</button>
+                }
+            </div>
+
             <div className="web_diffuser_section">
                 <h1><b>AttachableDiffusers</b><sup className='supBig'>TM</sup></h1>
                 <div className='image_text_row'>
@@ -450,28 +521,34 @@ const Web = (props, signedIn, userEmail) => {
                 <h3><b>The following framed Handheld Diffusers<sup className='supSmall'>TM</sup> are available</b>: </h3>
                 <table>
                     <tr>
-                        <td>Diameter 101 mm (4 in) + 20 Tokens</td>
-                        <td>$35.00 USD</td>
+                        <td>Diameter 75 mm (3 in) + 20 Tokens</td>
+                        <td>$30.00 USD</td>
                         <td><input type="radio" checked={hand==0} onChange={() => setHand(0)} />White</td>
                         <td><input type="radio" checked={hand==1} onChange={() => setHand(1)} />Black</td>
                     </tr>
                     <tr>
+                        <td>Diameter 101 mm (4 in) + 20 Tokens</td>
+                        <td>$35.00 USD</td>
+                        <td><input type="radio" checked={hand==0} onChange={() => setHand(2)} />White</td>
+                        <td><input type="radio" checked={hand==1} onChange={() => setHand(3)} />Black</td>
+                    </tr>
+                    <tr>
                         <td>Diameter 130 mm (5 in) + 20 Tokens</td>
                         <td>$40.00 USD</td>
-                        <td><input type="radio" checked={hand==2} onChange={() => setHand(2)} />White</td>
-                        <td><input type="radio" checked={hand==3} onChange={() => setHand(3)} />Black</td>
+                        <td><input type="radio" checked={hand==2} onChange={() => setHand(4)} />White</td>
+                        <td><input type="radio" checked={hand==3} onChange={() => setHand(5)} />Black</td>
                     </tr>
                     <tr>
                         <td>Diameter 155 mm (6 in) + 20 Tokens</td>
                         <td>$45.00 USD</td>
-                        <td><input type="radio" checked={hand==4} onChange={() => setHand(4)} />White</td>
-                        <td><input type="radio" checked={hand==5} onChange={() => setHand(5)} />Black</td>
+                        <td><input type="radio" checked={hand==4} onChange={() => setHand(6)} />White</td>
+                        <td><input type="radio" checked={hand==5} onChange={() => setHand(7)} />Black</td>
                     </tr>
                     <tr>
                         <td>Diameter 203 mm (8 in) + 20 Tokens</td>
                         <td>$50.00 USD</td>
-                        <td><input type="radio" checked={hand==6} onChange={() => setHand(6)} />White</td>
-                        <td><input type="radio" checked={hand==7} onChange={() => setHand(7)} />Black</td>
+                        <td><input type="radio" checked={hand==6} onChange={() => setHand(8)} />White</td>
+                        <td><input type="radio" checked={hand==7} onChange={() => setHand(9)} />Black</td>
                     </tr>
                 </table>
                 {
@@ -562,60 +639,6 @@ const Web = (props, signedIn, userEmail) => {
                 }
             </div>
 
-
-
-            <div className="web_token_section">
-                <h1>Intrinsic Processing Tokens</h1>
-                <div className='image_text_row_coin'>
-                    <img src={silver_token} alt="Gallery" />
-                </div>
-                
-                <div className='image_text_row_coin'>
-                    <p>Tokens provide the pathway to Intrinsic Processing. Each Token processes one Original and Diffuse image set. To help participants get started, at least 2 free Tokens are included with every purchase from the Web Shop. <br/><br/> Image sets can be processed on this website using one Token per image set. Tokens may be purchased in quantities listed below. As you process image sets, your balance of Tokens is displayed in youjr account profile as well as on the processing page.</p>
-                </div>
-                <h3><b>Tokens are available in the following Packets</b>: </h3>
-                <table>
-                    <tr>
-                        <td>Pack of   10 Tokens + 2</td>
-                        <td>$2.50 USD</td>
-                        <td><input type="radio" checked={token==0} onChange={() => setToken(0)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Pack of    25 Tokens +2</td>
-                        <td>$6.25 USD</td>
-                        <td><input type="radio" checked={token==1} onChange={() => setToken(1)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Pack of    50 Tokens +2</td>
-                        <td>$12.50 USD</td>
-                        <td><input type="radio" checked={token==2} onChange={() => setToken(2)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Pack of    75 Tokens +2</td>
-                        <td>$15.00 USD</td>
-                        <td><input type="radio" checked={token==3} onChange={() => setToken(3)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Pack of   100 Tokens +2</td>
-                        <td>$25.00 USD</td>
-                        <td><input type="radio" checked={token==4} onChange={() => setToken(4)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Pack of   200 Tokens +2</td>
-                        <td>$50.00 USD</td>
-                        <td><input type="radio" checked={token==5} onChange={() => setToken(5)} /></td>
-                    </tr>
-                </table>
-                {
-                    tokenOrdered ?
-                    <div className="web_button_row">
-                        <button className='checkout_button' onClick={()=> setTokenOrdered(false)} >Continue Ordering</button>
-                        <button className='checkout_button' onClick={()=> goToCheckout()} >Go To Checkout</button>
-                    </div>
-                    :
-                    <button className='checkout_button' onClick={()=> addTokenOrder()} >Add to Cart</button>
-                }
-            </div>
         </div>
     )
 }

@@ -55,7 +55,6 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
   }
 
 
-
   useEffect(() => {
     const handleResize = () => {
       setWid(getWindowsDimensions());
@@ -146,14 +145,14 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
                         <BiUser size={"2rem"} color={"white"} />
                       </div>
                       <p >{userName}</p>
-                      <button type='button' onClick={() => { logOut(); changeR() }}>Sign Out</button>
+                      <button type='button' className="login_button" onClick={() => { logOut(); changeR() }}>Sign Out</button>
                     </div>
                   </>
                   :
                   <>
                     <div className='cqc__navbar_frst-sign'>
                       <p><NavLink to='Register'>Register</NavLink></p>
-                      <button type='button' onClick={routeChange}>Sign In</button>
+                      <button type='button' className='login_button' onClick={routeChange}>Sign In</button>
                     </div>
                   </>
                 }
@@ -185,7 +184,7 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
                       </div>
                       <div className='cqc__navbar_frst-menu_containers-links-sign'>
                         <p><Link to='Register'>Register</Link></p>
-                        <button type='button' onClick={routeChange}>Login</button>
+                        <button type='button' className='login_button' onClick={routeChange}>Login</button>
                       </div>
                     </div>
                   )}

@@ -4,26 +4,33 @@ import { useNavigate } from "react-router-dom";
 
 import "./challenge.css"
 
-import i0 from "../../assets/week/i0.jpg"
-import i1 from "../../assets/week/i1.jpg"
-import i2 from "../../assets/week/i2.jpg"
-import i3 from "../../assets/week/i3.jpg"
-import i4 from "../../assets/week/i4.jpg"
-import i5 from "../../assets/week/i5.jpg"
-import i6 from "../../assets/week/i6.jpg"
-import i7 from "../../assets/week/i7.jpg"
-import i8 from "../../assets/week/i8.jpg"
-import i9 from "../../assets/week/i9.jpg"
-import f0 from "../../assets/week/f0.jpg"
-import f1 from "../../assets/week/f1.jpg"
-import f2 from "../../assets/week/f2.jpg"
-import f3 from "../../assets/week/f3.jpg"
-import f4 from "../../assets/week/f4.jpg"
-import f5 from "../../assets/week/f5.jpg"
-import f6 from "../../assets/week/f6.jpg"
-import f7 from "../../assets/week/f7.jpg"
-import f8 from "../../assets/week/f8.jpg"
-import f9 from "../../assets/week/f9.jpg"
+import f1 from "../../assets/week/week1_f.jpg"
+import i1 from "../../assets/week/week1_i.jpg"
+
+import f2 from "../../assets/week/week2_f.jpg"
+import i2 from "../../assets/week/week2_i.jpg"
+
+import f3 from "../../assets/week/week3_f.jpg"
+import i3 from "../../assets/week/week3_i.jpg"
+
+import f4 from "../../assets/week/week4_f.jpg"
+import i4 from "../../assets/week/week4_i.jpg"
+
+import f5 from "../../assets/week/week5_f.jpg"
+import i5 from "../../assets/week/week5_i.jpg"
+
+import f6 from "../../assets/week/week6_f.jpg"
+import i6 from "../../assets/week/week6_i.jpg"
+
+import f7 from "../../assets/week/week7_f.jpg"
+import i7 from "../../assets/week/week7_i.jpg"
+
+import f8 from "../../assets/week/week8_f.jpg"
+import i8 from "../../assets/week/week8_i.jpeg"
+
+import f9 from "../../assets/week/week9_f.jpg"
+import i9 from "../../assets/week/week9_i.jpg"
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Footer, Modal } from '../../Component';
@@ -36,10 +43,10 @@ const Chalange = () => {
 
     const [index, setIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false);
-    const [imageToShow, setImageToShow] = useState(f0);
+    const [imageToShow, setImageToShow] = useState(f1);
 
-    const focused = [f0, f1, f2, f3, f4, f5, f6, f7, f8, f9];
-    const intrinsic = [i0, i1, i2, i3, i4, i5, i6, i7, i8, i9];
+    const focused = [f9, f1, f2, f3, f4, f5, f6, f7, f8 ];
+    const intrinsic = [i9, i1, i2, i3, i4, i5, i6, i7, i8 ];
 
     let navigate = useNavigate();
     const routeChange = () => {
@@ -52,14 +59,14 @@ const Chalange = () => {
 
     return (
         <div className='Challenge'>
-            <h1>Intrinsic Image of the Week</h1>
+            <h1>Intrinsic Images of the Week</h1>
             {
                 index != -1 &&
                 <div className='challange_submissions'>
                     <FontAwesomeIcon
                         icon={faChevronLeft}
                         className="challange_submission_button"
-                        onClick={() => { if (index == 0) { setIndex(9) } else setIndex(index - 1) }}
+                        onClick={() => { if (index == 0) { setIndex(8) } else setIndex(index - 1) }}
                     />
                     <div className='challange_submission_image'>
                         <img src={focused[index]} alt="reload" onClick={() => {
@@ -76,7 +83,7 @@ const Chalange = () => {
                     <FontAwesomeIcon
                         icon={faChevronRight}
                         className="challange_submission_button"
-                        onClick={() => { if (index == 9) { setIndex(0) } else setIndex(index + 1) }}
+                        onClick={() => { if (index == 8) { setIndex(0) } else setIndex(index + 1) }}
                     />
                 </div>
             }

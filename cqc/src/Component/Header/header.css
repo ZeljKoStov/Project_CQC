@@ -137,12 +137,12 @@
     flex-direction: column;
     justify-content: center;
     color: black;
-    height: auto;
+    height: 800px;
     width: 50%;
 }
 
 .header_submission_image img {
-    height: 600px;
+    height: auto;
     width: 100%;
 }
 
