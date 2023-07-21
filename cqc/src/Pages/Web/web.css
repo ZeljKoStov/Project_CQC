@@ -260,7 +260,7 @@
     flex-direction: column;
     padding-top: 20px;
     justify-content: top;
-    height: 55rem;
+    height: 50rem;
     align-self: center;
     color: black;
     margin-top: 30px;
@@ -274,7 +274,7 @@
 }
 
 .web_micro_section table {
-    width: 400px;
+    width: 700px;
     align-self: center;
 }
 

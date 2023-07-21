@@ -3,7 +3,7 @@ import {  Route, Routes ,NavLink  } from 'react-router-dom';
 import { motion} from "framer-motion";
 import { getCookie, setCookie} from './utils/cookies';
 import { Footer, Navbar,Header} from './Component';
-import { Register, Login, Processing, Technology, Tutorials, Challenge, Submission,Web,MyProfil, Checkout, Orders, Admin} from './Pages';
+import { Register, Login, Processing, Technology, Tutorials, Challenge, Submission,Web,MyProfil, Checkout, Orders, Admin, Applications} from './Pages';
 import './App.css'
 import back from "./assets/back.jpeg"
 
@@ -13,6 +13,7 @@ const navigation=[
   {name: 'Process Tutorials', href:'/Process_Tutorials'},
   {name: 'Intrinsic Challenge', href:'/Intrinsic_Challenge'},
   {name: 'Image Processing', href:'/Processing'},
+  {name: 'Applications', href:'/Applications'},
   {name: 'Web Shop', href:'/Web_Shop'},
 ];
 
@@ -176,6 +177,7 @@ const App = () => {
                     <Route path='/Checkout' element={<Checkout orders={orders} setOrders={setOrders} removeOrder={removeOrder}/>}/>
                     <Route path='/Orders' element={<Orders />} />
                     <Route path='/Admin' element={<Admin userEmail={userEmail}/>} />
+                    <Route path='/Applications' element = { <Applications />} />
                   </Routes>
                 </div>
 

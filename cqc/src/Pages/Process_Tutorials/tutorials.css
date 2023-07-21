@@ -1,12 +1,54 @@
 .tutorials {
-    padding: 2rem 20rem 2rem;
     color: black;
-    background: white;
-   
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 100%;
     text-align: center;
+}
+
+.tutorial_container {
+    text-align: center;
+    display: flex;
+    padding: 0rem;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+  }
+
+.tutorials_body {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.tutorials_video_row {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 4rem;
+    margin-bottom: 0rem;
+}
+
+.tutorial_processing_image_sets{
+    width: 100%;
+    align-self: center;
+    align-items: center;
+}
+
+.tutorial_processing_image_sets ol{
+    align-self: center;
+    font-size: 20px;
 }
 
 .tutorials h1 {
@@ -21,6 +63,11 @@
     padding: 1rem 0rem;
 }
 .clip iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.newVideo {
     width: 100%;
     height: 100%;
 }
@@ -42,118 +89,14 @@
     height: 100%;
 }
 
-.textdiv {
-    padding: 1rem;
-    text-align: left;
-    font-size: large;
-}
-.textdiv h2 {
-    margin-bottom: 1rem;
+.att_video {
+    width: 100%;
+    height: 100%;
 }
 
-.textdiv p {
-    font-size: 22px;
+.att_video_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
-
-.textdiv ol {
-    padding-left: 2rem;
-}
-
-.textdiv li {
-    font-size: 22px;
-}
-
-@media screen and  (max-width : 1600px) {
-    .tutorials {
-        padding: 2rem  10rem ;
-    }
-}
-
-@media screen and  (max-width : 1450px) {
-    .tutorials {
-        padding: 2rem  8rem ;
-    }
-}
-
-@media screen and  (max-width : 1100px) {
-    .tutorials {
-        padding: 2rem  5rem ;
-    }
-}
-
-@media screen and  (max-width : 950px) {
-    .tutorials {
-        padding: 2rem  4rem ;
-    }
-}
-
-
-@media screen and (max-width:800px) {
-    .tutorials {
-        padding: 2rem 6rem 2rem;
-    }
-    .textdiv p {
-        font-size: 20px;
-    }
-    .textdiv li {
-        font-size: 20px;
-    }
-}
-
-@media screen and (max-width:700px) {
-    .tutorials {
-        padding: 2rem 4rem 2rem;
-    }
-    .tutorials h1{
-        font-size: 35px;
-    }
-}
-
-@media screen and (max-width:600px) {
-    .tutorials {
-        padding: 2rem 3rem 2rem;
-    }
-    .textdiv h2{
-        font-size: 28px;
-    }
-    .clip_item h2{
-        font-size: 22px;
-    }
-    .textdiv p {
-        font-size: 18px;
-    }
-    .textdiv li {
-        font-size: 18px;
-    }
-}
-
-@media screen and (max-width:500px) {
-    .tutorials {
-        padding: 2rem 2rem 2rem;
-    }
-    .tutorials h1 {
-        font-size: 32px;
-    }
-    .textdiv {
-        padding: 1rem 0rem;
-    }
-    .textdiv h2{
-        font-size: 26px;
-        margin-top: 1rem;
-    }
-    .clip_item h2{
-        font-size: 20px;
-    }
-    .textdiv p {
-        font-size: 16px;
-    }
-    .textdiv li {
-        font-size: 16px;
-    }
-}
-
-@media screen and (max-width:400px) {
-    .tutorials h1 {
-        font-size: 28px;
-    }
-  }

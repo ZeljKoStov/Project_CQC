@@ -81,7 +81,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 22rem;
+    height: 25rem;
+    gap: 4rem;
     border-radius: 5px;
     border: 1px solid black;
     background:  rgb(255, 255, 255, 0.7);
@@ -96,11 +97,11 @@
 
 .admin_input_item{
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
     margin-left: 2rem;
-    width: 20rem;
+    width: 25rem;
     color: black;
 }
 
@@ -116,4 +117,27 @@
     flex-direction: row;
     justify-content: space-around;
     flex: 75%;
+  }
+
+
+.admin__p p {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+    color:black;
+  }
+
+.blueText{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+    color:blue;
+}
+
+  .admin_first_row {
+    margin-top: 5rem;
+    display: flex;
+    width: 23%;
+    flex-direction: column;
+    justify-content: top;
   }

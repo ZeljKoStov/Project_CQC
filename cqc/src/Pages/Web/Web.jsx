@@ -227,7 +227,7 @@ const Web = (props, signedIn, userEmail) => {
         if(micro == 0){
             const order = {
                 itemType: 2,
-                item: "A set of MicroDiffusersTM contain two framed MicroDiffusers and two frameless MicroDiffusers. ",
+                item: "A set of MicroDiffusersTM contain two framed MicroDiffusers and two frameless MicroDiffusers + 20 Tokens ",
                 tokens: 20,
                 amountInCents: 2000
             }
@@ -241,7 +241,7 @@ const Web = (props, signedIn, userEmail) => {
         if(hand==0){
             const order = {
                 itemType: 3,
-                item: "Diameter 75 mm (3 in) + 20 Tokens White",
+                item: "Diameter 75 mm (3 in) + 20 Tokens",
                 tokens: 20,
                 amountInCents: 3000
             }
@@ -250,81 +250,36 @@ const Web = (props, signedIn, userEmail) => {
         if(hand==1){
             const order = {
                 itemType: 3,
-                item: "Diameter 75 mm (4 in) + 20 Tokens Black",
+                item: "Diameter 101 mm (4 in) + 20 Tokens",
                 tokens: 20,
-                amountInCents:  3000
+                amountInCents: 3500
             }
             props.addOrder(order)
         }
         if(hand==2){
             const order = {
                 itemType: 3,
-                item: "Diameter 101 mm (4 in) + 20 Tokens White",
+                item: "Diameter 130 mm (5 in) + 20 Tokens",
                 tokens: 20,
-                amountInCents: 3500
+                amountInCents: 4000
             }
             props.addOrder(order)
         }
         if(hand==3){
             const order = {
                 itemType: 3,
-                item: "Diameter 101 mm (4 in) + 20 Tokens Black",
+                item: "Diameter 155 mm (6 in) + 20 Tokens",
                 tokens: 20,
-                amountInCents:  3500
+                amountInCents: 4500
             }
             props.addOrder(order)
         }
         if(hand==4){
             const order = {
                 itemType: 3,
-                item: "Diameter 130 mm (5 in) + 20 Tokens White",
-                tokens: 20,
-                amountInCents: 4000
-            }
-            props.addOrder(order)
-        }
-        if(hand==5){
-            const order = {
-                itemType: 3,
-                item: "Diameter 130 mm (5 in) + 20 Tokens Black",
-                tokens: 20,
-                amountInCents:  4000
-            }
-            props.addOrder(order)
-        }
-        if(hand==6){
-            const order = {
-                itemType: 3,
-                item: "Diameter 155 mm (6 in) + 20 Tokens White",
-                tokens: 20,
-                amountInCents: 4500
-            }
-            props.addOrder(order)
-        }
-        if(hand==7){
-            const order = {
-                itemType: 3,
-                item: "Diameter 155 mm (6 in) + 20 Tokens Black",
-                tokens: 20,
-                amountInCents:  4500
-            }
-            props.addOrder(order)
-        }
-        if(hand==8){
-            const order = {
-                itemType: 3,
-                item: "Diameter 203 mm (8 in) + 20 Tokens White",
+                item: "Diameter 203 mm (8 in) + 20 Tokens",
                 tokens: 20,
                 amountInCents: 5000
-            }
-            props.addOrder(order)
-        }
-        if(hand==9){
-            const order = {
-                itemType: 3,
-                item: "Diameter 203 mm (8 in) + 20 Tokens Black",
-                tokens: 20,
-                amountInCents:  5000
             }
             props.addOrder(order)
         }
@@ -523,32 +478,27 @@ const Web = (props, signedIn, userEmail) => {
                     <tr>
                         <td>Diameter 75 mm (3 in) + 20 Tokens</td>
                         <td>$30.00 USD</td>
-                        <td><input type="radio" checked={hand==0} onChange={() => setHand(0)} />White</td>
-                        <td><input type="radio" checked={hand==1} onChange={() => setHand(1)} />Black</td>
+                        <input type="radio" checked={hand==0} onChange={() => setHand(0)} />
                     </tr>
                     <tr>
                         <td>Diameter 101 mm (4 in) + 20 Tokens</td>
                         <td>$35.00 USD</td>
-                        <td><input type="radio" checked={hand==0} onChange={() => setHand(2)} />White</td>
-                        <td><input type="radio" checked={hand==1} onChange={() => setHand(3)} />Black</td>
+                        <input type="radio" checked={hand==0} onChange={() => setHand(1)} />
                     </tr>
                     <tr>
                         <td>Diameter 130 mm (5 in) + 20 Tokens</td>
                         <td>$40.00 USD</td>
-                        <td><input type="radio" checked={hand==2} onChange={() => setHand(4)} />White</td>
-                        <td><input type="radio" checked={hand==3} onChange={() => setHand(5)} />Black</td>
+                        <input type="radio" checked={hand==0} onChange={() => setHand(2)} />
                     </tr>
                     <tr>
                         <td>Diameter 155 mm (6 in) + 20 Tokens</td>
                         <td>$45.00 USD</td>
-                        <td><input type="radio" checked={hand==4} onChange={() => setHand(6)} />White</td>
-                        <td><input type="radio" checked={hand==5} onChange={() => setHand(7)} />Black</td>
+                        <input type="radio" checked={hand==0} onChange={() => setHand(3)} />
                     </tr>
                     <tr>
                         <td>Diameter 203 mm (8 in) + 20 Tokens</td>
                         <td>$50.00 USD</td>
-                        <td><input type="radio" checked={hand==6} onChange={() => setHand(8)} />White</td>
-                        <td><input type="radio" checked={hand==7} onChange={() => setHand(9)} />Black</td>
+                        <input type="radio" checked={hand==0} onChange={() => setHand(4)} />
                     </tr>
                 </table>
                 {
@@ -572,9 +522,9 @@ const Web = (props, signedIn, userEmail) => {
                       </p>
             
                 </div>
-                <h3><b>A set of MicroDiffusers<sup className='supSmall'>TM</sup> contain two framed MicroDiffusers and two frameless MicroDiffusers. </b>: </h3>
                 <table>
                     <tr>
+                        <td>Set of MicroDiffusers<sup className='supSmall'>TM</sup> (2 Framed and 2 Frameless) + 20 Tokens</td>
                         <td>$20.00 USD</td>
                         <td><input type="radio" checked={micro==0} onChange={() => setMicro(0)} /></td>
                     </tr>

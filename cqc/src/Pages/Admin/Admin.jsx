@@ -23,10 +23,12 @@ const Admin = ({ userEmail }) => {
         desc: "",
         uuid: "",
         ext: "",
+        createdAt: "",
         focused: null,
         diffused: null,
         intrinsic: null,
     }]);
+    const [currentPage, setCurrentPage] = useState(1);
 
 
     const [dataFetched, setDataFetched] = useState(false);
@@ -38,19 +40,23 @@ const Admin = ({ userEmail }) => {
         }
     });
 
-    useEffect(()=>{
-        console.log("subs")
-        if(subs.length>1 && !imagesFetched){
-
-            console.log("subs L")
-            subs.map((item, index)=>{
-                loadImages(index)
-
-                console.log(index)
+    useEffect(() => {
+        if (subs.length > 1 && !imagesFetched) {
+            subs.slice(currentPage * 10 - 10, currentPage * 10).map((item, index) => {
+                loadImages(currentPage * 10 - 10 + index)
+                console.log("IMAGE LOAD SART "+index)
             });
             setImagesFetched(true);
         }
-    },[subs])
+    }, [subs])
+
+    const load = async (page) => {
+        console.log("PAGE "+page)
+        subs.slice(page * 10 - 10, page * 10).map((item, index) => {
+            loadImages(page * 10 - 10 + index)
+            console.log("IMAGE LOAD SART "+ page * 10 - 10 + index)
+        });
+    }
 
     const fetchData = async () => {
         try {
@@ -60,12 +66,26 @@ const Admin = ({ userEmail }) => {
             const response = await RequestAPI(getSubs(body));
             if (response.status === 200) {
                 const list = response.data.subs
-                setSubs(list);
+                setSubs(list.sort(compareDatesDesc));
             }
         } catch (error) {
             console.log(error);
         }
     }
+
+    function compareDatesDesc(a, b) {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return new Date(dateString).toLocaleString(undefined, options);
+    }
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        load(pageNumber)
+    };
 
     const loadImages = async (index) => {
         try {
@@ -73,13 +93,15 @@ const Admin = ({ userEmail }) => {
                 uuid: subs[index].uuid,
                 ext: subs[index].ext
             }
-            
+
             const responseF = await RequestAPI(getFocused(body));
             const responseD = await RequestAPI(getDiffused(body));
             const responseI = await RequestAPI(getIntrinsic(body));
+
             const list = [...subs];
-            if (responseF.status === 200) { list[index].focused = responseF.data }
+
             if (responseD.status === 200) { list[index].diffused = responseD.data }
+            if (responseF.status === 200) { list[index].focused = responseF.data }
             if (responseI.status === 200) { list[index].intrinsic = responseI.data }
             setSubs(list);
             updateUI();
@@ -102,29 +124,31 @@ const Admin = ({ userEmail }) => {
         <div className='Admin'>
             <h1>Admin Panel</h1>
             <div className="admin-form-field">
-                {subs.map((item, index) => (
+                {subs.slice(currentPage * 10 - 10, currentPage * 10).map((item, index) => (
                     <div key={index} className="admin_services">
-                        <div className="first_row">
-                            <div className="empty_block"></div>
+                        <div className="admin_first_row">
                             <div className="admin_input_item">
-                                <p>Subject</p>
-                                <textarea
-                                    value={item.subject}
-                                    onChange={(e)=>loadImages(index)}
-                                />
+                                <p>ID: </p>
+                                <p>{item.uuid}</p>
                             </div>
                             <div className="admin_input_item">
-                                <p>Description</p>
-                                <textarea
-                                    value={item.desc}
-                                />
+                                <p>Date: </p>
+                                <p>{formatDate(item.createdAt)}</p>
+                            </div>
+                            <div className="admin_input_item">
+                                <p>Subject:</p>
+                                <p>{item.subject}</p>
+                            </div>
+                            <div className="admin_input_item">
+                                <p>Description:</p>
+                                <p>{item.desc}</p>
                             </div>
                         </div>
                         <div className="Admin_Second_row">
                             {
                                 item.focused &&
                                 <div className="image_row">
-                                    <div className='cqc__p'>
+                                    <div className='admin__p'>
                                         <p>Original</p>
                                     </div>
                                     <img src={`${item.focused}`} className="image_preview" alt="reload" onClick={() => {
@@ -142,7 +166,7 @@ const Admin = ({ userEmail }) => {
                             {
                                 item.diffused &&
                                 <div className="image_row">
-                                    <div className='cqc__p'>
+                                    <div className='admin__p'>
                                         <p>Diffused</p>
                                     </div>
                                     <img src={`${item.diffused}`} className="image_preview" alt="reload" onClick={() => {
@@ -161,7 +185,7 @@ const Admin = ({ userEmail }) => {
                             {
                                 item.intrinsic &&
                                 <div className="image_row">
-                                    <div className='cqc__p'>
+                                    <div className='admin__p'>
                                         <p>Intrinsic</p>
                                     </div>
                                     <img src={`${item.intrinsic}`} className="image_preview" alt="reload" onClick={() => {
@@ -180,7 +204,22 @@ const Admin = ({ userEmail }) => {
                         </div>
                     </div>
 
+
+
                 ))}
+
+                <div>
+                    {Array.from({ length: Math.ceil(subs.length / 10) }, (_, index) => (
+                        <button key={index + 1} onClick={() => handlePageChange(index + 1)}>
+                            { currentPage == index + 1 ?
+                                <p  style={{color: "blue"}}>{index + 1}0</p>
+                                :
+                                <p>{index + 1}0</p>
+                            }
+                            
+                        </button>
+                    ))}
+                </div>
 
             </div>
 

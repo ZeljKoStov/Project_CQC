@@ -16,6 +16,7 @@ const navigation = [
   { name: 'Process Tutorials', href: '/Process_Tutorials' },
   { name: 'Intrinsic Challenge', href: '/Intrinsic_Challenge' },
   { name: 'Image Processing', href: '/Processing' },
+  { name: 'Applications', href: '/Applications' },
   { name: 'Web Shop', href: 'Web_Shop' }
 ];
 
