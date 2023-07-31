@@ -1,5 +1,5 @@
-const getBaseUrl = "https://intrinsic-backend.xyz";
-//const getBaseUrl = "http://localhost:3001";
+//const getBaseUrl = "https://intrinsic-backend.xyz";
+const getBaseUrl = "http://localhost:3001";
 
 export const login = (body) => ({
     body,
@@ -71,6 +71,13 @@ export const submit = (body) => ({
     isAuthorize: false,
 });
 
+export const deleteSubmition = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/deleteSubmition`,
+    isAuthorize: false,
+});
+
 export const getSubs = (body) => ({
     body,
     method: 'POST',
@@ -101,8 +108,6 @@ export const getIntrinsic = (body) => ({
 
 export const addOrder = async (email, _orders, address, tokens,totalCost,totalShipping, callback ) => {
     try {
-        console.log("API");
-        console.log(_orders);
         fetch(`${getBaseUrl}/users/order`, {
             method: "POST",
             headers: {
@@ -122,3 +127,24 @@ export const addOrder = async (email, _orders, address, tokens,totalCost,totalSh
         console.log(error);
     }
 }
+
+export const getMyScores = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/getMyScores`,
+    isAuthorize: false,
+});
+
+export const getAllScores = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/getAllScores`,
+    isAuthorize: false,
+});
+
+export const submitScore = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/submitScore`,
+    isAuthorize: false,
+});

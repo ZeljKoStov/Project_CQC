@@ -43,8 +43,6 @@ const App = () => {
   useEffect(()=>{
     const _name = getCookie('_name');
     const _email = getCookie('_email');
-    console.log(_name);
-    console.log(_email)
     if(_name!==" " && _name!==undefined && _name!==null){
       setUserName(_name)
       setUserEmail(_email)

@@ -92,9 +92,9 @@ p {
   }
   .cqc__p p {
     align-items: center;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 600;
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
 .Back {
     margin: 1rem;
@@ -109,6 +109,8 @@ p {
     cursor: pointer;
   }
 
+
+  
 
   
 

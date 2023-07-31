@@ -18,19 +18,27 @@ const MyProfile = () => {
     const [tokens, setTokens] = useState(0);
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
+    const [address2, setAddress2] = useState("");
+    const [city, setCity] = useState("");
     const [state, setState] = useState("");
+    const [country, setCountry] = useState("");
     const [zipCode, setZipCode] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("")
     const [loading, setLoading] = useState(false);
     const [editing, setEditing] = useState(false);
     const [newAddress, setNewAddress] = useState("");
+    const [newAddress2, setNewAddress2] = useState("");
+    const [newCity, setNewCity] = useState("");
     const [newState, setNewState] = useState("");
+    const [newCountry, setNewCountry] = useState("");
     const [newZipCode, setNewZipCode] = useState("");
     const [newPhoneNumber, setNewPhoneNumber] = useState("")
     const [isAdmin, setIsAdmin] = useState(false);
 
     const [adressError, setAddressError] = useState(false);
     const [stateError, setStateError] = useState(false);
+    const [countryError, setCountryError] = useState(false);
+    
     const [zipCodeError, setZipCodeError] = useState(false);
     const [phoneNumberError, setPhoneNumberError] = useState(false);
 
@@ -61,8 +69,14 @@ const MyProfile = () => {
                 setEmail(response.data.email)
                 setAddress(response.data.address)
                 setNewAddress(response.data.address)
+                setAddress2(response.data.address2)
+                setNewAddress2(response.data.address2)
+                setCity(response.data.city)
+                setNewCity(response.data.city)
                 setState(response.data.state)
                 setNewState(response.data.state)
+                setCountry(response.data.country)
+                setNewCountry(response.data.country)
                 setZipCode(response.data.zipCode)
                 setNewZipCode(response.data.zipCode)
                 setPhoneNumber(response.data.phoneNumber)
@@ -81,7 +95,10 @@ const MyProfile = () => {
     const handleEditButton = (e) => {
         e.preventDefault();
         setNewAddress(address)
+        setNewAddress2(address2)
+        setNewCity(city)
         setNewState(state)
+        setNewCountry(country)
         setNewZipCode(zipCode)
         setNewPhoneNumber(phoneNumber)
         setEditing(true);
@@ -94,8 +111,8 @@ const MyProfile = () => {
             if (address === '') setAddressError(true)
             else setAddressError(false)
 
-            if (state === '') setStateError(true)
-            else setStateError(false)
+            if (country === '') setCountryError(true)
+            else setCountryError(false)
 
             if (phoneNumber === '') setPhoneNumberError(true)
             else setPhoneNumberError(false)
@@ -105,7 +122,7 @@ const MyProfile = () => {
 
         } else {
             setAddressError(false)
-            setStateError(false)
+            setCountryError(false)
             setPhoneNumberError(false)
             setZipCodeError(false)
             setLoading(true);
@@ -113,7 +130,10 @@ const MyProfile = () => {
             const detailsObj = {
                 email: email,
                 address: newAddress,
+                address2: newAddress2,
+                city: newCity,
                 state: newState,
+                country: newCountry,
                 zipCode: newZipCode,
                 phoneNumber: newPhoneNumber
             }
@@ -124,7 +144,10 @@ const MyProfile = () => {
                 setEditing(false);
                 if (response.status === 200) {
                     setAddress(newAddress)
+                    setAddress2(newAddress2)
+                    setCity(newCity)
                     setState(newState)
+                    setCountry(newCountry)
                     setZipCode(newZipCode)
                     setPhoneNumber(phoneNumber)
                 }
@@ -172,6 +195,26 @@ const MyProfile = () => {
                             </td>
                         </tr>
                         <tr>
+                            <td>Additional Address:</td>
+                            <td>
+                                {editing ?
+                                    <input type="text" value={newAddress2} onChange={(e) => setNewAddress2(e.target.value)} />
+                                    :
+                                    address2
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>City:</td>
+                            <td>
+                                {editing ?
+                                    <input type="text" value={newCity} onChange={(e) => setNewCity(e.target.value)} />
+                                    :
+                                    city
+                                }
+                            </td>
+                        </tr>
+                        <tr>
                             <td>State:</td>
                             <td>
                                 {editing ?
@@ -192,6 +235,16 @@ const MyProfile = () => {
                             </td>
                         </tr>
                         <tr>
+                            <td>Country:</td>
+                            <td>
+                                {editing ?
+                                    <input type="text" value={newCountry} onChange={(e) => setNewCountry(e.target.value)} />
+                                    :
+                                    country
+                                }
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Phone Number:</td>
                             <td>
                                 {editing ?
@@ -203,7 +256,7 @@ const MyProfile = () => {
                         </tr>
                         <tr>
                             <td>Orders:</td>
-                            <td><button className="link-btn" onClick={() => { navigate("/Orders") }} >View Orders</button></td>
+                            <td><button className="profile-link-btn" onClick={() => { navigate("/Orders") }} >View Orders</button></td>
                         </tr>
                         <tr>
                             <td>
@@ -223,7 +276,7 @@ const MyProfile = () => {
                             isAdmin &&
                             <tr>
                                 <td>Admin Panel</td>
-                                <td><button className="link-btn" onClick={() => { navigate("/Admin") }} >Go To Admin</button></td>
+                                <td><button className="profile-link-btn" onClick={() => { navigate("/Admin") }} >Go To Admin</button></td>
                             </tr>
                         }
 

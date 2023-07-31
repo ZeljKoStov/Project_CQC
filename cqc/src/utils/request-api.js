@@ -6,7 +6,6 @@ export const jsonToQueryString = (json: any) =>
   Object.keys(json).map(key => { return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);}).join('&');
 
 export const RequestAPI = (data) => {
-  console.log(data);
   const { method, url, headerAdditional, params } = data;
   let { body } = data;
 

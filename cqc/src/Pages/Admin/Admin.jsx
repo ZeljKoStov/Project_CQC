@@ -2,21 +2,23 @@ import React, { useState, useEffect } from 'react';
 import Slider from '../../Component/Slider/Slider'
 import { useNavigate } from "react-router-dom";
 import { RequestAPI } from '../../utils/request-api'
-import { getSubs, getFocused, getDiffused, getIntrinsic } from '../../api/api'
+import { getCookie } from '../../utils/cookies';
+import { getSubs, getFocused, getDiffused, getIntrinsic, deleteSubmition, getMyScores, submitScore, getAllScores } from '../../api/api'
 
 import "./Admin.css"
 
 
-import f1 from "../../assets/week/week1_f.jpg"
+import f1 from "../../assets/1st_i.jpg"
 import { MdClear } from "react-icons/md"
 
 
 
-const Admin = ({ userEmail }) => {
+const Admin = () => {
 
     const [count, setCount] = useState(0)
     const [openModal, setOpenModal] = useState(false);
     const [imageToShow, setImageToShow] = useState(f1);
+    const [email, setEmail] = useState('');
     const [subs, setSubs] = useState([{
         email: "",
         subject: "",
@@ -24,15 +26,47 @@ const Admin = ({ userEmail }) => {
         uuid: "",
         ext: "",
         createdAt: "",
+        hidden: true,
         focused: null,
         diffused: null,
         intrinsic: null,
+        score: '',
+        toSave: false,
+        totalScore: 0,
+        numberOfScores: 0
     }]);
     const [currentPage, setCurrentPage] = useState(1);
-
-
     const [dataFetched, setDataFetched] = useState(false);
     const [imagesFetched, setImagesFetched] = useState(false);
+
+
+    const scoreChange = (e, index) => {
+        const value = e.target.value;
+
+        const intValue = parseInt(value, 10);
+        if (!isNaN(intValue) && intValue >= 1 && intValue <= 5) {
+
+            const newSubs = [...subs];
+            newSubs[index].score = intValue
+            newSubs[index].toSave = true
+            setSubs(newSubs)
+        }
+    };
+
+    const saveScore = async (index) => {
+        const body = {
+            email: email,
+            submissionID: subs[index].uuid,
+            score: subs[index].score
+        }
+        const response = await RequestAPI(submitScore(body));
+        if (response.status === 200) {
+            const newSubs = [...subs];
+            newSubs[index].toSave = false
+            setSubs(newSubs)
+        }
+    }
+
     useEffect(() => {
         if (!dataFetched) {
             fetchData()
@@ -44,29 +78,50 @@ const Admin = ({ userEmail }) => {
         if (subs.length > 1 && !imagesFetched) {
             subs.slice(currentPage * 10 - 10, currentPage * 10).map((item, index) => {
                 loadImages(currentPage * 10 - 10 + index)
-                console.log("IMAGE LOAD SART "+index)
             });
             setImagesFetched(true);
         }
     }, [subs])
 
     const load = async (page) => {
-        console.log("PAGE "+page)
         subs.slice(page * 10 - 10, page * 10).map((item, index) => {
             loadImages(page * 10 - 10 + index)
-            console.log("IMAGE LOAD SART "+ page * 10 - 10 + index)
         });
     }
 
     const fetchData = async () => {
         try {
+            const emailCookie = getCookie('_email')
+            setEmail(emailCookie)
             const body = {
-                email: userEmail
+                email: emailCookie
             }
-            const response = await RequestAPI(getSubs(body));
+            const response = await RequestAPI(getSubs());
             if (response.status === 200) {
-                const list = response.data.subs
+                const list = response.data.subs.filter(function (sub) {
+                    return !sub.hidden;
+                });
                 setSubs(list.sort(compareDatesDesc));
+                const myScores = await RequestAPI(getMyScores(body));
+                list.map(item => {
+                    myScores.data.myScores.map(it => {
+                        if (it.submissionID == item.uuid) {
+                            item.score = it.score
+                        }
+                    })
+                })
+                const allScores = await RequestAPI(getAllScores(body));
+                list.map(item => {
+                    item.totalScore = 0
+                    item.numberOfScores = 0
+                    allScores.data.allScores.map(it => {
+                        if (it.submissionID == item.uuid) {
+                            item.totalScore = parseInt(item.totalScore) + parseInt(it.score)
+                            item.numberOfScores = parseInt(item.numberOfScores) + 1
+                        }
+                    })
+                })
+                setSubs(list)
             }
         } catch (error) {
             console.log(error);
@@ -111,6 +166,27 @@ const Admin = ({ userEmail }) => {
         }
     }
 
+    const deleteSubmission = async (id) => {
+        try {
+            const body = {
+                id: id
+            }
+            const response = await RequestAPI(deleteSubmition(body));
+            if (response.status === 200) {
+                const newSubs = [...subs]
+                subs.map((item, index) => {
+                    if (item.uuid == id) {
+                        newSubs[index].hidden = true
+                    }
+                });
+
+                setSubs(newSubs)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const updateUI = () => {
         const prev = count;
         const min = count;
@@ -119,14 +195,25 @@ const Admin = ({ userEmail }) => {
         setCount(rand);
     }
 
-
     return (
         <div className='Admin'>
             <h1>Admin Panel</h1>
             <div className="admin-form-field">
                 {subs.slice(currentPage * 10 - 10, currentPage * 10).map((item, index) => (
+                    !item.hidden &&
                     <div key={index} className="admin_services">
                         <div className="admin_first_row">
+                            <div className="admin_input_item">
+                                <p>Enter score:</p>
+                                <input
+                                    type="number"
+                                    value={item.score}
+                                    onChange={e => scoreChange(e, index)}
+                                    min="1"
+                                    max="5"
+                                />
+                                {item.toSave && <button type='button' className="score_button" onClick={() => { saveScore(index) }}>Save</button>}
+                            </div>
                             <div className="admin_input_item">
                                 <p>ID: </p>
                                 <p>{item.uuid}</p>
@@ -140,9 +227,39 @@ const Admin = ({ userEmail }) => {
                                 <p>{item.subject}</p>
                             </div>
                             <div className="admin_input_item">
-                                <p>Description:</p>
-                                <p>{item.desc}</p>
+                                <p>Description:{item.desc} </p>
                             </div>
+                            {
+                                (email == "abe@quantcyte.org" || email == "ngocic97@gmail.com") &&
+                                <div className="admin_input_item">
+                                    {
+                                        item.hidden ?
+                                            <p>Submission deleted</p>
+                                            :
+                                            <button type='button' className="login_button" onClick={() => { deleteSubmission(item.uuid) }}>Delete Sub</button>
+
+                                    }
+                                </div>
+                            }
+                            {
+                                (email == "abe@quantcyte.org" || email == "ngocic97@gmail.com") &&
+                                <>
+                                    {
+                                        item.numberOfScores > 0 ?
+                                            <div className="admin_input_item">
+                                                <p>Average rating:</p>
+                                                <p>{item.totalScore / item.numberOfScores} from {item.numberOfScores} scores</p>
+                                            </div>
+                                            :
+                                            <div className="admin_input_item">
+                                                <p>No Scores</p>
+                                            </div>
+                                    }
+
+                                </>
+
+                            }
+
                         </div>
                         <div className="Admin_Second_row">
                             {
@@ -203,20 +320,17 @@ const Admin = ({ userEmail }) => {
 
                         </div>
                     </div>
-
-
-
                 ))}
 
                 <div>
                     {Array.from({ length: Math.ceil(subs.length / 10) }, (_, index) => (
                         <button key={index + 1} onClick={() => handlePageChange(index + 1)}>
-                            { currentPage == index + 1 ?
-                                <p  style={{color: "blue"}}>{index + 1}0</p>
+                            {currentPage == index + 1 ?
+                                <p style={{ color: "blue" }}>{index + 1}0</p>
                                 :
                                 <p>{index + 1}0</p>
                             }
-                            
+
                         </button>
                     ))}
                 </div>

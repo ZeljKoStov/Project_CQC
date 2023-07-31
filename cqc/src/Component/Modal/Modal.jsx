@@ -11,8 +11,6 @@ const Modal = ({num,ind,pair,onClose}) => {
     let urlimg=''
 
     let length=pair.length;
-    console.log(length+" length");
-    console.log(counter+" counter");
 
     if(num==="furl"){urlimg=pair[ind].furl;/*setLocalCounter(0)*/}
     else if(num==="durl") {urlimg=pair[ind].durl;/*setLocalCounter(1)*/}

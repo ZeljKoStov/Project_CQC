@@ -17,6 +17,8 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
     const [loading, setLoading] = useState(false);
     const [dataFetched, setDataFetched] = useState(false);
     const [address, setAddress] = useState("")
+    const [state, setState] = useState("")
+    const [country, setCountry] = useState("")
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [zipCode, setZipCode] = useState("")
@@ -46,6 +48,9 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
             console.log(response)
             if (response.status === 200) {
                 setName(response.data.name)
+                setAddress(response.data.address)
+                setState(response.data.state)
+                setCountry(response.data.country)
                 setAddress(response.data.address)
                 setZipCode(response.data.zipCode)
             }
@@ -133,6 +138,18 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
                                     <tr>
                                         <td>Shipping Adress: </td>
                                         <td>{address}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>State: </td>
+                                        <td>{state}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country: </td>
+                                        <td>{country}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Zip Code: </td>
+                                        <td>{zipCode}</td>
                                     </tr>
                                     <tr>
                                         <td><button class="checkout_confirm_button" onClick={() => { confirmOrder() }}>Confirm Order</button></td>

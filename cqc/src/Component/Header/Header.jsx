@@ -21,38 +21,23 @@ import theoryfirst from '../../assets/theory-first.jpg';
 import theorysecond from '../../assets/theory-second.jpg';
 
 
-import f1 from "../../assets/week/week1_f.jpg"
-import i1 from "../../assets/week/week1_i.jpg"
+import f1 from "../../assets/1st_f.jpg"
+import i1 from "../../assets/1st_i.jpg"
 
-import f2 from "../../assets/week/week2_f.jpg"
-import i2 from "../../assets/week/week2_i.jpg"
+import f2 from "../../assets/2nd_f.jpg"
+import i2 from "../../assets/2nd_i.jpg"
 
-import f3 from "../../assets/week/week3_f.jpg"
-import i3 from "../../assets/week/week3_i.jpg"
+import f3 from "../../assets/3rd_f.jpg"
+import i3 from "../../assets/3rd_i.jpg"
 
-import f4 from "../../assets/week/week4_f.jpg"
-import i4 from "../../assets/week/week4_i.jpg"
-
-import f5 from "../../assets/week/week5_f.jpg"
-import i5 from "../../assets/week/week5_i.jpg"
-
-import f6 from "../../assets/week/week6_f.jpg"
-import i6 from "../../assets/week/week6_i.jpg"
-
-import f7 from "../../assets/week/week7_f.jpg"
-import i7 from "../../assets/week/week7_i.jpg"
-
-import f8 from "../../assets/week/week8_f.jpg"
-import i8 from "../../assets/week/week8_i.jpeg"
-
-import f9 from "../../assets/week/week9_f.jpg"
-import i9 from "../../assets/week/week9_i.jpg"
+import f4 from "../../assets/4th_f.jpg"
+import i4 from "../../assets/4th_i.jpg"
 
 
 const Header = ({ prop, userEmail }) => {
 
-    const focused = [f9, f1, f2, f3, f4, f5, f6, f7, f8 ];
-    const intrinsic = [i9, i1, i2, i3, i4, i5, i6, i7, i8 ];
+    const focused = [f1, f2, f3, f4 ];
+    const intrinsic = [i1, i2, i3, i4];
 
     const [vara, setVara] = useState(true);
     const [index, setIndex] = useState(0);
@@ -149,7 +134,7 @@ const Header = ({ prop, userEmail }) => {
                             <FontAwesomeIcon
                                 icon={faChevronLeft}
                                 className="header_submission_button"
-                                onClick={() => { if (index == 0) { setIndex(8) } else setIndex(index - 1) }}
+                                onClick={() => { if (index == 0) { setIndex(3) } else setIndex(index - 1) }}
                             />
                             <div className='header_submission_image'>
                                 <img src={focused[index]} alt="reload" onClick={() => {
@@ -168,7 +153,7 @@ const Header = ({ prop, userEmail }) => {
                             <FontAwesomeIcon
                                 icon={faChevronRight}
                                 className="header_submission_button"
-                                onClick={() => { if (index == 8) { setIndex(0) } else setIndex(index + 1) }}
+                                onClick={() => { if (index == 3) { setIndex(0) } else setIndex(index + 1) }}
                             />
                         </div>
                     }

@@ -24,8 +24,17 @@ const Register = ({ signIn }) => {
   const [address, setAddress] = useState('')
   const [adressError, setAddressError] = useState(false);
 
+  const [address2, setAddress2] = useState('')
+  const [adress2Error, setAddress2Error] = useState(false);
+
+  const [city, setCity] = useState('')
+  const [cityError, setCityError] = useState(false);
+
   const [state, setState] = useState('')
   const [stateError, setStateError] = useState(false);
+
+  const [country, setCountry] = useState('')
+  const [countryError, setCountryError] = useState(false);
 
   const [zipCode, setZipCode] = useState('')
   const [zipCodeError, setZipCodeError] = useState(false);
@@ -68,9 +77,24 @@ const Register = ({ signIn }) => {
     setAddress(e.target.value)
   }
 
+  const onAddress2Changed = (e) => {
+    e.preventDefault()
+    setAddress2(e.target.value)
+  }
+
+  const onCityChanged = (e) => {
+    e.preventDefault()
+    setCity(e.target.value)
+  }
+
   const onStateChanged = (e) => {
     e.preventDefault()
     setState(e.target.value)
+  }
+
+  const onCountryChanged = (e) => {
+    e.preventDefault()
+    setCountry(e.target.value)
   }
 
   const onZipCodeChanged = (e) => {
@@ -141,12 +165,12 @@ const Register = ({ signIn }) => {
   const submitDetails = async (e) => {
     e.preventDefault();
 
-    if (address === '' || state === '' || phoneNumber === '' || zipCode === '') {
+    if (address === '' || state === '' || country === '' || phoneNumber === '' || zipCode === '') {
       if (address === '') setAddressError(true)
       else setAddressError(false)
 
-      if (state === '') setStateError(true)
-      else setStateError(false)
+      if (country === '') setCountryError(true)
+      else setCountryError(false)
 
       if (phoneNumber === '') setPhoneNumberError(true)
       else setPhoneNumberError(false)
@@ -157,6 +181,7 @@ const Register = ({ signIn }) => {
     } else {
       setAddressError(false)
       setStateError(false)
+      setCountryError(false)
       setPhoneNumberError(false)
       setZipCodeError(false)
       setLoading(true);
@@ -168,7 +193,10 @@ const Register = ({ signIn }) => {
       const detailsObj = {
         email: _email,
         address: address,
+        address2: address2,
+        city: city,
         state: state,
+        country: country,
         zipCode: zipCode,
         phoneNumber: phoneNumber
       }
@@ -242,12 +270,24 @@ const Register = ({ signIn }) => {
                 <spam htmlFor='address'>Shipping Address</spam>
                 <input value={address} onChange={(e) => onAddressChanged(e)} placeholder='Shipping Address' />
                 {adressError && <label className="error_text">Address cannot be empty!</label>}
+
+                <spam htmlFor='address'>Aditional Address</spam>
+                <input value={address2} onChange={(e) => onAddress2Changed(e)} placeholder='Additional Address' />
+
+                <spam htmlFor='address'>City</spam>
+                <input value={city} onChange={(e) => onCityChanged(e)} placeholder='City' />
+
                 <spam htmlFor='address'>State</spam>
                 <input value={state} onChange={(e) => onStateChanged(e)} placeholder='State' />
-                {stateError && <label className="error_text">State cannot be empty!</label>}
+
                 <spam htmlFor='address'>Zip Code</spam>
                 <input value={zipCode} onChange={(e) => onZipCodeChanged(e)} placeholder='Zip Code' />
                 {zipCodeError && <label className="error_text">Zip Code cannot be empty!</label>}
+
+                <spam htmlFor='address'>Country</spam>
+                <input value={country} onChange={(e) => onCountryChanged(e)} placeholder='Country' />
+                {countryError && <label className="error_text">Country cannot be empty!</label>}
+
                 <spam htmlFor='address'>Phone Number</spam>
                 <input value={phoneNumber} onChange={(e) => onPhoneNumberChanged(e)} placeholder='Phone Number' />
                 {phoneNumberError && <label className="error_text">Phone Number cannot be empty!</label>}

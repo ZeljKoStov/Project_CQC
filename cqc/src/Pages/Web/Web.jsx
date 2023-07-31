@@ -483,22 +483,22 @@ const Web = (props, signedIn, userEmail) => {
                     <tr>
                         <td>Diameter 101 mm (4 in) + 20 Tokens</td>
                         <td>$35.00 USD</td>
-                        <input type="radio" checked={hand==0} onChange={() => setHand(1)} />
+                        <input type="radio" checked={hand==1} onChange={() => setHand(1)} />
                     </tr>
                     <tr>
                         <td>Diameter 130 mm (5 in) + 20 Tokens</td>
                         <td>$40.00 USD</td>
-                        <input type="radio" checked={hand==0} onChange={() => setHand(2)} />
+                        <input type="radio" checked={hand==2} onChange={() => setHand(2)} />
                     </tr>
                     <tr>
                         <td>Diameter 155 mm (6 in) + 20 Tokens</td>
                         <td>$45.00 USD</td>
-                        <input type="radio" checked={hand==0} onChange={() => setHand(3)} />
+                        <input type="radio" checked={hand==3} onChange={() => setHand(3)} />
                     </tr>
                     <tr>
                         <td>Diameter 203 mm (8 in) + 20 Tokens</td>
                         <td>$50.00 USD</td>
-                        <input type="radio" checked={hand==0} onChange={() => setHand(4)} />
+                        <input type="radio" checked={hand==4} onChange={() => setHand(4)} />
                     </tr>
                 </table>
                 {
