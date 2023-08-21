@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {MdClear} from "react-icons/md"
 import './modal.css'
 
-const Modal = ({num,ind,pair,onClose}) => {
+const Modal = ({num,ind,mapNumber,pair,onClose}) => {
   
     const [counter,setCounter]=useState(ind);
     const[localCounter,setLocalCounter]=useState();
@@ -12,9 +12,25 @@ const Modal = ({num,ind,pair,onClose}) => {
 
     let length=pair.length;
 
-    if(num==="furl"){urlimg=pair[ind].furl;/*setLocalCounter(0)*/}
-    else if(num==="durl") {urlimg=pair[ind].durl;/*setLocalCounter(1)*/}
-    else {urlimg=`${pair[ind].intrinsic}`;/*setLocalCounter(2)*/}
+    if(mapNumber == undefined || mapNumber == null || mapNumber == 0){
+      if(num==="furl"){urlimg=pair[ind].furl;/*setLocalCounter(0)*/}
+      else if(num==="durl") {urlimg=pair[ind].durl;/*setLocalCounter(1)*/}
+      else {urlimg=`${pair[ind].intrinsic}`;/*setLocalCounter(2)*/}
+    } else {
+      switch (mapNumber){
+        case 1: urlimg=`${pair[ind].map1}`; break;
+        case 2: urlimg=`${pair[ind].map2}`; break;
+        case 3: urlimg=`${pair[ind].map3}`; break;
+        case 4: urlimg=`${pair[ind].map4}`; break;
+        case 5: urlimg=`${pair[ind].map5}`; break;
+        case 6: urlimg=`${pair[ind].map6}`; break;
+        case 7: urlimg=`${pair[ind].map7}`; break;
+        case 8: urlimg=`${pair[ind].map8}`; break;
+        case 9: urlimg=`${pair[ind].map9}`; break;
+      }
+    }
+
+
 
 
 
@@ -71,7 +87,7 @@ const Modal = ({num,ind,pair,onClose}) => {
             <MdClear size={"2rem"}/>
         </div>
       
-        <img src={urlimg} alt='focused_image' />
+        <img src={urlimg} alt='mapping_image' />
       </div>
     </div>
   )

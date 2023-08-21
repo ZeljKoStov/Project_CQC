@@ -88,11 +88,10 @@
 .cqc__navbar_frst-logo p {
     color: #fff;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 40px;
     line-height: 37px;
     text-transform: capitalize;
-
-
+    padding-bottom: 0.5rem;
     margin: 0 1rem;
     cursor: pointer;
 }

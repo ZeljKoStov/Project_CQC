@@ -32,7 +32,7 @@ const Applications = () => {
           <img src={back} alt="Girl in a jacket" className='backgroundImage' />
           <div className='login_body'>
               <div className='applications_title2'>
-                    <h1>Applications</h1>
+                    <h1>Pro Gallery</h1>
                     {/* <div>
                       <p>Once in a while an intersection occurs in technologies which can reveal unique aspects of nature which can intrigue both scientists and artists alike.  Capturing intrinsic images from our ordinary to eclectic surroundings is one of those unique opportunities.  We are introducing some rapid image processing that captures the essence of intrinsic light emission which may reveal unusual and/or critical features and information about images.  Fundamentally, intrinsic image processing is a simple procedure thanks to 21st century mobile phones and other affiliated patented digital technology. </p>
                       <p>Johann Wolfgang von Goethe is the most recognized German literary figure of the 19th century, he is often compared to Shakespeare and Dante.  He was fascinated by how light from the sun can be split into visible spectral elements of a rainbow.  And again the spectral display can be recombined into white light. There is a distinction between spectrum, as was observed by Newton, and the human colour perception as described by Goethe.  He was a renaissance man whose interest crossed over literature and the theory of colors.</p>
