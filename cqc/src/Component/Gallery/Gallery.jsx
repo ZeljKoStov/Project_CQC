@@ -15,26 +15,27 @@ const Gallery = ({ images }) => {
 
     const handlePrevClick = () => {
         setIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-      };
-    
-      const handleNextClick = () => {
+    };
+
+    const handleNextClick = () => {
         setIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-      };
+    };
 
 
 
     return (
         <div className='gallery'>
-            <img src={images[index]} alt="Gallery" onClick={() => {
-                setOpenModal(true)
-                setImageToShow(images[index])
-            }}/>
+
             <div className="button-container">
                 <FontAwesomeIcon
                     icon={faChevronLeft}
                     className="gallery_button"
                     onClick={handlePrevClick}
                 />
+                <img src={images[index]} alt="Gallery" onClick={() => {
+                    setOpenModal(true)
+                    setImageToShow(images[index])
+                }} />
                 <FontAwesomeIcon
                     icon={faChevronRight}
                     className="gallery_button"

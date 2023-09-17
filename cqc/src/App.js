@@ -89,7 +89,7 @@ const App = () => {
                   <Navbar orders={orders} widChanger={setWid} signedIn={signedIn} userName={userName} signOut={signOut} />
                 </nav>
 
-                <motion.div 
+                {/* <motion.div 
                     className='Animation'
                     initial={{ height: '100vh' }}
                     animate={{height:0}}
@@ -155,7 +155,7 @@ const App = () => {
 
                     </motion.img>
 
-                </motion.div> 
+                </motion.div>  */}
                 
                 
                 <div className='Page'>

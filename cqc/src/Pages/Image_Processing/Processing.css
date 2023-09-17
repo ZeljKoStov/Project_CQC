@@ -237,22 +237,25 @@
     cursor: pointer;
     border-radius: 5px;
   }
-  .process_button{
+  .process_button {
     padding: 0.5rem 1rem;
     margin: 10px;
     color: white;
-    background: var(--color-text);;
+    background: linear-gradient(to bottom, #0052cc, #003d99);
     font-weight: 500;
     font-size: 18px;
     line-height: 25px;
-    border: none;
+    border: 1px solid #002d66;
     outline: none;
     cursor: pointer;
     border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.2s, transform 0.1s;
   }
-
+  
   .process_button:hover {
-    background-color: #163278;
+    background: linear-gradient(to bottom, #003d99, #002d66);
+    transform: translateY(-1px);
   }
   .first-division button {
     padding: 0.5rem 1rem;
@@ -267,7 +270,7 @@
     border-radius: 5px;
   }
 
-  .dodajRed {
+  /* .dodajRed {
     padding: 0.5rem 1rem;
     margin: 10px;
     color: white;
@@ -279,6 +282,27 @@
     outline: none;
     cursor: pointer;
     border-radius: 5px;
+  } */
+
+  .dodajRed {
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    color: white;
+    background: linear-gradient(to bottom, #FF5733, #FF2200);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border: 1px solid #CC3300;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.2s, transform 0.1s;
+  }
+  
+  .dodajRed:hover {
+    background: linear-gradient(to bottom, #FF2200, #CC3300);
+    transform: translateY(-1px);
   }
 
   .spin {

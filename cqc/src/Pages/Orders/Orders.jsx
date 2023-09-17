@@ -73,7 +73,7 @@ const Orders = () => {
                                         <td>${parseFloat(item.totalPriceInCents / 100).toFixed(2)} USD</td>
                                     </tr>
                                     <tr>
-                                        <td>Shipping Adress: </td>
+                                        <td>Shipping Address: </td>
                                         <td>{item.address}</td>
                                     </tr>
                                     <tr>

@@ -478,27 +478,31 @@ const Web = (props, signedIn, userEmail) => {
                     <tr>
                         <td>Diameter 75 mm (3 in) + 20 Tokens</td>
                         <td>$30.00 USD</td>
-                        <input type="radio" checked={hand==0} onChange={() => setHand(0)} />
+                        <td><input type="radio" checked={hand==0} onChange={() => setHand(0)} /></td>
                     </tr>
                     <tr>
                         <td>Diameter 101 mm (4 in) + 20 Tokens</td>
                         <td>$35.00 USD</td>
-                        <input type="radio" checked={hand==1} onChange={() => setHand(1)} />
+                        <td><input type="radio" checked={hand==1} onChange={() => setHand(1)} /></td>
+                        
                     </tr>
                     <tr>
                         <td>Diameter 130 mm (5 in) + 20 Tokens</td>
                         <td>$40.00 USD</td>
-                        <input type="radio" checked={hand==2} onChange={() => setHand(2)} />
+                        <td><input type="radio" checked={hand==2} onChange={() => setHand(2)} /></td>
+                        
                     </tr>
                     <tr>
                         <td>Diameter 155 mm (6 in) + 20 Tokens</td>
                         <td>$45.00 USD</td>
-                        <input type="radio" checked={hand==3} onChange={() => setHand(3)} />
+                        <td><input type="radio" checked={hand==3} onChange={() => setHand(3)} /></td>
+                        
                     </tr>
                     <tr>
                         <td>Diameter 203 mm (8 in) + 20 Tokens</td>
                         <td>$50.00 USD</td>
-                        <input type="radio" checked={hand==4} onChange={() => setHand(4)} />
+                        <td><input type="radio" checked={hand==4} onChange={() => setHand(4)} /></td>
+                        
                     </tr>
                 </table>
                 {

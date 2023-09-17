@@ -768,13 +768,13 @@ const Processing = () => {
                         <button type="button" onClick={handleServiceAdd} className="dodajRed" disabled={loading}>
                             Add another image pair
                         </button>
-                        <button type="button" onClick={handleSubmit} className="process_button" disabled={loading || imagePairs.length > usersTokens}>
+                        <button type="button" onClick={handleSubmit} className="process_button"  disabled={loading || imagePairs.length > usersTokens}>
                             Process Images
                         </button>
                         {
                             (email == "abe@quantcyte.org" || email == "ngocic97@gmail.com") &&
                             <button type="button" onClick={handleMapping} className="process_button">
-                                Do Mapping
+                                Intrinsic Mapping
                             </button>
                         }
                     </div>

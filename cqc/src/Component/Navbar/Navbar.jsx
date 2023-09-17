@@ -106,7 +106,7 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
 
   setTimeout(() => {
     setVari(false);
-  }, 4050)
+  }, 0)
 
   return (
     <>
@@ -119,7 +119,6 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
             initial={{ opacity: 0.8, height: 0 }}
             animate={{ opacity: 1, height: "6rem" }}
             transition={{
-
               duration: 0.3,
               ease: "easeIn"
             }}

@@ -8,7 +8,7 @@ const AnimatedTextWord = ({ text }) => {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { delay:4.1 ,staggerChildren: 0.12, delayChildren: 4.1+ 0.04 * i },
+      transition: { delay:0 ,staggerChildren: 0.12, delayChildren: 0.3 + 0.04 * i },
     }),
   };
 

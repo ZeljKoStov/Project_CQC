@@ -222,18 +222,18 @@ color: #7ec7f8;
 	margin-bottom: 20px;
 }
 
-table {
+.profile table {
 	width: 100%;
 	border-collapse: collapse;
     
 }
 
-td {
+.profile td {
 	padding: 10px;
 	border-bottom: 1px solid #ccc;
     font-size: 18px;
 }
 
-td:first-child {
+.profile td:first-child {
 	font-weight: bold;
 }

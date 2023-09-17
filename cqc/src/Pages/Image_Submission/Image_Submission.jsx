@@ -156,8 +156,8 @@ const Submission = ({ userEmail }) => {
           <img src={submission_image} alt='img' />
         </div>
         <div className='Submission_text'>
-          <h2>Intrinsic Image of the Week Submission</h2>
-          <p>Intrinsic is a completely new method of photography. How the Intrinsic Image will appear is rarely predictable. The goal of this photographic challenge, relative to the original image, is to produce the most surprising, most interesting intrinsic image of the week.</p>
+          <h2>Intrinsic Image of the Month Submission</h2>
+          <p>Intrinsic is a completely new method of photography. How the Intrinsic Image will appear is rarely predictable. The goal of this photographic challenge, relative to the original image, is to produce the most surprising, most interesting intrinsic image of the month.</p>
         </div>
         <div className='Submission_Subject'>
           <h3>Subject Matter of the Images</h3>

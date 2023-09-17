@@ -41,7 +41,7 @@
     font-size: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    text-align: justify;
+    text-align: start;
 }
 
 .web_item {
@@ -175,7 +175,7 @@
 .web_diffuser_section p {
     width: 70%;
     align-self: center;
-    text-align: justify;
+    text-align: start;
     
 }
 
@@ -242,7 +242,7 @@
 .web_tele_section p {
     width: 80%;
     align-self: center;
-    text-align: justify;
+    text-align: start;
 }
 
 .web_tele_section table {
@@ -286,7 +286,7 @@
 .web_micro_section p {
     width: 80%;
     align-self: center;
-    text-align: justify;
+    text-align: start;
 }
 
 .web_button_row{
@@ -312,6 +312,7 @@
     align-self: center;
     width: 75%;
     justify-content: center;
+    text-align: start;
     gap: 1rem;
 }
 
@@ -338,7 +339,7 @@
 .web_hand_section p {
     width: 60%;
     align-self: center;
-    text-align: justify;
+    text-align: start;
 }
 
 .web_hand_section table {
@@ -387,7 +388,7 @@
 .web_token_section p {
     width: 60%;
     align-self: center;
-    text-align: justify;
+    text-align: start;
 }
 
 .supBig {
@@ -396,4 +397,20 @@
 
 .supSmall {
     font-size: 8px;
+}
+
+.web_background table {
+	width: 60%;
+	border-collapse: collapse;
+    
+}
+
+.web_background td {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+    font-size: 18px;
+}
+
+.web_background td:first-child {
+	font-weight: bold;
 }

@@ -17,6 +17,7 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
     const [loading, setLoading] = useState(false);
     const [dataFetched, setDataFetched] = useState(false);
     const [address, setAddress] = useState("")
+    const [address2, setAddress2] = useState("")
     const [state, setState] = useState("")
     const [country, setCountry] = useState("")
     const [name, setName] = useState("")
@@ -52,6 +53,9 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
                 setState(response.data.state)
                 setCountry(response.data.country)
                 setAddress(response.data.address)
+                if (response.data.address2 != undefined && response.data.address2 != null) {
+                    setAddress2(response.data.address2)
+                }
                 setZipCode(response.data.zipCode)
             }
         } catch (error) {
@@ -84,7 +88,7 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
             })
 
             try {
-                addOrder(email, _orders, address, tokens,totalItemCost,0, orderCallback)
+                addOrder(email, _orders, address, tokens, totalItemCost, 0, orderCallback)
             } catch (error) {
                 console.log(error);
             }
@@ -124,7 +128,7 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
                             <div className="cart">
                                 <h2 className="cart-title">Orders:</h2>
                                 {orders.map((item, index) => (
-                                    <OrderItem item={item} removeOrder={ (e)=>removeOrderIndexed(index) } />
+                                    <OrderItem item={item} removeOrder={(e) => removeOrderIndexed(index)} />
                                 ))}
                                 <table>
                                     <tr>
@@ -136,9 +140,15 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
                                         <td>{tokens}</td>
                                     </tr>
                                     <tr>
-                                        <td>Shipping Adress: </td>
+                                        <td>Address: </td>
                                         <td>{address}</td>
                                     </tr>
+                                    {
+                                        address2 != "" && <tr>
+                                            <td>Address: </td>
+                                            <td>{address2}</td>
+                                        </tr>
+                                    }
                                     <tr>
                                         <td>State: </td>
                                         <td>{state}</td>
@@ -161,39 +171,39 @@ const Checkout = ({ orders, setOrders, removeOrder }) => {
 
 
                         <div className='checkout_row2'>
-                        {
-                            confirm == 1 &&
-                            <div className='checkout_item2'>
-                                <div className='checkout_item2_div'>
-                                    <table>
-                                        <tr>
-                                            <td>All items cost:</td>
-                                            <td>${parseFloat(totalItemCost / 100).toFixed(2)} USD</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shiping cost:</td>
-                                            <td>${parseFloat(totalShippingCost / 100).toFixed(2)} USD</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total amount:</td>
-                                            <td>${parseFloat((totalShippingCost + totalItemCost) / 100).toFixed(2)} USD</td>
-                                        </tr>
-                                    </table>
-                                    <div className='payment_div'>
-                                        <StripeContainer loading={setLoading} onResult={onPaymentResut} paymentAmount={totalShippingCost + totalItemCost} userEmail={email} />
+                            {
+                                confirm == 1 &&
+                                <div className='checkout_item2'>
+                                    <div className='checkout_item2_div'>
+                                        <table>
+                                            <tr>
+                                                <td>All items cost:</td>
+                                                <td>${parseFloat(totalItemCost / 100).toFixed(2)} USD</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Shiping cost:</td>
+                                                <td>${parseFloat(totalShippingCost / 100).toFixed(2)} USD</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total amount:</td>
+                                                <td>${parseFloat((totalShippingCost + totalItemCost) / 100).toFixed(2)} USD</td>
+                                            </tr>
+                                        </table>
+                                        <div className='payment_div'>
+                                            <StripeContainer loading={setLoading} onResult={onPaymentResut} paymentAmount={totalShippingCost + totalItemCost} userEmail={email} />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
+                            }
 
-                        {
-                            confirm == 2 &&
-                            <div className='checkout_item2'>
-                                <div className='checkout_item2_div'>
-                                    <h1>Items order!</h1>
+                            {
+                                confirm == 2 &&
+                                <div className='checkout_item2'>
+                                    <div className='checkout_item2_div'>
+                                        <h1>Items order!</h1>
+                                    </div>
                                 </div>
-                            </div>
-                        }
+                            }
 
                         </div>
 
