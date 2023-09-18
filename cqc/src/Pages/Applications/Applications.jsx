@@ -8,8 +8,12 @@ import back from "../../assets/back.jpeg"
 
 import i1 from "./intrinsic_1.png"
 import i2 from "./intrinsic_2.png"
+import i3 from "./intrinsic_3.JPG"
+import i4 from "./intrinsic_4.jpg"
 import f1 from "./original_1.png"
 import f2 from "./original_2.png"
+import f3 from "./original_3.JPG"
+import f4 from "./original_4.jpg"
 
 
 import { useNavigate } from "react-router-dom";
@@ -47,27 +51,49 @@ const Applications = () => {
               </div>
               <div className='tutorials'>
                 <div className='applications_image_row'>
-                  <div className='header_video_column'>
+                  <div className='prog_gallery_images_small'>
                   <img src={f1} alt="reload" width="720" height="360"/>
                   <h2>Original</h2>
                   </div>
-                  <div className='header_video_column'>
+                  <div className='prog_gallery_images_small'>
                     <img src={i1} alt="reload" width="720" height="360" />
                     <h2>Intrinsic</h2>
                   </div>
                 </div>
                 <h2>Evening Star 1917 Georgia O’Keeffe</h2>
                 <div className='applications_image_row'>
-                  <div className='header_video_column'>
-                  <img src={f2} alt="reload" width="720" height="360"/>
-                  <h2>Original</h2>
+                  <div className='prog_gallery_images_small_2'>
+                    <img src={f2} alt="reload" width="720" height="360"/>
+                    <h2>Original</h2>
                   </div>
-                  <div className='header_video_column'>
+                  <div className='prog_gallery_images_small_2'>
                     <img src={i2} alt="reload" width="720" height="360" />
                     <h2>Intrinsic</h2>
                   </div>
                 </div>
                 <h2>Lagoon Nebula M20 from San Juan, PR</h2>
+                <div className='applications_image_row'>
+                  <div className='prog_gallery_images_big'>
+                  <img src={f3} alt="reload" width="720" height="360"/>
+                  <h2>Original</h2>
+                  </div>
+                  <div className='prog_gallery_images_big'>
+                    <img src={i3} alt="reload" width="720" height="360" />
+                    <h2>Intrinsic</h2>
+                  </div>
+                </div>
+                <h2>H&E Stained Tissue</h2>
+                <div className='applications_image_row'>
+                  <div className='prog_gallery_images_big'>
+                  <img src={f4} alt="reload" width="720" height="360"/>
+                  <h2>Original</h2>
+                  </div>
+                  <div className='prog_gallery_images_big'>
+                    <img src={i4} alt="reload" width="720" height="360" />
+                    <h2>Intrinsic</h2>
+                  </div>
+                </div>
+                <h2>The Sun</h2>
               </div>
               
           </div>

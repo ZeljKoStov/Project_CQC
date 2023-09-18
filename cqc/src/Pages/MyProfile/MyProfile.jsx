@@ -195,7 +195,7 @@ const MyProfile = () => {
                             </td>
                         </tr>
                         <tr>
-                            <td>Additional Address:</td>
+                            <td>Address:</td>
                             <td>
                                 {editing ?
                                     <input type="text" value={newAddress2} onChange={(e) => setNewAddress2(e.target.value)} />
@@ -260,15 +260,12 @@ const MyProfile = () => {
                         </tr>
                         <tr>
                             <td>
-                                <div className='profile_tokens_row_coin'>
-                                    <img className="token_animation" src={silver_token} alt="Gallery" />
-                                    <p>Processing Tokens: </p>
-                                </div>
-                                
-                                </td>
+                                <p>Processing Tokens: </p>
+                            </td>
                             <td>
                                 <div className='profile_tokens_row_coin'>
-                                    <p>{tokens} </p>
+                                    <p>{tokens}</p>
+                                    <img className="token_animation" src={silver_token} alt="Gallery" />
                                 </div>
                             </td>
                         </tr>
