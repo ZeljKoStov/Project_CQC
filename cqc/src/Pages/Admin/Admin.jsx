@@ -16,7 +16,9 @@ const Admin = () => {
 
     const goToOrders = (e) => {
         e.preventDefault()
-        console.log("Go To Orders")
+
+        let path = `/AdminOrders`;
+        navigate(path);
     }
 
     return (

@@ -27,9 +27,13 @@ const Submission = ({ userEmail }) => {
   const [dataFetched, setDataFetched] = useState(false);
   const [email, setEmail] = useState("");
   const [found, setFound] = useState(false);
+  const [hasSubmition, setHasSubmission] = useState(false);
 
   useEffect(() => {
     if (!dataFetched) {
+      const emailCookie = getCookie('_email')
+      setEmail(emailCookie)
+
       fetchData()
       setDataFetched(true);
     }
@@ -44,8 +48,15 @@ const Submission = ({ userEmail }) => {
       }
       const response = await RequestAPI(getMySub(body));
       if (response.status === 200 && response.data.subs.length > 0) {
-        loadImages(response.data.subs[0]);
+        const currentDate = new Date();
+        const createdAtDate = new Date(response.data.subs[0].createdAt);
 
+        if (
+          createdAtDate.getMonth() === currentDate.getMonth() &&
+          createdAtDate.getFullYear() === currentDate.getFullYear()
+        ) {
+          setHasSubmission(true)
+        }
       }
     } catch (error) {
       console.log(error);
@@ -64,7 +75,7 @@ const Submission = ({ userEmail }) => {
       const responseI = await RequestAPI(getIntrinsic(body));
 
       console.log(responseD)
-      if (responseD.status === 200) { 
+      if (responseD.status === 200) {
         setDiffused(responseD.data)
         console.log(responseD.data)
       }
@@ -124,6 +135,12 @@ const Submission = ({ userEmail }) => {
       if (response.status === 200) {
         setLoading(false);
         setCompleted(true);
+        setDiffused(null);
+        setFocused(null);
+        setIntrinsic(null);
+        setExt("");
+        setSubject("");
+        setDesc("");
       }
 
     } catch (error) {
@@ -210,7 +227,7 @@ const Submission = ({ userEmail }) => {
               <div className="Second_row">
                 <div className="image_row">
                   <div className='cqc__p'><p>Original Image</p>  </div>
-                  {focused && (   
+                  {focused && (
                     <img src={`${focused}`} className="image_preview" alt="reload" onClick={() => { }} />
                   )}
                 </div>
@@ -218,13 +235,13 @@ const Submission = ({ userEmail }) => {
                   <div className='cqc__p'>
                     <p>Diffused Image</p>
                   </div>
-                  {diffused && (   
+                  {diffused && (
                     <img src={`${diffused}`} className="image_preview" alt="reload" onClick={() => { }} />
                   )}
                 </div>
                 <div className="image_row">
                   <div className='cqc__p'><p>Intrinsic Image</p>  </div>
-                  {intrinsic && (   
+                  {intrinsic && (
                     <img src={`${intrinsic}`} className="image_preview" alt="reload" onClick={() => { }} />
                   )}
                 </div>
@@ -256,27 +273,35 @@ const Submission = ({ userEmail }) => {
 
         </div>
 
+        {hasSubmition ?
+          <div className='sub'>
+            <div className='cqc__p'><p>You alredy subbmited this month!</p></div>
+            <button className='Back' onClick={routeChange}>Back</button>
+
+          </div>
+          :
+          <div className='sub'>
+            {completed ?
+              <>
+                <div className='cqc__p'><p>Thank you for Submiting!</p></div>
+                <button className='Back' onClick={(e) => onNewImagePair(e)}>Submit new Image Pair</button>
+              </>
+              :
+              <>
+                {
+                  diffused != null && intrinsic != null && focused != null && userEmail != "" ?
+                    <button className='Sub' onClick={(e) => onSubmit(e)}>Submit</button>
+                    :
+                    <div className='cqc__p'><p>Please sign in to your account and enter all the images to Submit</p></div>
+                }
+              </>
+            }
+            <button className='Back' onClick={routeChange}>Back</button>
+
+          </div>
+        }
 
 
-        <div className='sub'>
-          {completed ?
-            <>
-              <div className='cqc__p'><p>Thank you for Submiting!</p></div>
-              <button className='Back' onClick={(e) => onNewImagePair(e)}>Submit new Image Pair</button>
-            </>
-            :
-            <>
-              {
-                diffused != null && intrinsic != null && focused != null && userEmail != "" ?
-                  <button className='Sub' onClick={(e) => onSubmit(e)}>Submit</button>
-                  :
-                  <div className='cqc__p'><p>Please sign in to your account and enter all the images to Submit</p></div>
-              }
-            </>
-          }
-          <button className='Back' onClick={routeChange}>Back</button>
-
-        </div>
       </div>
     </div>
   )

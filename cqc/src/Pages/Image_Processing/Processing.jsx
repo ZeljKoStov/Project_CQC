@@ -564,7 +564,7 @@ const Processing = () => {
                                 </div>
                                 {pair.intrinsic && <div className="image_row">
                                     <div className='cqc__p'>
-                                        <p>Intrinsic</p>
+                                        <p>Intrinsic Image</p>
                                     </div>
                                     {pair.fext == "fit" || pair.fext == "tiff" || pair.fext == "fits" || pair.fext == "FIT" || pair.fext == "TIFF" || pair.fext == "FITS" ?
                                         <div className="image_preview" >Preview Not Available for {pair.fext} extension!</div>

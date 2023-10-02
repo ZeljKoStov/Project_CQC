@@ -48,6 +48,8 @@ label {
   padding: 0.25rem 0;
 }
 
+
+
 .register-form input {
   margin: 0.5rem 0;
   padding: 1rem;
@@ -58,6 +60,20 @@ label {
 .register-form {
   display: flex;
 }
+
+.register-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.register_container input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+}
+
 
 
 .register-form2 input {

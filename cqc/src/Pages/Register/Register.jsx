@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestAPI } from '../../utils/request-api'
 import { register, details } from '../../api/api'
@@ -148,7 +148,7 @@ const Register = ({ signIn }) => {
           setCookie('_name', response.data.name)
           setCookie('_email', response.data.email)
           signIn(response.data.name, response.data.email)
-          setRegStep(1);
+          setRegStep(2);
         } else if (response.status === 201) {
           console.log(response.data)
           setRegisterErrorText(response.data.error)
@@ -263,36 +263,44 @@ const Register = ({ signIn }) => {
           {
             regStep === 2 && <>
               <div className='title'>
-                <spam>Email Sucessfuly Verified</spam>
+                {/* <spam>Email Sucessfuly Verified</spam> */}
                 <spam>Please Add Shipping Details</spam>
               </div>
-              <form className="register-form" onSubmit={submitDetails}>
-                <spam htmlFor='address'>Shipping Address</spam>
-                <input value={address} onChange={(e) => onAddressChanged(e)} placeholder='Shipping Address' />
-                {adressError && <label className="error_text">Address cannot be empty!</label>}
+              <div className='register-row'>
+                <div className="register-form" >
+                  <spam htmlFor='address'>Shipping Address</spam>
+                  <input value={address} onChange={(e) => onAddressChanged(e)} placeholder='Shipping Address' />
+                  {adressError && <label className="error_text">Address cannot be empty!</label>}
 
-                <spam htmlFor='address'>Aditional Address</spam>
-                <input value={address2} onChange={(e) => onAddress2Changed(e)} placeholder='Additional Address' />
+                  <spam htmlFor='address'>City</spam>
+                  <input value={city} onChange={(e) => onCityChanged(e)} placeholder='City' />
 
-                <spam htmlFor='address'>City</spam>
-                <input value={city} onChange={(e) => onCityChanged(e)} placeholder='City' />
+                  <spam htmlFor='address'>Zip Code</spam>
+                  <input value={zipCode} onChange={(e) => onZipCodeChanged(e)} placeholder='Zip Code' />
+                  {zipCodeError && <label className="error_text">Zip Code cannot be empty!</label>}
 
-                <spam htmlFor='address'>State</spam>
-                <input value={state} onChange={(e) => onStateChanged(e)} placeholder='State' />
+                </div>
+                <div className="register-form" >
 
-                <spam htmlFor='address'>Zip Code</spam>
-                <input value={zipCode} onChange={(e) => onZipCodeChanged(e)} placeholder='Zip Code' />
-                {zipCodeError && <label className="error_text">Zip Code cannot be empty!</label>}
+                  <spam htmlFor='address'>Shipping Address 2</spam>
+                  <input value={address2} onChange={(e) => onAddress2Changed(e)} placeholder='Additional Address' />
 
-                <spam htmlFor='address'>Country</spam>
-                <input value={country} onChange={(e) => onCountryChanged(e)} placeholder='Country' />
-                {countryError && <label className="error_text">Country cannot be empty!</label>}
+                  <spam htmlFor='address'>State</spam>
+                  <input value={state} onChange={(e) => onStateChanged(e)} placeholder='State' />
 
-                <spam htmlFor='address'>Phone Number</spam>
-                <input value={phoneNumber} onChange={(e) => onPhoneNumberChanged(e)} placeholder='Phone Number' />
-                {phoneNumberError && <label className="error_text">Phone Number cannot be empty!</label>}
-                <button className='blue_button' onClick={(e) => submitDetails(e)}>Add Shipping Details</button>
-              </form>
+                  <spam htmlFor='address'>Country</spam>
+                  <input value={country} onChange={(e) => onCountryChanged(e)} placeholder='Country' />
+                  {countryError && <label className="error_text">Country cannot be empty!</label>}
+
+                </div>
+              </div>
+
+              <spam htmlFor='address'>Phone Number</spam>
+              <input value={phoneNumber} onChange={(e) => onPhoneNumberChanged(e)} placeholder='Phone Number' />
+              {phoneNumberError && <label className="error_text">Phone Number cannot be empty!</label>}
+
+              <button className='blue_button' onClick={(e) => submitDetails(e)}>Add Shipping Details</button>
+
             </>
           }
         </div>

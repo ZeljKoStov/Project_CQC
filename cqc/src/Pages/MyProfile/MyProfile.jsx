@@ -254,10 +254,10 @@ const MyProfile = () => {
                                 }
                             </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                             <td>Orders:</td>
                             <td><button className="profile-link-btn" onClick={() => { navigate("/Orders") }} >View Orders</button></td>
-                        </tr>
+                        </tr> */}
                         <tr>
                             <td>
                                 <p>Processing Tokens: </p>
@@ -291,7 +291,7 @@ const MyProfile = () => {
                                     <>
                                         <div className='btnAdd'>
                                             <button className='blue_button' onClick={(e) => handleEditButton(e)} style={{ marginRight: "2rem", width: "170px" }}>Edit Details</button>
-                                            <button className='blue_button' onClick={(e) => handleAddButton(e)} style={{ marginRight: "2rem", width: "170px" }}>Get More Tokens</button>
+                                            {/* <button className='blue_button' onClick={(e) => handleAddButton(e)} style={{ marginRight: "2rem", width: "170px" }}>Get More Tokens</button> */}
                                         </div>
                                     </>
                             }

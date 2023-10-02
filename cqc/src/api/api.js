@@ -1,5 +1,5 @@
-const getBaseUrl = "https://intrinsic-backend.xyz";
-//const getBaseUrl = "http://localhost:3001";
+//const getBaseUrl = "https://intrinsic-backend.xyz";
+const getBaseUrl = "http://localhost:3001";
 
 export const login = (body) => ({
     body,
@@ -33,6 +33,13 @@ export const getOrders = (body) => ({
     body,
     method: 'GET',
     url: `${getBaseUrl}/users/getOrders`,
+    isAuthorize: false,
+});
+
+export const getAllOrders = (body) => ({
+    body,
+    method: 'POST',
+    url: `${getBaseUrl}/users/getAllOrders`,
     isAuthorize: false,
 });
 

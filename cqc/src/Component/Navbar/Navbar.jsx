@@ -17,7 +17,7 @@ const navigation = [
   { name: 'Process Tutorials', href: '/Process_Tutorials' },
   { name: 'Image Processing', href: '/Processing' },
   { name: 'Intrinsic Challenge', href: '/Intrinsic_Challenge' },
-  { name: 'Web Shop', href: 'Web_Shop' }
+  //{ name: 'Web Shop', href: 'Web_Shop' }
 ];
 
 const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {

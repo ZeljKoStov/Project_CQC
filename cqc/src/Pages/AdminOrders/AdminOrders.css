@@ -1,0 +1,169 @@
+.Admin {
+    padding: 2rem 10rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    background-color: white;
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: url(back.jpeg);
+}
+
+.admin_submissions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 60%;
+    align-self: center;
+}
+
+.admin_image {
+    height: auto;
+    width: 50%;
+}
+
+.admin_image img {
+    height: 600px;
+    width: auto;
+}
+
+.admin_button {
+    height: auto;
+    width: 1rem;
+}
+
+.Admin h1 {
+    font-size: 40px;
+    margin-top: 0;
+}
+
+.TextBox {
+    width: 60%;
+    align-self: center;
+    color: black;
+}
+
+.TextBlock {
+    padding: 1rem;
+    text-align: left;
+    font-size: large;
+}
+
+.TextBlock {
+    font-size: large;
+}
+
+.TextBlock h2,
+.H2 {
+    margin-bottom: 1rem;
+}
+
+.H2 {
+    font-size: 27px;
+}
+
+.TextBlock p {
+    font-size: 22px;
+}
+
+.TextBlock ol {
+    padding-left: 2rem;
+}
+
+.TextBlock li {
+    font-size: 22px;
+}
+
+
+.admin_services {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 27rem;
+    gap: 4rem;
+    border-radius: 5px;
+    border: 1px solid black;
+    background: rgb(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+}
+
+.admin-form-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.search-bar-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.admin_input_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 2rem;
+    width: 25rem;
+    color: black;
+}
+
+.admin_input_item p {
+    text-align: justify;
+}
+
+.admin_spin {
+    display: flex;
+    width: 10rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Admin_Second_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex: 75%;
+}
+
+
+.admin__p p {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: black;
+}
+
+.blueText {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: blue;
+}
+
+.admin_first_row {
+    margin-top: 1rem;
+    display: flex;
+    width: 23%;
+    flex-direction: column;
+    justify-content: top;
+}
+
+.score_button {
+    color: white;
+    background: #163278;
+    line-height: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+}

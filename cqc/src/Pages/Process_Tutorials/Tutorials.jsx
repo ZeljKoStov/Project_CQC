@@ -24,79 +24,97 @@ const Tutorials = () => {
 
   return (
     <Fragment>
-    {
-      <div className='tutorial_container'>
+      {
+        <div className='tutorial_container'>
           <img src={back} alt="Girl in a jacket" className='backgroundImage' />
           <div className='tutorials_body'>
-              <div className='title'>
-                  <spam>Intrinsic Tutorials</spam>
+            <div className='title'>
+              <spam>Intrinsic Tutorials</spam>
+            </div>
+            <div className='tutorials'>
+              <div className='tutorials_video_row'>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/gqWCX5S_IsI"}
+                    controls={true}
+                  />
+                  <h2>Image Processing Tutorial</h2>
+                </div>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/9wkh3RmL0S0"}
+                    controls={true}
+                  />
+                  <h2>Submitting Images Tutorial</h2>
+                </div>
               </div>
-              <div className='tutorials'>
-                <div className='tutorials_video_row'>
-                  <div className='att_video_column'>
-                    <ReactPlayer
-                      className="att_video"
-                      url={"https://youtu.be/YWKpG12h50w"}
-                      controls = {true}
-                    />
-                    <h2>How to Attach a AttachableDiffusers<sup className='supSmall'>TM</sup> to a Cell Phone</h2>
-                  </div>
-                  <div className='att_video_column'>
-                    <ReactPlayer
-                      className="att_video"
-                      url={"https://youtu.be/b5FmLJiE40U"}
-                      controls = {true}
-                    />
-                    <h2>How to Use a AttachableDiffusers<sup className='supSmall'>TM</sup> with a Cell Phone</h2>
-                  </div>
+              <div className='tutorials_video_row'>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/YWKpG12h50w"}
+                    controls={true}
+                  />
+                  <h2>How to Attach a AttachableDiffusers<sup className='supSmall'>TM</sup> to a Cell Phone</h2>
                 </div>
-                <div className='tutorials_video_row'>
-                  <div className='att_video_column'>
-                    <ReactPlayer
-                      className="att_video"
-                      url={"https://youtu.be/B07lvA8M_Fw"}
-                      controls = {true}
-                    />
-                    <h2>Handheld Diffuser<sup className='supSmall'>TM</sup></h2>
-                  </div>
-                  <div className='att_video_column'>
-                    <ReactPlayer
-                      className="att_video"
-                      url={"https://youtu.be/TbEa1cUb6CY"}
-                      controls = {true}
-                    />
-                    <h2>Handheld Diffuser<sup className='supSmall'>TM</sup> use with camera</h2>
-                  </div>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/b5FmLJiE40U"}
+                    controls={true}
+                  />
+                  <h2>How to Use a AttachableDiffusers<sup className='supSmall'>TM</sup> with a Cell Phone</h2>
                 </div>
-                <div className='tutorials_video_row'>
-                  <div className='att_video_column'>
-                    <ReactPlayer
-                      className="att_video"
-                      url={"https://youtu.be/2MkcP_E5i3Q"}
-                      controls = {true}
-                    />
-                    <h2>AstroDiffuser<sup className='supSmall'>TM</sup></h2>
-                  </div>
-                  <div className='att_video_column'>
-                    <ReactPlayer
-                      className="att_video"
-                      url={"https://youtu.be/YJ2_P3-V2D8"}
-                      controls = {true}
-                    />
-                    <h2>AstroDiffuser<sup className='supSmall'>TM</sup> operation with App</h2>
-                  </div>
+              </div>
+              <div className='tutorials_video_row'>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/B07lvA8M_Fw"}
+                    controls={true}
+                  />
+                  <h2>Handheld Diffuser<sup className='supSmall'>TM</sup></h2>
                 </div>
-                <div className='tutorials_video_row'>
-                  <div className='att_video_column'>
-                    <ReactPlayer
-                      className="att_video"
-                      url={"https://youtu.be/UHvNh1GjBvc"}
-                      controls = {true}
-                    />
-                    <h2>MicroDiffuser<sup className='supSmall'>TM</sup></h2>
-                  </div>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/TbEa1cUb6CY"}
+                    controls={true}
+                  />
+                  <h2>Handheld Diffuser<sup className='supSmall'>TM</sup> use with camera</h2>
                 </div>
-                {/* <div className='tutorial_processing_image_sets'>
+              </div>
+              <div className='tutorials_video_row'>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/2MkcP_E5i3Q"}
+                    controls={true}
+                  />
+                  <h2>AstroDiffuser<sup className='supSmall'>TM</sup></h2>
+                </div>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/YJ2_P3-V2D8"}
+                    controls={true}
+                  />
+                  <h2>AstroDiffuser<sup className='supSmall'>TM</sup> operation with App</h2>
+                </div>
+              </div>
+              <div className='tutorials_video_row'>
+                <div className='att_video_column'>
+                  <ReactPlayer
+                    className="att_video"
+                    url={"https://youtu.be/UHvNh1GjBvc"}
+                    controls={true}
+                  />
+                  <h2>MicroDiffuser<sup className='supSmall'>TM</sup></h2>
+                </div>
+              </div>
+              {/* <div className='tutorial_processing_image_sets'>
                   <h1>Processing Image Sets</h1>
                   <h2><b>For Cell Phone Apps</b></h2>
                   <ol>
@@ -115,8 +133,8 @@ const Tutorials = () => {
                   <p>All image sets that have not been processed will be processed and saved (Original, Diffused and Intrinsic) in the Intrinsic Images folder that is automatically generated in your computer.</p>
 
                 </div> */}
-              
-                {/* <img src={tutorilaimage} alt='img' />
+
+              {/* <img src={tutorilaimage} alt='img' />
                 <p>Three steps are required to create Intrinsic images: Obtaining mage sets, Renaming image sets, and Processing image sets. The following instructions provide the way to produce Intrinsic images. The Process of obtaining and processing Intrinsic images requires an Intrinsic DiffuserTM that is available, among other items, from the <a className='header_link_button' onClick={goToWebShop}>Web Shop.</a> Web Shop</p>
                 <button type='button' className='blue_button' onClick={goToWebShop}>Web Shop</button>
                 <br />
@@ -157,11 +175,11 @@ const Tutorials = () => {
                 </ol>
                 <p>All image sets that have not been processed will be processed and saved (Original, Diffused and Intrinsic) in the Intrinsic Images folder that is automatically generated in your computer.</p> */}
 
-              </div>
+            </div>
           </div>
-      </div>
+        </div>
 
-    }
+      }
     </Fragment>
   )
 }
