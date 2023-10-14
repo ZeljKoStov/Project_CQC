@@ -291,7 +291,7 @@ const MyProfile = () => {
                                     <>
                                         <div className='btnAdd'>
                                             <button className='blue_button' onClick={(e) => handleEditButton(e)} style={{ marginRight: "2rem", width: "170px" }}>Edit Details</button>
-                                            {/* <button className='blue_button' onClick={(e) => handleAddButton(e)} style={{ marginRight: "2rem", width: "170px" }}>Get More Tokens</button> */}
+                                            { (email == "abe@quantcyte.org" || email == "ngocic97@gmail.com") && <button className='blue_button' onClick={(e) => handleAddButton(e)} style={{ marginRight: "2rem", width: "170px" }}>Get More Tokens</button> }
                                         </div>
                                     </>
                             }

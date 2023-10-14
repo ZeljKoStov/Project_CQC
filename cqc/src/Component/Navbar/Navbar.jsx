@@ -5,7 +5,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { getCookie, setCookie } from '../../utils/cookies';
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import  shoping_cart  from "./shoping_cart.png"
+import shoping_cart from "./shoping_cart.png"
 
 
 import './navbar.css';
@@ -17,10 +17,10 @@ const navigation = [
   { name: 'Process Tutorials', href: '/Process_Tutorials' },
   { name: 'Image Processing', href: '/Processing' },
   { name: 'Intrinsic Challenge', href: '/Intrinsic_Challenge' },
-  //{ name: 'Web Shop', href: 'Web_Shop' }
+  { name: 'Web Shop', href: '/Web_Shop' }
 ];
 
-const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
+const Navbar = ({ orders, widChanger, signedIn, userName, userEmail, signOut }) => {
 
   const getWindowsDimensions = () => {
     const { innerWidth: width, innerHeight: height } = window;
@@ -31,6 +31,7 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
   }
   const [toggleMenu, setToggleMenu] = useState(false);
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [signin, setSignIn] = useState(false)
   const [wid, setWid] = useState(getWindowsDimensions());
   const boxRef = useRef();
@@ -67,8 +68,10 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
 
   useEffect(() => {
     const _name = getCookie('_name');
+    const _email = getCookie('_email');
     if (_name !== " ") {
       setName(_name)
+      setEmail(_email)
       setSignIn(true)
     }
 
@@ -92,8 +95,10 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
   const changeR = () => {
     let path = `/`;
     const _name = getCookie('_name');
+    const _email = getCookie('_email');
     if (_name !== " ") {
       setName(_name)
+      setEmail(_email)
       setSignIn(true)
     }
     navigate(path);
@@ -135,11 +140,11 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
                   <>
                     <div className="login_div">
 
-                      <div className="shoping_cart_container" onClick={() => { navigate("/Checkout");}}>
+                      <div className="shoping_cart_container" onClick={() => { navigate("/Checkout"); }}>
                         <img className="shoping_cart" src={shoping_cart} />
-                        {orders.length>0 && orders.length}
+                        {orders.length > 0 && orders.length}
                       </div>
-                      
+
 
                       <div className='biuser' onClick={goToProfil}>
                         <BiUser size={"2rem"} color={"white"} />
@@ -180,7 +185,8 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
                               {item.name}
                             </NavLink>
                           </p>
-                        ))}
+                        ))
+                        }
                       </div>
                       <div className='cqc__navbar_frst-menu_containers-links-sign'>
                         <p><Link to='Register'>Register</Link></p>
@@ -193,22 +199,42 @@ const Navbar = ({ orders, widChanger, signedIn, userName, signOut }) => {
             </div>
             <div className='cqc__navbar_second'>
               {navigation.map((item) => (
-                <p>
-                  <NavLink
-                    key={item.name}
-                    to={item.href}
-                    className={({ isActive }) => {
-                      return (
-                        (!isActive
-                          ? 'cqc__navbar-links_container'
-                          : 'cqc__navbar-links_container2'
-                        )
-                      );
-                    }}
-                  >
-                    {item.name}
-                  </NavLink>
-                </p>
+                (item.name == "Web Shop") ?
+                  signedIn && (userEmail == "ngocic97@gmail.com" || userEmail == "abe@quantcyte.org") && <p>
+                    <NavLink
+                      key={item.name}
+                      to={item.href}
+                      className={({ isActive }) => {
+                        return (
+                          (!isActive
+                            ? 'cqc__navbar-links_container'
+                            : 'cqc__navbar-links_container2'
+                          )
+                        );
+                      }}
+                    >
+                      {item.name}
+                    </NavLink>
+                  </p>
+                  :
+                  <p>
+                    <NavLink
+                      key={item.name}
+                      to={item.href}
+                      className={({ isActive }) => {
+                        return (
+                          (!isActive
+                            ? 'cqc__navbar-links_container'
+                            : 'cqc__navbar-links_container2'
+                          )
+                        );
+                      }}
+                    >
+                      {item.name}
+                    </NavLink>
+                  </p>
+
+
               ))}
             </div>
           </motion.div>
