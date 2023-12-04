@@ -32,8 +32,8 @@ const Admin = () => {
                           <spam>Admin Panel</spam>
                       </div>
                       <form className="login-form">
-                          <spam htmlFor='email'>Subbmissions</spam>
-                          <button className='blue_button' onClick={e => goToSubbmissions(e)}>Go To Subbmissions</button>
+                          <spam htmlFor='email'>Submissions</spam>
+                          <button className='blue_button' onClick={e => goToSubbmissions(e)}>Go To Submissions</button>
                           <spam htmlFor='email'>Orders</spam>
                           <button className='blue_button' onClick={ (e) => goToOrders(e)}>Go To Orders</button>
                       </form>
