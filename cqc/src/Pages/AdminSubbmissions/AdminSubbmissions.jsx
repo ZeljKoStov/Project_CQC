@@ -136,7 +136,7 @@ const AdminSubbmissions = () => {
         const value = e.target.value;
 
         const intValue = parseInt(value, 10);
-        if (!isNaN(intValue) && intValue >= 1 && intValue <= 5) {
+        if (!isNaN(intValue) && intValue >= 0 && intValue <= 5) {
 
             const newSubs = [...subs];
             newSubs[index].score = intValue
