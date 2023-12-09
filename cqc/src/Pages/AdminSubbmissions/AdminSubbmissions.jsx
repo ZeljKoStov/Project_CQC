@@ -28,7 +28,7 @@ const AdminSubbmissions = () => {
         ext: "",
         createdAt: "",
         hidden: true,
-        score: '',
+        score: -1,
         toSave: false,
         totalScore: 0,
         numberOfScores: 0
@@ -41,7 +41,7 @@ const AdminSubbmissions = () => {
         ext: "",
         createdAt: "",
         hidden: true,
-        score: '',
+        score: -1,
         toSave: false,
         totalScore: 0,
         numberOfScores: 0
@@ -83,6 +83,18 @@ const AdminSubbmissions = () => {
                 const myScores = await RequestAPI(getMyScores(body));
 
                 list.map(item => {
+                    item.score = -1
+                })
+
+                list.map(item => {
+                    myScores.data.myScores.map(it => {
+                        if (it.submissionID == item.uuid) {
+                            item.score = it.score
+                        }
+                    })
+                })
+
+                list.map(item => {
                     myScores.data.myScores.map(it => {
                         if (it.submissionID == item.uuid) {
                             item.score = it.score
@@ -103,7 +115,7 @@ const AdminSubbmissions = () => {
                     })
                 })
 
-                setSubs(list);
+                setSubs(list.slice(currentPage * 10 - 10, currentPage * 10));
                 setAllSubs(list);
             }
         } catch (error) {
@@ -118,30 +130,38 @@ const AdminSubbmissions = () => {
             }
             const response = await RequestAPI(deleteSubmition(body));
             if (response.status === 200) {
-                const newSubs = [...subs]
-                subs.map((item, index) => {
+                const newSubs = [...allSubs]
+                allSubs.map((item, index) => {
                     if (item.uuid == id) {
                         newSubs[index].hidden = true
                     }
                 });
 
-                setSubs(newSubs)
+                setAllSubs(newSubs)
+
+                setSubs(newSubs.slice(currentPage * 10 - 10, currentPage * 10))
             }
         } catch (error) {
             console.log(error);
         }
     }
 
-    const scoreChange = (e, index) => {
+    const scoreChange = (e, id) => {
         const value = e.target.value;
 
         const intValue = parseInt(value, 10);
         if (!isNaN(intValue) && intValue >= 0 && intValue <= 5) {
 
-            const newSubs = [...subs];
-            newSubs[index].score = intValue
-            newSubs[index].toSave = true
-            setSubs(newSubs)
+            const newSubs = [...allSubs];
+            allSubs.map((item, index) => {
+                if (item.uuid == id) {
+                    newSubs[index].score = intValue
+                    newSubs[index].toSave = true
+                }
+            });
+
+            setAllSubs(newSubs)
+            setSubs(newSubs.slice(currentPage * 10 - 10, currentPage * 10))
         }
     };
 
@@ -163,18 +183,17 @@ const AdminSubbmissions = () => {
         const newSubs = allSubs.filter(function (sub) {
             return sub.uuid.includes(query);
         });
-        setSubs(newSubs);
+        setSubs(newSubs.slice(currentPage * 10 - 10, currentPage * 10));
         setCurrentPage(1);
     }
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
+        console.log(allSubs)
+        setSubs(allSubs.slice(pageNumber * 10 - 10, pageNumber * 10));
         load(pageNumber)
     };
 
-    function compareDatesDesc(a, b) {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-    }
 
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
@@ -192,19 +211,31 @@ const AdminSubbmissions = () => {
                 <SearchBar onSearch={handleSearch} />
             </div>
             <div className="admin-form-field">
-                {subs.slice(currentPage * 10 - 10, currentPage * 10).map((item, index) => (
+                {subs.map((item, index) => (
                     !item.hidden &&
                     <div key={index} className="admin_subb_services">
                         <div className="admin_first_row">
                             <div className="admin_input_item">
                                 <p>Enter score:</p>
-                                <input
-                                    type="number"
-                                    value={item.score}
-                                    onChange={e => scoreChange(e, index)}
-                                    min="0"
-                                    max="5"
-                                />
+                                {
+                                    item.score == -1 ?
+                                        <input
+                                            type="number"
+                                            value={''}
+                                            onChange={e => scoreChange(e, item.uuid)}
+                                            min="0"
+                                            max="5"
+                                        />
+                                        :
+                                        <input
+                                            type="number"
+                                            value={item.score}
+                                            onChange={e => scoreChange(e, item.uuid)}
+                                            min="0"
+                                            max="5"
+                                        />
+                                }
+
                                 {item.toSave && <button type='button' className="score_button" onClick={() => { saveScore(index) }}>Save</button>}
                             </div>
                             <div className="admin_input_item">
@@ -365,7 +396,7 @@ const AdminSubbmissions = () => {
                 ))}
 
                 <div>
-                    {Array.from({ length: Math.ceil(subs.length / 10) }, (_, index) => (
+                    {Array.from({ length: Math.ceil(allSubs.length / 10) }, (_, index) => (
                         <button key={index + 1} onClick={() => handlePageChange(index + 1)}>
                             {currentPage == index + 1 ?
                                 <p style={{ color: "blue" }}>{(index + 1) * 10}</p>
