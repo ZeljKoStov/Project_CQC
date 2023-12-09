@@ -80,11 +80,11 @@
 }
 
 
-.admin_services {
+.admin_subb_services {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 27rem;
+    height: 30rem;
     gap: 4rem;
     border-radius: 5px;
     border: 1px solid black;
@@ -107,18 +107,20 @@
     margin-bottom: 1rem;
 }
 
-.admin_input_item {
+.admin_subb_input_item {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 1rem;
     margin-left: 2rem;
-    width: 25rem;
+    width: 20rem;
     color: black;
 }
 
-.admin_input_item p {
+.admin_subb_input_item p {
     text-align: justify;
+    max-height: 150px;
+    overflow: auto;
 }
 
 .admin_spin {

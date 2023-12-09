@@ -8,7 +8,7 @@ import "./AdminSubbmissions.css"
 
 
 import f1 from "../../assets/1st_i.jpg"
-import { MdClear } from "react-icons/md"
+import { MdClear, MdCropRotate } from "react-icons/md"
 
 const getBaseUrl = "https://intrinsic-backend.xyz/users/submissions/images/";
 //const getBaseUrl = "http://localhost:3001/users/submissions/images/";
@@ -18,6 +18,7 @@ const AdminSubbmissions = () => {
     const [count, setCount] = useState(false)
     const [openModal, setOpenModal] = useState(false);
     const [imageToShow, setImageToShow] = useState(f1);
+    const [rotationAngle, setRotationAngle] = useState(0);
     const [email, setEmail] = useState('');
     const [subs, setSubs] = useState([{
         email: "",
@@ -102,7 +103,7 @@ const AdminSubbmissions = () => {
                     })
                 })
 
-                setSubs(list.reverse());
+                setSubs(list);
                 setAllSubs(list);
             }
         } catch (error) {
@@ -180,6 +181,10 @@ const AdminSubbmissions = () => {
         return new Date(dateString).toLocaleString(undefined, options);
     }
 
+    const rotate = () => {
+        setRotationAngle(rotationAngle + 90)
+    }
+
     return (
         <div className='Admin'>
             <h1>Admin Panel</h1>
@@ -189,7 +194,7 @@ const AdminSubbmissions = () => {
             <div className="admin-form-field">
                 {subs.slice(currentPage * 10 - 10, currentPage * 10).map((item, index) => (
                     !item.hidden &&
-                    <div key={index} className="admin_services">
+                    <div key={index} className="admin_subb_services">
                         <div className="admin_first_row">
                             <div className="admin_input_item">
                                 <p>Enter score:</p>
@@ -197,7 +202,7 @@ const AdminSubbmissions = () => {
                                     type="number"
                                     value={item.score}
                                     onChange={e => scoreChange(e, index)}
-                                    min="1"
+                                    min="0"
                                     max="5"
                                 />
                                 {item.toSave && <button type='button' className="score_button" onClick={() => { saveScore(index) }}>Save</button>}
@@ -214,7 +219,7 @@ const AdminSubbmissions = () => {
                                 <p>Subject:</p>
                                 <p>{item.subject}</p>
                             </div>
-                            <div className="admin_input_item">
+                            <div className="admin_subb_input_item">
                                 <p>Description:{item.desc} </p>
                             </div>
                             {
@@ -229,7 +234,7 @@ const AdminSubbmissions = () => {
                                     }
                                 </div>
                             }
-                            {
+                            {/* {
                                 (email == "abe@quantcyte.org" || email == "ngocic97@gmail.com") &&
                                 <>
                                     {
@@ -246,7 +251,7 @@ const AdminSubbmissions = () => {
 
                                 </>
 
-                            }
+                            } */}
 
                         </div>
 
@@ -261,8 +266,9 @@ const AdminSubbmissions = () => {
 
                                             <div className="image_preview">
                                                 <img src={getBaseUrl + item.uuid + "_F." + item.ext} alt="reload" onClick={() => {
-                                                    setOpenModal(true)
                                                     setImageToShow(getBaseUrl + item.uuid + "_F." + item.ext)
+                                                    setRotationAngle(0)
+                                                    setOpenModal(true)
                                                 }} />
                                             </div>
 
@@ -275,8 +281,9 @@ const AdminSubbmissions = () => {
                                             </div>
                                             <div className="image_preview">
                                                 <img src={getBaseUrl + item.uuid + "_D." + item.ext} alt="reload" onClick={() => {
-                                                    setOpenModal(true)
+                                                    setRotationAngle(0)
                                                     setImageToShow(getBaseUrl + item.uuid + "_D." + item.ext)
+                                                    setOpenModal(true)
                                                 }} />
                                             </div>
 
@@ -290,8 +297,9 @@ const AdminSubbmissions = () => {
                                             </div>
                                             <div className="image_preview">
                                                 <img src={getBaseUrl + item.uuid + "_I." + item.ext} alt="reload" onClick={() => {
-                                                    setOpenModal(true)
+                                                    setRotationAngle(0)
                                                     setImageToShow(getBaseUrl + item.uuid + "_I." + item.ext)
+                                                    setOpenModal(true)
                                                 }} />
                                             </div>
 
@@ -309,8 +317,9 @@ const AdminSubbmissions = () => {
 
                                             <div className="image_preview">
                                                 <img src={getBaseUrl + item.uuid + "_F." + item.ext} alt="reload" onClick={() => {
-                                                    setOpenModal(true)
+                                                    setRotationAngle(0)
                                                     setImageToShow(getBaseUrl + item.uuid + "_F." + item.ext)
+                                                    setOpenModal(true)
                                                 }} />
                                             </div>
 
@@ -323,8 +332,9 @@ const AdminSubbmissions = () => {
                                             </div>
                                             <div className="image_preview">
                                                 <img src={getBaseUrl + item.uuid + "_D." + item.ext} alt="reload" onClick={() => {
-                                                    setOpenModal(true)
+                                                    setRotationAngle(0)
                                                     setImageToShow(getBaseUrl + item.uuid + "_D." + item.ext)
+                                                    setOpenModal(true)
                                                 }} />
                                             </div>
 
@@ -338,8 +348,9 @@ const AdminSubbmissions = () => {
                                             </div>
                                             <div className="image_preview">
                                                 <img src={getBaseUrl + item.uuid + "_I." + item.ext} alt="reload" onClick={() => {
-                                                    setOpenModal(true)
+                                                    setRotationAngle(0)
                                                     setImageToShow(getBaseUrl + item.uuid + "_I." + item.ext)
+                                                    setOpenModal(true)
                                                 }} />
                                             </div>
 
@@ -357,9 +368,9 @@ const AdminSubbmissions = () => {
                     {Array.from({ length: Math.ceil(subs.length / 10) }, (_, index) => (
                         <button key={index + 1} onClick={() => handlePageChange(index + 1)}>
                             {currentPage == index + 1 ?
-                                <p style={{ color: "blue" }}>{Math.ceil(subs.length / 10)*10 - (index + 1)*10}</p>
+                                <p style={{ color: "blue" }}>{(index + 1) * 10}</p>
                                 :
-                                <p>{Math.ceil(subs.length / 10)*10 - (index + 1)*10}</p>
+                                <p>{(index + 1) * 10}</p>
                             }
 
                         </button>
@@ -376,11 +387,22 @@ const AdminSubbmissions = () => {
                         }}
                         className='header_modalContainer'
                     >
+
                         <div className='header_escape' onClick={() => setOpenModal(false)}>
                             <MdClear size={"2rem"} />
                         </div>
 
-                        <img src={imageToShow} alt='focused_image' />
+                        <div className='header_rotate' onClick={() => rotate()}>
+                            <MdCropRotate size={"2rem"} />
+                        </div>
+
+                        <img src={imageToShow} alt='focused_image' style={{
+                            display: 'flex',
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '1rem',
+                            transform: `rotate(${rotationAngle}deg)`
+                        }} />
                     </div>
                 </div>
             }
