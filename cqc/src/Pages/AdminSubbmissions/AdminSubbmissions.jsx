@@ -115,6 +115,8 @@ const AdminSubbmissions = () => {
                     })
                 })
 
+                list.sort(compareFloatsDescending)
+
                 setSubs(list.slice(currentPage * 10 - 10, currentPage * 10));
                 setAllSubs(list);
             }
@@ -122,6 +124,8 @@ const AdminSubbmissions = () => {
             console.log(error);
         }
     }
+
+    const compareFloatsDescending = (a, b) => (b.totalScore/b.numberOfScores) - (a.totalScore/a.numberOfScores);
 
     const deleteSubmission = async (id) => {
         try {
@@ -265,7 +269,7 @@ const AdminSubbmissions = () => {
                                     }
                                 </div>
                             }
-                            {/* {
+                            {
                                 (email == "abe@quantcyte.org" || email == "ngocic97@gmail.com") &&
                                 <>
                                     {
@@ -282,7 +286,7 @@ const AdminSubbmissions = () => {
 
                                 </>
 
-                            } */}
+                            }
 
                         </div>
 
