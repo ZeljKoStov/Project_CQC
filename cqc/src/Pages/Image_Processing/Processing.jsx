@@ -751,7 +751,7 @@ const Processing = () => {
                                 <div key={index * 2} className="mappingServices">
                                     <div className="mapping_row">
 
-                                        <div className="map_row">
+                                        <div className="image_row">
                                             {pair.map1 != null ?
                                                 <img src={`${pair.map1}`} className="mapping_image" alt="reload" onClick={() => {
 
@@ -767,7 +767,7 @@ const Processing = () => {
                                             }
                                         </div>
 
-                                        <div className="map_row">
+                                        <div className="image_row">
                                             {pair.map2 != null ?
                                                 <img src={`${pair.map2}`} className="mapping_image" alt="reload" onClick={() => {
 
@@ -783,7 +783,7 @@ const Processing = () => {
                                             }
                                         </div>
 
-                                        <div className="map_row">
+                                        <div className="image_row">
                                             {pair.map3 != null ?
                                                 <img src={`${pair.map3}`} className="mapping_image" alt="reload" onClick={() => {
 
