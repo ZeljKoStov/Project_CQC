@@ -14,3 +14,5 @@ export {default as Admin} from './Admin/Admin'
 export {default as Applications} from './Applications/Applications'
 export {default as AdminSubbmissions} from './AdminSubbmissions/AdminSubbmissions'
 export {default as AdminOrders} from './AdminOrders/AdminOrders'
+export {default as ImagePresenter} from './ImagePresenter/ImagePresenter'
+

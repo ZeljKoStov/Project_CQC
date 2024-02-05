@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import FileSaver from 'file-saver';
 import JSZip from "jszip"
 import { getCookie } from '../../utils/cookies';
-import { processing, changeExposure, userData } from "../../api/api";
+import { processing, changeExposure, userData, chargeMapping } from "../../api/api";
 import { RequestAPI } from "../../utils/request-api";
 import { useNavigate } from "react-router-dom";
 import { Modal } from '../../Component';
@@ -43,6 +43,8 @@ const Processing = () => {
         map7: null,
         map8: null,
         map9: null,
+        mappingInProgress: false,
+        mappingCount: 0
     }]);
 
     const [loading, setLoading] = useState(false);
@@ -94,7 +96,33 @@ const Processing = () => {
         setProcesed(false);
         setOpenModal(false);
 
-        setImagePairs([]);
+        setImagePairs([{
+            focused: null,
+            fext: "",
+            furl: "",
+            ferror: false,
+            diffused: null,
+            dext: "",
+            durl: "",
+            derror: false,
+            name: "",
+            doterror: false,
+            nerror: false,
+            serror: false,
+            exterror: false,
+            intrinsic: null,
+            map1: null,
+            map2: null,
+            map3: null,
+            map4: null,
+            map5: null,
+            map6: null,
+            map7: null,
+            map8: null,
+            map9: null,
+            mappingInProgress: false,
+            mappingCount: 0
+        }]);
         updateUI();
     }
 
@@ -221,6 +249,8 @@ const Processing = () => {
             updateUI();
         } else {
             setLoading(true);
+            const list = [...imagePairs];
+
             imagePairs.map(async (pair, index) => {
                 if (pair.diffused != null && pair.focused != null && pair.name != null) {
 
@@ -293,10 +323,18 @@ const Processing = () => {
             setImagePairs(list);
             updateUI();
         } else {
-            setLoading(true);
+            updateUI();
             imagePairs.map(async (pair, index) => {
                 if (pair.diffused != null && pair.focused != null && pair.name != null) {
                     const object = imagePairs[index]
+
+                    var central = null
+
+                    object.mappingInProgress = true
+                    const insertList = [...imagePairs];
+                    insertList[index] = object
+                    setImagePairs(insertList);
+                    updateUI();
 
                     try {
 
@@ -310,7 +348,14 @@ const Processing = () => {
                         formData1.append("ext", pair.fext);
                         formData1.append("email", email);
                         const response1 = await RequestAPI(changeExposure(formData1));
-                        if (response1.status === 200) { object.map1 = response1.data }
+                        if (response1.status === 200) {
+                            object.map1 = response1.data
+                            object.mappingCount = 1
+                            const insertList = [...imagePairs];
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
 
                         //2
                         const formData2 = new FormData();
@@ -322,7 +367,14 @@ const Processing = () => {
                         formData2.append("ext", pair.fext);
                         formData2.append("email", email);
                         const response2 = await RequestAPI(changeExposure(formData2));
-                        if (response2.status === 200) { object.map2 = response2.data }
+                        if (response2.status === 200) {
+                            object.map2 = response2.data
+                            object.mappingCount = 2
+                            const insertList = [...imagePairs];
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
 
                         //3
                         const formData3 = new FormData();
@@ -334,7 +386,14 @@ const Processing = () => {
                         formData3.append("ext", pair.fext);
                         formData3.append("email", email);
                         const response3 = await RequestAPI(changeExposure(formData3));
-                        if (response3.status === 200) { object.map3 = response3.data }
+                        if (response3.status === 200) {
+                            object.map3 = response3.data
+                            object.mappingCount = 3
+                            const insertList = [...imagePairs];
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
 
                         //4
                         const formData4 = new FormData();
@@ -346,7 +405,14 @@ const Processing = () => {
                         formData4.append("ext", pair.fext);
                         formData4.append("email", email);
                         const response4 = await RequestAPI(changeExposure(formData4));
-                        if (response4.status === 200) { object.map4 = response4.data }
+                        if (response4.status === 200) {
+                            object.map4 = response4.data
+                            object.mappingCount = 4
+                            const insertList = [...imagePairs];
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
 
                         //5
                         const formData5 = new FormData();
@@ -358,7 +424,15 @@ const Processing = () => {
                         formData5.append("ext", pair.fext);
                         formData5.append("email", email);
                         const response5 = await RequestAPI(changeExposure(formData5));
-                        if (response5.status === 200) { object.map5 = response5.data }
+                        if (response5.status === 200) {
+                            object.map5 = response5.data
+                            object.mappingCount = 5
+                            const insertList = [...imagePairs];
+                            central = response5.data
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
 
                         //6
                         const formData6 = new FormData();
@@ -370,7 +444,14 @@ const Processing = () => {
                         formData6.append("ext", pair.fext);
                         formData6.append("email", email);
                         const response6 = await RequestAPI(changeExposure(formData6));
-                        if (response6.status === 200) { object.map6 = response6.data }
+                        if (response6.status === 200) {
+                            object.map6 = response6.data
+                            object.mappingCount = 6
+                            const insertList = [...imagePairs];
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
 
                         //7
                         const formData7 = new FormData();
@@ -382,7 +463,14 @@ const Processing = () => {
                         formData7.append("ext", pair.fext);
                         formData7.append("email", email);
                         const response7 = await RequestAPI(changeExposure(formData7));
-                        if (response7.status === 200) { object.map7 = response7.data }
+                        if (response7.status === 200) {
+                            object.map7 = response7.data
+                            object.mappingCount = 7
+                            const insertList = [...imagePairs];
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
 
                         //8
                         const formData8 = new FormData();
@@ -394,7 +482,14 @@ const Processing = () => {
                         formData8.append("ext", pair.fext);
                         formData8.append("email", email);
                         const response8 = await RequestAPI(changeExposure(formData8));
-                        if (response8.status === 200) { object.map8 = response8.data }
+                        if (response8.status === 200) {
+                            object.map8 = response8.data
+                            object.mappingCount = 8
+                            const insertList = [...imagePairs];
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
 
                         //9
                         const formData9 = new FormData();
@@ -406,13 +501,35 @@ const Processing = () => {
                         formData9.append("ext", pair.fext);
                         formData9.append("email", email);
                         const response9 = await RequestAPI(changeExposure(formData9));
-                        if (response9.status === 200) { object.map9 = response9.data }
+                        if (response9.status === 200) {
+                            object.map9 = response9.data
+                            object.mappingCount = 9
+                            const insertList = [...imagePairs];
+                            insertList[index] = object
+                            setImagePairs(insertList);
+                            updateUI();
+                        }
+
+
 
                         const insertList = [...imagePairs];
+                        object.mappingInProgress = false
+                        object.intrinsic = central
                         insertList[index] = object
 
                         setImagePairs(insertList);
 
+                        updateUI();
+
+                        //downloadAuto();
+                        setLoading(false);
+                        setProcesed(true);
+
+                        //Chargin for mapping
+                        const formDataCharge = new FormData();
+                        formDataCharge.append("email", email);
+                        await RequestAPI(chargeMapping(formDataCharge));
+                        await fetchData();
                         updateUI();
 
                     } catch (error) {
@@ -437,6 +554,18 @@ const Processing = () => {
                 zip.file(item.name + "_D." + item.fext, item.diffused)
                 zip.file(item.name + "_I." + item.fext, item.intrinsic.substring(22), { base64: true })
             }
+
+            if (item.mappingCount == 9) {
+                zip.file(item.name + "_M_1." + item.fext, item.map1.substring(22), { base64: true })
+                zip.file(item.name + "_M_2." + item.fext, item.map2.substring(22), { base64: true })
+                zip.file(item.name + "_M_3." + item.fext, item.map3.substring(22), { base64: true })
+                zip.file(item.name + "_M_4." + item.fext, item.map4.substring(22), { base64: true })
+                zip.file(item.name + "_M_5." + item.fext, item.map5.substring(22), { base64: true })
+                zip.file(item.name + "_M_6." + item.fext, item.map6.substring(22), { base64: true })
+                zip.file(item.name + "_M_7." + item.fext, item.map7.substring(22), { base64: true })
+                zip.file(item.name + "_M_8." + item.fext, item.map8.substring(22), { base64: true })
+                zip.file(item.name + "_M_9." + item.fext, item.map9.substring(22), { base64: true })
+            }
         })
 
         if (flag) {
@@ -459,6 +588,18 @@ const Processing = () => {
             zip.file(item.name + "_F." + item.fext, item.focused)
             zip.file(item.name + "_D." + item.fext, item.diffused)
             zip.file(item.name + "_I." + item.fext, item.intrinsic.substring(22), { base64: true })
+
+            if (item.mappingCount == 9) {
+                zip.file(item.name + "_M_1." + item.fext, item.map1.substring(22), { base64: true })
+                zip.file(item.name + "_M_2." + item.fext, item.map2.substring(22), { base64: true })
+                zip.file(item.name + "_M_3." + item.fext, item.map3.substring(22), { base64: true })
+                zip.file(item.name + "_M_4." + item.fext, item.map4.substring(22), { base64: true })
+                zip.file(item.name + "_M_5." + item.fext, item.map5.substring(22), { base64: true })
+                zip.file(item.name + "_M_6." + item.fext, item.map6.substring(22), { base64: true })
+                zip.file(item.name + "_M_7." + item.fext, item.map7.substring(22), { base64: true })
+                zip.file(item.name + "_M_8." + item.fext, item.map8.substring(22), { base64: true })
+                zip.file(item.name + "_M_9." + item.fext, item.map9.substring(22), { base64: true })
+            }
         })
 
         zip.generateAsync({ type: "blob" }).then(function (content) {
@@ -585,6 +726,17 @@ const Processing = () => {
                                         <div class="reg-spinner"></div>
                                     </div>
                                 }
+                                {!pair.intrinsic && pair.mappingInProgress &&
+                                    <div className="spin">
+                                        <p>Mapping in Progress...</p>
+                                        <p>Processed {pair.mappingCount}/9 </p>
+                                    </div>
+                                }
+                                {!pair.intrinsic && pair.mappingCount == 9 &&
+                                    <div className="spin">
+                                        <p>Mapping Completed</p>
+                                    </div>
+                                }
                                 <div className="second-division">
                                     {imagePairs.length !== 1 && (
                                         <button type="button" onClick={() => handleImagePairRemove(index)} className="remove_button">
@@ -595,11 +747,11 @@ const Processing = () => {
                             </div>
                         </div>
                         {
-                            mapping && <>
+                            mapping && pair.mappingCount == 9 && <>
                                 <div key={index * 2} className="mappingServices">
                                     <div className="mapping_row">
 
-                                        <div className="image_row">
+                                        <div className="map_row">
                                             {pair.map1 != null ?
                                                 <img src={`${pair.map1}`} className="mapping_image" alt="reload" onClick={() => {
 
@@ -609,13 +761,13 @@ const Processing = () => {
                                                     setN("intr")
                                                 }} />
                                                 :
-                                                <div className="spin">
+                                                <div className="regSpinerBox">
                                                     <div class="reg-spinner"></div>
                                                 </div>
                                             }
                                         </div>
 
-                                        <div className="image_row">
+                                        <div className="map_row">
                                             {pair.map2 != null ?
                                                 <img src={`${pair.map2}`} className="mapping_image" alt="reload" onClick={() => {
 
@@ -625,13 +777,13 @@ const Processing = () => {
                                                     setN("intr")
                                                 }} />
                                                 :
-                                                <div className="spin">
+                                                <div className="regSpinerBox">
                                                     <div class="reg-spinner"></div>
                                                 </div>
                                             }
                                         </div>
 
-                                        <div className="image_row">
+                                        <div className="map_row">
                                             {pair.map3 != null ?
                                                 <img src={`${pair.map3}`} className="mapping_image" alt="reload" onClick={() => {
 
@@ -641,7 +793,7 @@ const Processing = () => {
                                                     setN("intr")
                                                 }} />
                                                 :
-                                                <div className="spin">
+                                                <div className="regSpinerBox">
                                                     <div class="reg-spinner"></div>
                                                 </div>
                                             }
@@ -768,7 +920,7 @@ const Processing = () => {
                         <button type="button" onClick={handleServiceAdd} className="dodajRed" disabled={loading}>
                             Add another image pair
                         </button>
-                        <button type="button" onClick={handleSubmit} className="process_button"  disabled={loading || imagePairs.length > usersTokens}>
+                        <button type="button" onClick={handleSubmit} className="process_button" disabled={loading || imagePairs.length > usersTokens}>
                             Process Images
                         </button>
                         {

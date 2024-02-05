@@ -3,7 +3,7 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { getCookie, setCookie } from './utils/cookies';
 import { Footer, Navbar, Header } from './Component';
-import { Register, Login, Processing, Technology, Tutorials, Challenge, Submission, Web, MyProfil, Checkout, Orders, Admin, Applications, AdminSubbmissions, AdminOrders } from './Pages';
+import { Register, Login, Processing, Technology, Tutorials, Challenge, Submission, Web, MyProfil, Checkout, Orders, Admin, Applications, AdminSubbmissions, AdminOrders, ImagePresenter } from './Pages';
 import './App.css'
 import back from "./assets/back.jpeg"
 
@@ -183,6 +183,8 @@ const App = () => {
                     <Route path='/AdminSubbmissions' element={<AdminSubbmissions />} />
                     <Route path='/AdminOrders' element={<AdminOrders />} />
                     <Route path='/Applications' element={<Applications />} />
+                    <Route path='/ImagePresenter' element={<ImagePresenter />} />
+
                   </Routes>
                 </div>
 
