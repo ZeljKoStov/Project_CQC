@@ -18,7 +18,7 @@ const navigation = [
   { name: 'Image Processing', href: '/Processing' },
   { name: 'Intrinsic Challenge', href: '/Intrinsic_Challenge' },
   { name: 'Web Shop', href: '/Web_Shop' },
-  { name: 'Image Presenter', href: '/ImagePresenter'}
+  { name: 'Image Viewer', href: '/ImagePresenter'}
 ];
 
 const Navbar = ({ orders, widChanger, signedIn, userName, userEmail, signOut }) => {
