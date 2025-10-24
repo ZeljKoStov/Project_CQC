@@ -8,6 +8,7 @@
     
     flex-direction: column;
 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
     
     overflow: auto;
@@ -49,9 +50,9 @@ nav.sticky {
 }
 
 .Page {
-  padding: 0rem 0 0rem;
+
   position: relative;
-  background: white;
+  background: transparent;
 }
 .fulNav {
   background-color: var(--color-footer);

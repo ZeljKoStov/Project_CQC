@@ -90,79 +90,9 @@ const App = () => {
           <>
             <div className='App-second'>
               <div className='Up'>
-                <nav className={`${sticky ? 'sticky' : ''}`}>
+                <nav className='sticky'>
                   <Navbar orders={orders} widChanger={setWid} signedIn={signedIn} userName={userName} userEmail={userEmail} signOut={signOut} />
                 </nav>
-
-                {/* <motion.div 
-                    className='Animation'
-                    initial={{ height: '100vh' }}
-                    animate={{height:0}}
-                    transition={{
-                        duration: 0.5,
-                        delay: 3.5,
-                        ease: "linear"
-                    }}
-                >
-                    <motion.img 
-                        className='round'
-                        src={require("./assets/d_"+parseInt(rand)+".png")} alt='img'
-                        initial={{ 
-                            width:"20vw" , 
-                            height:"50vh"}}
-                        animate={{
-                            x:["-20vw","33vw","37vw","37vw","37vw","37vw","37vw"], 
-                            y:["20vh","20vh","20vh","20vh","20vh","20vh","-58vh"],
-                            opacity:[1 , 1, 0.8, 0.8, 0, 0, 0]}}
-                        transition={{ 
-                            duration: 3.7,
-                            delay:0.3,
-                            times:[0, 0.135, 0.324, 0.459, 0.729 , 0.862, 1], 
-                            easings: ["circIn","easeInOut", "linear","linear","linear","linear"] }}
-                    >
-
-                    </motion.img>
-                    <motion.img
-                        className='round'
-                        src={require("./assets/f_"+parseInt(rand)+".png")} alt='img'
-                        initial={{ 
-                            width:"20vw" , 
-                            height:"50vh"}}
-                        animate={{
-                            x:["80vw","27vw","23vw","23vw","23vw","23vw","23vw"], 
-                            y:["30vh","30vh","30vh","30vh","30vh","30vh","-58vh"],
-                            opacity:[1 , 1, 0.8, 0.8, 0, 0, 0]}}
-                        transition={{ 
-                            duration: 3.7,
-                            delay:0.3,
-                            times:[0, 0.135, 0.324, 0.459, 0.729 , 0.862, 1], 
-                            easings: ["circIn","easeInOut", "linear","linear","linear","linear"] }}
-                    >
-
-                    </motion.img>
-                    <motion.img
-                        className='round_2'
-                        src={require("./assets/i_"+parseInt(rand)+".png")} alt='img'
-                        initial={{ 
-                            width:"14vw" , 
-                            height:"40vh"}}
-                        animate={{
-                            x:["3vw","3vw","3vw","3vw"], 
-                            y:["20vh","20vh","20vh","-65vh"],
-                            opacity:[0 , 1, 1, 1]}}
-                        transition={{ 
-                            duration: 2.5,
-                            delay:1.5,
-                            times:[0, 0.2, 0.8, 1], 
-                            easings: ["linear","linear","linear"]
-                            }}
-                    >
-
-                    </motion.img>
-
-                </motion.div>  */}
-
-
                 <div className='Page'>
 
                   <Routes>

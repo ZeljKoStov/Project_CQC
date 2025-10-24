@@ -38,7 +38,7 @@
 
 .web_title p {
     width: 55%;
-    font-size: 20px;
+    font-size: 22px;
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: start;
@@ -136,6 +136,10 @@
     animation: spin 2s linear infinite;
 }
 
+p {
+    font-size: 22px;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -231,12 +235,8 @@
 }
 
 .web_tele_img {
-    width: 400px;
+    width: 350px;
     align-self: center;
-    min-height: 533px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .web_tele_section p {
@@ -301,8 +301,9 @@
     display: flex;
     flex-direction: row;
     align-self: center;
-    width: 70%;
+    width: 90%;
     justify-content: space-around;
+    align-content: top;
     gap: 2rem;
 }
 
@@ -310,10 +311,14 @@
     display: flex;
     flex-direction: row;
     align-self: center;
-    width: 75%;
+    width: 100%;
     justify-content: center;
     text-align: start;
     gap: 1rem;
+}
+
+.image_text_row p {
+    width: 50%;
 }
 
 
@@ -337,7 +342,6 @@
 }
 
 .web_hand_section p {
-    width: 60%;
     align-self: center;
     text-align: start;
 }

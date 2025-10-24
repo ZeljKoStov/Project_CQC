@@ -1,5 +1,5 @@
 .cqc__processing{
-    padding: 2rem  20rem ;
+    padding: 2rem  5rem ;
     color: white;
     background: rgb(28, 130, 248);
     display: flex;
@@ -104,7 +104,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 27rem;
+  height: 35rem;
   border-radius: 5px;
   border: 1px solid black;
   background:  rgb(255, 255, 255, 0.7);
@@ -148,9 +148,19 @@
   }
 
   .image_preview {
-    width: 80%;
-    height: 80%;
-    margin: 1rem;
+    cursor: pointer;
+    color: #000000;
+    font-size: 20px;
+    width: 100%;
+    height: 100%; /* Make it fill the container's height */
+    max-height: 30rem;
+    
+    /* This is the key property that fixes the stretching */
+    object-fit: contain; 
+    
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
   }
 
   .mapping_image {
@@ -171,7 +181,7 @@
 
   .first_row {
     display: flex;
-    width: 25%;
+    width: 15%;
     flex-direction: column;
     justify-content: space-evenly;
   }
@@ -417,4 +427,38 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Add to your Processing.css file */
+
+.image-pair-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    background-color: #f9f9f9;
+}
+
+.filter-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    padding: 8px 0;
+    margin-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-item label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.filter-item input[type="range"] {
+    width: 100%;
 }

@@ -6,7 +6,7 @@ import { getCookie, setCookie } from '../../utils/cookies';
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import shoping_cart from "./shoping_cart.png"
-
+import silver_token from "../../assets/silver_token_2.gif"
 
 import './navbar.css';
 
@@ -18,7 +18,7 @@ const navigation = [
   { name: 'Image Processing', href: '/Processing' },
   { name: 'Intrinsic Challenge', href: '/Intrinsic_Challenge' },
   { name: 'Web Shop', href: '/Web_Shop' },
-  { name: 'Image Viewer', href: '/ImagePresenter'}
+  { name: 'Image Viewer', href: '/ImagePresenter' }
 ];
 
 const Navbar = ({ orders, widChanger, signedIn, userName, userEmail, signOut }) => {
@@ -116,132 +116,119 @@ const Navbar = ({ orders, widChanger, signedIn, userName, userEmail, signOut }) 
 
   return (
     <>
-      {useOutsideAlerter(boxRef, toggleMenu)}
-      <AnimatePresence>
-        {!vari && (
-          <motion.div
-            key={"frst"}
-            className='cqc__navbar'
-            initial={{ opacity: 0.8, height: 0 }}
-            animate={{ opacity: 1, height: "6rem" }}
-            transition={{
-              duration: 0.3,
-              ease: "easeIn"
-            }}
-          >
-            <div className='cqc__navbar_frst'>
-              <div className='cqc__navbar_frst-empty'>
-              </div>
-              <div className='cqc__navbar_frst-logo'>
-                <p><NavLink to='/'>Intrinsic S&I</NavLink></p>
-              </div>
-              <div className='cqc__navbar_frst-end'>
-                {signedIn
-                  ?
-                  <>
-                    <div className="login_div">
+      <div
+        key={"frst"}
+        className='cqc__navbar'
+      >
+        <div className='cqc__navbar_frst'>
+          <img src={silver_token} className='navbar_logo' />
+          <div className='cqc__navbar_frst-logo'>
+            <p><NavLink to='/'>Intrinsic S&I</NavLink></p>
+          </div>
+          <div className='cqc__navbar_frst-end'>
+            {signedIn
+              ?
+              <>
+                <div className="login_div">
 
-                      <div className="shoping_cart_container" onClick={() => { navigate("/Checkout"); }}>
-                        <img className="shoping_cart" src={shoping_cart} />
-                        {orders.length > 0 && orders.length}
-                      </div>
+                  <div className="shoping_cart_container" onClick={() => { navigate("/Checkout"); }}>
+                    <img className="shoping_cart" src={shoping_cart} />
+                    {orders.length > 0 && orders.length}
+                  </div>
 
 
-                      <div className='biuser' onClick={goToProfil}>
-                        <BiUser size={"2rem"} color={"white"} />
-                      </div>
-                      <p >{userName}</p>
-                      <button type='button' className="login_button" onClick={() => { logOut(); changeR() }}>Sign Out</button>
-                    </div>
-                  </>
-                  :
-                  <>
-                    <div className='cqc__navbar_frst-sign'>
-                      <p><NavLink to='Register'>Register</NavLink></p>
-                      <button type='button' className='login_button' onClick={routeChange}>Sign In</button>
-                    </div>
-                  </>
-                }
-                <div className='cqc__navbar_frst-menu' ref={boxRef}>
-                  {toggleMenu
-                    ? <RiCloseLine color="#fff" size={27} onClick={() => { setToggleMenu(false); widChanger(true) }} />
-                    : <RiMenu3Line color="#fff" size={27} onClick={() => { setToggleMenu(true); wid.width <= 425 ? widChanger(false) : widChanger(true) }} />}
-                  {toggleMenu && wid.width > 425 && (
-                    <div className='cqc__navbar_frst-menu_container' onClick={() => { setToggleMenu(false); widChanger(true) }}>
-                      <div className='cqc__navbar_frst-menu_container-links'>
-                        {navigation.map((item) => (
-                          <p>
-                            <NavLink
-                              key={item.name}
-                              to={item.href}
-                              className={({ isActive }) => {
-                                return (
-                                  (!isActive
-                                    ? 'cqc__navbar-links_container'
-                                    : 'cqc__navbar-links_container2'
-                                  )
-                                );
-                              }}
-                            >
-                              {item.name}
-                            </NavLink>
-                          </p>
-                        ))
-                        }
-                      </div>
-                      <div className='cqc__navbar_frst-menu_containers-links-sign'>
-                        <p><Link to='Register'>Register</Link></p>
-                        <button type='button' className='login_button' onClick={routeChange}>Login</button>
-                      </div>
-                    </div>
-                  )}
+                  <div className='biuser' onClick={goToProfil}>
+                    <BiUser size={"2rem"} color={"white"} />
+                  </div>
+                  <p >{userName}</p>
+                  <button type='button' className="login_button" onClick={() => { logOut(); changeR() }}>Sign Out</button>
                 </div>
-              </div>
+              </>
+              :
+              <>
+                <div className='cqc__navbar_frst-sign'>
+                  <p><NavLink to='Register'>Register</NavLink></p>
+                  <button type='button' className='login_button' onClick={routeChange}>Sign In</button>
+                </div>
+              </>
+            }
+            <div className='cqc__navbar_frst-menu' ref={boxRef}>
+              {toggleMenu
+                ? <RiCloseLine color="#fff" size={27} onClick={() => { setToggleMenu(false); widChanger(true) }} />
+                : <RiMenu3Line color="#fff" size={27} onClick={() => { setToggleMenu(true); wid.width <= 425 ? widChanger(false) : widChanger(true) }} />}
+              {toggleMenu && wid.width > 425 && (
+                <div className='cqc__navbar_frst-menu_container' onClick={() => { setToggleMenu(false); widChanger(true) }}>
+                  <div className='cqc__navbar_frst-menu_container-links'>
+                    {navigation.map((item) => (
+                      <p>
+                        <NavLink
+                          key={item.name}
+                          to={item.href}
+                          className={({ isActive }) => {
+                            return (
+                              (!isActive
+                                ? 'cqc__navbar-links_container'
+                                : 'cqc__navbar-links_container2'
+                              )
+                            );
+                          }}
+                        >
+                          {item.name}
+                        </NavLink>
+                      </p>
+                    ))
+                    }
+                  </div>
+                  <div className='cqc__navbar_frst-menu_containers-links-sign'>
+                    <p><Link to='Register'>Register</Link></p>
+                    <button type='button' className='login_button' onClick={routeChange}>Login</button>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className='cqc__navbar_second'>
-              {navigation.map((item) => (
-                (item.name == "Web Shop") ?
-                  signedIn && (userEmail == "ngocic97@gmail.com" || userEmail == "abe@quantcyte.org") && <p>
-                    <NavLink
-                      key={item.name}
-                      to={item.href}
-                      className={({ isActive }) => {
-                        return (
-                          (!isActive
-                            ? 'cqc__navbar-links_container'
-                            : 'cqc__navbar-links_container2'
-                          )
-                        );
-                      }}
-                    >
-                      {item.name}
-                    </NavLink>
-                  </p>
-                  :
-                  <p>
-                    <NavLink
-                      key={item.name}
-                      to={item.href}
-                      className={({ isActive }) => {
-                        return (
-                          (!isActive
-                            ? 'cqc__navbar-links_container'
-                            : 'cqc__navbar-links_container2'
-                          )
-                        );
-                      }}
-                    >
-                      {item.name}
-                    </NavLink>
-                  </p>
+          </div>
+        </div>
+        <div className='cqc__navbar_second'>
+          {navigation.map((item) => (
+            (item.name == "Web Shop") ?
+              signedIn && (userEmail == "ngocic97@gmail.com" || userEmail == "abe@quantcyte.org") && <p>
+                <NavLink
+                  key={item.name}
+                  to={item.href}
+                  className={({ isActive }) => {
+                    return (
+                      (!isActive
+                        ? 'cqc__navbar-links_container'
+                        : 'cqc__navbar-links_container2'
+                      )
+                    );
+                  }}
+                >
+                  {item.name}
+                </NavLink>
+              </p>
+              :
+              <p>
+                <NavLink
+                  key={item.name}
+                  to={item.href}
+                  className={({ isActive }) => {
+                    return (
+                      (!isActive
+                        ? 'cqc__navbar-links_container'
+                        : 'cqc__navbar-links_container2'
+                      )
+                    );
+                  }}
+                >
+                  {item.name}
+                </NavLink>
+              </p>
 
 
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-      </AnimatePresence>
+          ))}
+        </div>
+      </div>
     </>
   )
 }

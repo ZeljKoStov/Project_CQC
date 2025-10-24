@@ -466,12 +466,12 @@ const Web = (props, signedIn, userEmail) => {
 
             <div className="web_hand_section">
                 <h1><b>HandheldDiffusers</b><sup className='supBig'>TM</sup></h1>
+
                 <div className='image_text_row'>
-                    <div className="web_tele_img"><Gallery images={hand_images}/></div>
-                    <p>
-                        For situations where AttachableDiffusers<sup className='supSmall'>TM</sup> are not appropriate for the situation, HandheldDiffusers<sup className='supSmall'>TM</sup> may be used to obtain the diffuse images. The most common situation is when the camera is mounted on a tripod and exposure periods are less than of 10 seconds. The HandheldDiffuser<sup className='supSmall'>TM</sup> is simply held close to the camera lens without touching it during the exposure. This procedure ensures that the field of view is the same for the Original and Diffuse image.
-                    </p>
+                    <div className="web_tele_img"><Gallery images={hand_images} /></div>
+                    <p>For situations where AttachableDiffusers<sup className='supSmall'>TM</sup> are not appropriate for the situation, HandheldDiffusers<sup className='supSmall'>TM</sup> may be used to obtain the diffuse images. The most common situation is when the camera is mounted on a tripod and exposure periods are less than of 10 seconds. The HandheldDiffuser<sup className='supSmall'>TM</sup> is simply held close to the camera lens without touching it during the exposure. This procedure ensures that the field of view is the same for the Original and Diffuse image.</p>
                 </div>
+
                
                 <h3><b>The following framed Handheld Diffusers<sup className='supSmall'>TM</sup> are available</b>: </h3>
                 <table>
