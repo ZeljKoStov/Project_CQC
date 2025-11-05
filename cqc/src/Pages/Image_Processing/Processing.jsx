@@ -187,6 +187,71 @@ const Processing = () => {
         setImagePairs(list);
     }
 
+    const set1 = async (e, index) => {
+        const list = [...imagePairs];
+        const item = list[index];
+        item.blur = 100;
+        item.brightness = 1;
+        item.opacity = 0.8;
+
+        // If an image already exists, regenerate the diffused preview in real-time
+        if (item.focused) {
+            try {
+                const { modifiedFile, modifiedUrl } = await createModifiedImage(item.focused, item);
+                item.diffused = modifiedFile;
+                item.durl = modifiedUrl;
+            } catch (error) {
+                console.error("Failed to update diffused image:", error);
+            }
+        }
+
+        setImagePairs([...list]); // Trigger re-render
+    }
+
+    const set2 = async (e, index) => {
+        const list = [...imagePairs];
+        const item = list[index];
+        item.blur = 200;
+        item.brightness = 1;
+        item.opacity = 0.9;
+
+        // If an image already exists, regenerate the diffused preview in real-time
+        if (item.focused) {
+            try {
+                const { modifiedFile, modifiedUrl } = await createModifiedImage(item.focused, item);
+                item.diffused = modifiedFile;
+                item.durl = modifiedUrl;
+            } catch (error) {
+                console.error("Failed to update diffused image:", error);
+            }
+        }
+
+        setImagePairs([...list]); // Trigger re-render
+    }
+
+    const set3 = async (e, index) => {
+        const list = [...imagePairs];
+        const item = list[index];
+        item.blur = 200;
+        item.brightness = 1;
+        item.opacity = 1;
+
+        // If an image already exists, regenerate the diffused preview in real-time
+        if (item.focused) {
+            try {
+                const { modifiedFile, modifiedUrl } = await createModifiedImage(item.focused, item);
+                item.diffused = modifiedFile;
+                item.durl = modifiedUrl;
+            } catch (error) {
+                console.error("Failed to update diffused image:", error);
+            }
+        }
+
+        setImagePairs([...list]); // Trigger re-render
+    }
+
+
+
     const handleFilterChange = async (e, index, filterName) => {
         const list = [...imagePairs];
         const item = list[index];
@@ -356,14 +421,14 @@ const Processing = () => {
             zip.file(item.name + "_F." + item.fext, item.focused);
             zip.file(item.name + "_D." + item.fext, item.diffused);
             zip.file(item.name + "_I." + item.fext, item.intrinsic.substring(22), { base64: true });
-            
+
             if (item.mappingCount === 9) {
                 for (let i = 1; i <= 9; i++) {
                     zip.file(`${item.name}_M_${i}.${item.fext}`, item[`map${i}`].substring(22), { base64: true });
                 }
             }
         });
-        
+
         setLoading(false);
         setProcesed(true);
         fetchData();
@@ -389,7 +454,7 @@ const Processing = () => {
             FileSaver.saveAs(content, "intrinsic.zip");
         });
     }
-    
+
     return (
         <div className='cqc__processing'>
             <div className='cqc__text'>
@@ -414,7 +479,19 @@ const Processing = () => {
                                     {pair.ferror && <div className="error_text">Please upload an image!</div>}
                                 </div>
                             </div>
-                            
+
+                            <div className="set_row">
+                                <button type="button" onClick={(e) => set1(e, index)} className="set_button" >
+                                    Microscopy
+                                </button>
+                                <button type="button" onClick={(e) => set2(e, index)} className="set_button" >
+                                    General
+                                </button>
+                                <button type="button" onClick={(e) => set3(e, index)} className="set_button" >
+                                    Astronomy
+                                </button>
+                            </div>
+
                             <div className="filter-controls">
                                 <div className="filter-item">
                                     <label>Blur: {pair.blur}px</label>
@@ -422,15 +499,15 @@ const Processing = () => {
                                 </div>
                                 <div className="filter-item">
                                     <label>Brightness: {Math.round(pair.brightness * 100)}%</label>
-                                    <input type="range" min="0" max="2" step="0.1" value={pair.brightness} onChange={(e) => handleFilterChange(e, index, 'brightness')} />
+                                    <input type="range" min="0" max="2" step="0.01" value={pair.brightness} onChange={(e) => handleFilterChange(e, index, 'brightness')} />
                                 </div>
                                 <div className="filter-item">
                                     <label>Contrast: {Math.round(pair.contrast * 100)}%</label>
-                                    <input type="range" min="0" max="2" step="0.1" value={pair.contrast} onChange={(e) => handleFilterChange(e, index, 'contrast')} />
+                                    <input type="range" min="0" max="2" step="0.01" value={pair.contrast} onChange={(e) => handleFilterChange(e, index, 'contrast')} />
                                 </div>
                                 <div className="filter-item">
                                     <label>Saturation: {Math.round(pair.saturate * 100)}%</label>
-                                    <input type="range" min="0" max="2" step="0.1" value={pair.saturate} onChange={(e) => handleFilterChange(e, index, 'saturate')} />
+                                    <input type="range" min="0" max="2" step="0.01" value={pair.saturate} onChange={(e) => handleFilterChange(e, index, 'saturate')} />
                                 </div>
                                 {/* <div className="filter-item">
                                     <label>Grayscale: {Math.round(pair.grayscale * 100)}%</label>
@@ -446,11 +523,11 @@ const Processing = () => {
                                 </div>
                                 <div className="filter-item">
                                     <label>Invert: {Math.round(pair.invert * 100)}%</label>
-                                    <input type="range" min="0" max="1" step="0.05" value={pair.invert} onChange={(e) => handleFilterChange(e, index, 'invert')} />
+                                    <input type="range" min="0" max="1" step="0.01" value={pair.invert} onChange={(e) => handleFilterChange(e, index, 'invert')} />
                                 </div>
                                 <div className="filter-item">
                                     <label>Opacity: {Math.round(pair.opacity * 100)}%</label>
-                                    <input type="range" min="0" max="1" step="0.05" value={pair.opacity} onChange={(e) => handleFilterChange(e, index, 'opacity')} />
+                                    <input type="range" min="0" max="1" step="0.01" value={pair.opacity} onChange={(e) => handleFilterChange(e, index, 'opacity')} />
                                 </div>
                             </div>
 
@@ -494,7 +571,7 @@ const Processing = () => {
                         <button type="button" onClick={handleServiceAdd} className="dodajRed" disabled={loading}>
                             Add another image pair
                         </button>
-                        <button type="button" onClick={handleSubmit} className="process_button" disabled={loading || imagePairs.some(p => !p.focused) || imagePairs.length > usersTokens}>
+                        <button type="button" onClick={handleSubmit} className="process_button" disabled={loading || imagePairs.some(p => !p.focused)}>
                             Process Images
                         </button>
                         {(email === "abe@quantcyte.org" || email === "ngocic97@gmail.com") &&
@@ -503,14 +580,14 @@ const Processing = () => {
                             </button>}
                     </div>
                 )}
-                {imagePairs.length > usersTokens &&
+                {/* {imagePairs.length > usersTokens &&
                     <div className="button_div">
                         <p className="black_text">Not enough processing tokens!</p>
                         <button className='blue_button' onClick={goToWebShop}>Buy more tokens</button>
-                    </div>}
-                <div className="tokens_row">
+                    </div>} */}
+                {/* <div className="tokens_row">
                     <p>Image pairs to process: {imagePairs.length} <br />Available Processing Tokens: {usersTokens}</p>
-                </div>
+                </div> */}
                 <div className="tokens_row">
                     <div className='tokens_row_coin'>
                         <img src={silver_token} alt="Token Coin" />
