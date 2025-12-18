@@ -190,9 +190,9 @@ const Processing = () => {
     const set1 = async (e, index) => {
         const list = [...imagePairs];
         const item = list[index];
-        item.blur = 100;
-        item.brightness = 1;
-        item.opacity = 0.8;
+        item.blur = 25;
+        item.brightness = 0.8;
+        item.opacity = 1;
 
         // If an image already exists, regenerate the diffused preview in real-time
         if (item.focused) {
@@ -211,9 +211,9 @@ const Processing = () => {
     const set2 = async (e, index) => {
         const list = [...imagePairs];
         const item = list[index];
-        item.blur = 200;
-        item.brightness = 1;
-        item.opacity = 0.9;
+        item.blur = 100;
+        item.brightness = 0.8;
+        item.opacity = 1;
 
         // If an image already exists, regenerate the diffused preview in real-time
         if (item.focused) {
@@ -233,7 +233,7 @@ const Processing = () => {
         const list = [...imagePairs];
         const item = list[index];
         item.blur = 200;
-        item.brightness = 1;
+        item.brightness = 0.8;
         item.opacity = 1;
 
         // If an image already exists, regenerate the diffused preview in real-time
@@ -249,6 +249,27 @@ const Processing = () => {
 
         setImagePairs([...list]); // Trigger re-render
     }
+
+    const toggleInvert = async (e, index) => {
+        const list = [...imagePairs];
+        const item = list[index];
+
+        // Toggle between 0 and 1
+        item.invert = item.invert === 1 ? 0 : 1;
+
+        // Regenerate the preview if an image exists
+        if (item.focused) {
+            try {
+                const { modifiedFile, modifiedUrl } = await createModifiedImage(item.focused, item);
+                item.diffused = modifiedFile;
+                item.durl = modifiedUrl;
+            } catch (error) {
+                console.error("Failed to update diffused image:", error);
+            }
+        }
+
+        setImagePairs([...list]);
+    };
 
 
 
@@ -482,14 +503,25 @@ const Processing = () => {
 
                             <div className="set_row">
                                 <button type="button" onClick={(e) => set1(e, index)} className="set_button" >
-                                    Microscopy
+                                    Week
                                 </button>
                                 <button type="button" onClick={(e) => set2(e, index)} className="set_button" >
-                                    General
+                                    Medium
                                 </button>
                                 <button type="button" onClick={(e) => set3(e, index)} className="set_button" >
-                                    Astronomy
+                                    Strong
                                 </button>
+
+                                <div className="toggle_row" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ fontSize: '14px', fontWeight: 'bold', color: 'black' }}>Invert:</span>
+                                    <label className="switch">
+                                        <input
+                                            type="checkbox"
+                                            checked={pair.invert === 1}
+                                            onChange={(e) => toggleInvert(e, index)}
+                                        />
+                                    </label>
+                                </div>
                             </div>
 
                             <div className="filter-controls">
