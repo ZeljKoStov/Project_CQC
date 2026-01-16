@@ -6,6 +6,7 @@ import { processing, changeExposure, userData, chargeMapping } from "../../api/a
 import { RequestAPI } from "../../utils/request-api";
 import { useNavigate } from "react-router-dom";
 import { Modal } from '../../Component';
+import { MdClear, MdCropRotate } from "react-icons/md"
 import './Processing.css'
 import silver_token from "../../assets/silver_token.gif"
 
@@ -48,7 +49,7 @@ const createModifiedImage = (originalFile, filters = {}) => {
                 if (grayscale > 0) filterParts.push(`grayscale(${grayscale})`);
                 if (sepia > 0) filterParts.push(`sepia(${sepia})`);
                 if (hueRotate !== 0) filterParts.push(`hue-rotate(${hueRotate}deg)`);
-                if (invert > 0) filterParts.push(`invert(${invert})`);
+                //if (invert > 0) filterParts.push(`invert(${invert})`);
                 if (opacity < 1) filterParts.push(`opacity(${opacity})`);
 
                 // Apply the combined filter string to the canvas
@@ -91,6 +92,10 @@ const initialPairState = {
 
 const Processing = () => {
     const [openModal, setOpenModal] = useState(false);
+    const [imageToShow, setImageToShow] = useState(null);
+    const [rotationAngle, setRotationAngle] = useState(0);
+
+
     const [index, setIndex] = useState();
     const [mapNumber, setMapNumber] = useState(0);
     const [usersTokens, setUsersTokens] = useState(0);
@@ -103,6 +108,18 @@ const Processing = () => {
     const [mapping, setMapping] = useState(false);
 
     let navigate = useNavigate();
+
+    // Helper to rotate image in modal
+    const rotate = () => {
+        setRotationAngle(rotationAngle + 90);
+    }
+
+    // Helper to open specific image
+    const handleImageClick = (url) => {
+        setImageToShow(url);
+        setRotationAngle(0);
+        setOpenModal(true);
+    }
 
     useEffect(() => {
         if (!dataFetched) {
@@ -160,18 +177,31 @@ const Processing = () => {
         const item = { ...list[index] };
 
         if (item.intrinsic == null) {
-            item.focused = focusedFile;
-            item.fext = extension;
-            item.furl = URL.createObjectURL(focusedFile);
 
             try {
-                // Use the current filter values from state to generate the initial diffused image
-                const { modifiedFile, modifiedUrl } = await createModifiedImage(focusedFile, item);
-                item.diffused = modifiedFile;
+                // 1. GENERATE DIFFUSED (D) - Uses current slider values (defaults to blur: 50)
+                const { modifiedFile: diffusedFile, modifiedUrl: diffusedUrl } = await createModifiedImage(focusedFile, item);
+                item.diffused = diffusedFile;
                 item.dext = extension;
-                item.durl = modifiedUrl;
+                item.durl = diffusedUrl;
+
+                // 2. GENERATE CLEAN FOCUSED (F) - NEW LOGIC
+                // We run the original file through the canvas with NO FILTERS (blur: 0).
+                // This strips EXIF and ensures F has the exact same dimensions as D.
+                const noFilters = {
+                    blur: 0, brightness: 1, contrast: 1, saturate: 1,
+                    grayscale: 0, sepia: 0, hueRotate: 0, invert: 0, opacity: 1,
+                };
+
+                const { modifiedFile: cleanF, modifiedUrl: cleanFUrl } = await createModifiedImage(focusedFile, noFilters);
+
+                // Save the "Clean" version as the focused file instead of the raw file
+                item.focused = cleanF;
+                item.fext = extension;
+                item.furl = cleanFUrl;
+
             } catch (error) {
-                console.error("Failed to create diffused image:", error);
+                console.error("Failed to process images:", error);
                 return;
             }
 
@@ -332,8 +362,8 @@ const Processing = () => {
         imagePairs.forEach(async (pair) => {
             if (pair.diffused != null && pair.focused != null && pair.name != null) {
                 const formData = new FormData();
-                formData.append("F", pair.focused);
-                formData.append("D", pair.diffused);
+                formData.append("F", pair.invert === 1 ? pair.diffused : pair.focused);
+                formData.append("D", pair.invert === 1 ? pair.focused : pair.diffused);
                 formData.append("name", pair.name);
                 formData.append("ext", pair.fext);
                 formData.append("email", email);
@@ -503,7 +533,7 @@ const Processing = () => {
 
                             <div className="set_row">
                                 <button type="button" onClick={(e) => set1(e, index)} className="set_button" >
-                                    Week
+                                    Weak
                                 </button>
                                 <button type="button" onClick={(e) => set2(e, index)} className="set_button" >
                                     Medium
@@ -512,8 +542,8 @@ const Processing = () => {
                                     Strong
                                 </button>
 
-                                <div className="toggle_row" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ fontSize: '14px', fontWeight: 'bold', color: 'black' }}>Invert:</span>
+                                <div className="toggle_row" style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingLeft: '20px' }}>
+                                    <span style={{ fontSize: '22px', color: 'black' }}>    Invert:</span>
                                     <label className="switch">
                                         <input
                                             type="checkbox"
@@ -553,10 +583,10 @@ const Processing = () => {
                                     <label>Hue: {pair.hueRotate}°</label>
                                     <input type="range" min="0" max="360" step="1" value={pair.hueRotate} onChange={(e) => handleFilterChange(e, index, 'hueRotate')} />
                                 </div>
-                                <div className="filter-item">
+                                {/* <div className="filter-item">
                                     <label>Invert: {Math.round(pair.invert * 100)}%</label>
                                     <input type="range" min="0" max="1" step="0.01" value={pair.invert} onChange={(e) => handleFilterChange(e, index, 'invert')} />
-                                </div>
+                                </div> */}
                                 <div className="filter-item">
                                     <label>Opacity: {Math.round(pair.opacity * 100)}%</label>
                                     <input type="range" min="0" max="1" step="0.01" value={pair.opacity} onChange={(e) => handleFilterChange(e, index, 'opacity')} />
@@ -565,16 +595,16 @@ const Processing = () => {
 
                             <div className="Second_row">
                                 <div className="image_row">
-                                    <p className='cqc__p'>Original Image</p>
-                                    {pair.focused && <img src={pair.furl} className="image_preview" alt="Original" onClick={() => { setOpenModal(true); setIndex(index); setMapNumber(0); setN("furl"); }} />}
+                                    <p className='cqc__p'> {pair.invert === 1 ? 'Diffused Image' : 'Original Image'}</p>
+                                    {pair.focused && <img src={pair.invert === 1 ? pair.durl : pair.furl} className="image_preview" alt="Original" onClick={() => { handleImageClick(pair.invert === 1 ? pair.durl : pair.furl); setIndex(index); setMapNumber(0); setN("furl"); }} />}
                                 </div>
                                 <div className="image_row">
-                                    <p className='cqc__p'>Diffused Image</p>
-                                    {pair.durl ? <img src={pair.durl} className="image_preview" alt="Diffused" onClick={() => { setOpenModal(true); setIndex(index); setMapNumber(0); setN("durl"); }} /> : (pair.focused && <div className="spin"><div className="reg-spinner"></div></div>)}
+                                    <p className='cqc__p'> {pair.invert === 1 ? 'Original Image' : 'Diffused Image'}</p>
+                                    {pair.durl ? <img src={pair.invert === 1 ? pair.furl : pair.durl} className="image_preview" alt="Diffused" onClick={() => { handleImageClick(pair.invert === 1 ? pair.furl : pair.durl); setIndex(index); setMapNumber(0); setN("durl"); }} /> : (pair.focused && <div className="spin"><div className="reg-spinner"></div></div>)}
                                 </div>
                                 {pair.intrinsic && <div className="image_row">
                                     <p className='cqc__p'>Intrinsic Image</p>
-                                    <img src={`${pair.intrinsic}`} className="image_preview" alt="Intrinsic" onClick={() => { setOpenModal(true); setIndex(index); setMapNumber(0); setN("intr"); }} />
+                                    <img src={`${pair.intrinsic}`} className="image_preview" alt="Intrinsic" onClick={() => { handleImageClick(pair.intrinsic); setIndex(index); setMapNumber(0); setN("intr"); }} />
                                 </div>}
                                 {loading && !pair.intrinsic && <div className="spin"><div className="reg-spinner"></div></div>}
                                 {pair.mappingInProgress && <div className="spin"><p>Mapping in Progress... {pair.mappingCount}/9</p></div>}
@@ -591,7 +621,32 @@ const Processing = () => {
                     </div>
                 ))}
 
-                {openModal && <Modal num={n} ind={index} mapNumber={mapNumber} pair={imagePairs} onClose={() => setOpenModal(false)} />}
+                {openModal &&
+                    <div onClick={() => setOpenModal(false)} className='header_overlay'>
+                        <div
+                            onClick={(e) => {
+                                e.stopPropagation();
+                            }}
+                            className='header_modalContainer'
+                        >
+                            <div className='header_escape' style={{ color: 'white' }} onClick={() => setOpenModal(false)}>
+                                <MdClear size={"2rem"} />
+                            </div>
+
+                            <div className='header_rotate' style={{ color: 'white' }} onClick={() => rotate()}>
+                                <MdCropRotate size={"2rem"} />
+                            </div>
+
+                            <img src={imageToShow} alt='focused_image' style={{
+                                display: 'flex',
+                                width: '100%',
+                                height: '100%',
+                                borderRadius: '1rem',
+                                transform: `rotate(${rotationAngle}deg)`
+                            }} />
+                        </div>
+                    </div>
+                }
 
                 {processed ? (
                     <div className="button_div">
