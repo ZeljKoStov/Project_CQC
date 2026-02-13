@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FileSaver from 'file-saver';
 import JSZip from "jszip"
+import UTIF from "utif";
 import { getCookie } from '../../utils/cookies';
 import { processing, changeExposure, userData, chargeMapping } from "../../api/api";
 import { RequestAPI } from "../../utils/request-api";
@@ -73,6 +74,50 @@ const createModifiedImage = (originalFile, filters = {}) => {
         };
         reader.onerror = reject;
         reader.readAsDataURL(originalFile);
+    });
+};
+
+const convertTiffToPng = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const buffer = e.target.result;
+                const ifds = UTIF.decode(buffer);
+                // Decode the first page of the TIFF
+                UTIF.decodeImage(buffer, ifds[0]);
+
+                const rgba = UTIF.toRGBA8(ifds[0]); // Convert to 8-bit RGBA
+                const width = ifds[0].width;
+                const height = ifds[0].height;
+
+                // Put data onto a canvas
+                const canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext("2d");
+
+                const imageData = ctx.createImageData(width, height);
+                imageData.data.set(rgba);
+                ctx.putImageData(imageData, 0, 0);
+
+                // Export as PNG Blob -> File
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        // Create a new File object with .png extension
+                        const newFileName = file.name.replace(/\.tiff?$/i, ".png");
+                        const newFile = new File([blob], newFileName, { type: "image/png" });
+                        resolve(newFile);
+                    } else {
+                        reject(new Error("Conversion to blob failed"));
+                    }
+                }, "image/png");
+            } catch (err) {
+                reject(err);
+            }
+        };
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file); // UTIF needs ArrayBuffer
     });
 };
 
@@ -167,8 +212,22 @@ const Processing = () => {
     }, [imagePairs]);
 
     const handleFocusedChange = async (e, index) => {
-        const focusedFile = e.target.files[0];
+        let focusedFile = e.target.files[0];
         if (!focusedFile) return;
+
+        if (focusedFile.type === "image/tiff" ||
+            focusedFile.name.toLowerCase().endsWith(".tif") ||
+            focusedFile.name.toLowerCase().endsWith(".tiff")) {
+
+            try {
+                // Convert TIF -> PNG File object
+                focusedFile = await convertTiffToPng(focusedFile);
+            } catch (error) {
+                console.error("Failed to convert TIFF:", error);
+                alert("Could not process this TIFF file.");
+                return;
+            }
+        }
 
         const fileName = focusedFile.name;
         const extension = fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -526,7 +585,7 @@ const Processing = () => {
                                 </div>
                                 <div className="input_item">
                                     <p>Upload Original Image</p>
-                                    <input type="file" accept="image/*" onChange={(e) => handleFocusedChange(e, index)} required />
+                                    <input type="file" accept="image/*,.tif,.tiff" onChange={(e) => handleFocusedChange(e, index)} required />
                                     {pair.ferror && <div className="error_text">Please upload an image!</div>}
                                 </div>
                             </div>
@@ -615,7 +674,155 @@ const Processing = () => {
                         </div>
                         {mapping && pair.mappingCount === 9 && (
                             <div className="mappingServices">
-                                {/* Your existing mapping display JSX here */}
+                                <div className="mapping_row">
+
+                                    <div className="image_row">
+                                        {pair.map1 != null ?
+                                            <img src={`${pair.map1}`} className="mapping_image" alt="reload" onClick={() => {
+
+                                                setMapNumber(1)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="regSpinerBox">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div className="image_row">
+                                        {pair.map2 != null ?
+                                            <img src={`${pair.map2}`} className="mapping_image" alt="reload" onClick={() => {
+
+                                                setMapNumber(2)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="regSpinerBox">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div className="image_row">
+                                        {pair.map3 != null ?
+                                            <img src={`${pair.map3}`} className="mapping_image" alt="reload" onClick={() => {
+
+                                                setMapNumber(3)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="regSpinerBox">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="mapping_row">
+
+                                    <div className="image_row">
+                                        {pair.map4 != null ?
+                                            <img src={`${pair.map4}`} className="mapping_image" alt="reload" onClick={() => {
+
+                                                setMapNumber(4)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="spin">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div className="image_row">
+                                        {pair.map5 != null ?
+                                            <img src={`${pair.map5}`} className="mapping_image" alt="reload" onClick={() => {
+
+                                                setMapNumber(5)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="spin">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div className="image_row">
+                                        {pair.map6 != null ?
+                                            <img src={`${pair.map6}`} className="mapping_image" alt="reload" onClick={() => {
+
+                                                setMapNumber(6)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="spin">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="mapping_row">
+
+                                    <div className="image_row">
+                                        {pair.map7 != null ?
+                                            <img src={`${pair.map7}`} className="mapping_image" alt="reload" onClick={() => {
+
+                                                setMapNumber(7)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="spin">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div className="image_row">
+                                        {pair.map8 != null ?
+                                            <img src={`${pair.map8}`} className="mapping_image" alt="reload" onClick={() => {
+                                                setMapNumber(8)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="spin">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div className="image_row">
+                                        {pair.map9 != null ?
+                                            <img src={`${pair.map9}`} className="mapping_image" alt="reload" onClick={() => {
+                                                setMapNumber(9)
+                                                setOpenModal(true)
+                                                setIndex(index)
+                                                setN("intr")
+                                            }} />
+                                            :
+                                            <div className="spin">
+                                                <div class="reg-spinner"></div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
                             </div>
                         )}
                     </div>

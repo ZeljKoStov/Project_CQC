@@ -65,8 +65,7 @@ const ImagePresenter = () => {
         setCount(rand);
     }
 
-    const handleImageChange = (e) => {
-        const files = e.target.files;
+    const handleImageChange = (files) => {
 
         var pairs = []
 
@@ -102,7 +101,7 @@ const ImagePresenter = () => {
                     dext: "",
                     durl: "",
                     derror: false,
-                    name: files[i*3].name.replace(/\.[^/.]+$/, "").slice(0, -2),
+                    name: files[i * 3].name.replace(/\.[^/.]+$/, "").slice(0, -2),
                     doterror: false,
                     nerror: false,
                     serror: false,
@@ -128,27 +127,42 @@ const ImagePresenter = () => {
 
     };
 
-    const handleMappingChange = (e) => {
+    const handleChange = (e) => {
 
-        const files = Array.from(e.target.files).filter(file => {
-            const fileName = file.name.toLowerCase();
-            return !(fileName.includes('_i') || fileName.includes('_f') || fileName.includes('_d'));
-        });
+        const files = Array.from(e.target.files).sort((a, b) => a.name.localeCompare(b.name));;
+
+        for (let i = 0; i < files.length; i++) {
+            console.log(i+" "+files[i].name)
+        }
+
+        if(files.length == 3){
+            handleImageChange(files)
+        } else {
+            handleMappingChange(files)
+        }
+
+    }
+
+    const handleMappingChange = (files) => {
+
+        for (let i = 0; i < files.length; i++) {
+            console.log(i+" "+files[i].name)
+        }
 
         var images = []
-        for (let i = 0; i < files.length; i++) {
+        for (let i = 3; i < files.length; i++) {
             images.push(files[i])
         }
 
         setMappingImages(images)
 
-        if (files.length == 9) {
-            setMappingObject({
-                focused: null,
+        if (files.length == 12) {
+            const object = {
+                focused: files[1],
                 fext: "",
                 furl: "",
                 ferror: false,
-                diffused: null,
+                diffused: files[0],
                 dext: "",
                 durl: "",
                 derror: false,
@@ -157,16 +171,46 @@ const ImagePresenter = () => {
                 nerror: false,
                 serror: false,
                 exterror: false,
-                intrinsic: null,
-                map1: files[0],
-                map2: files[1],
-                map3: files[2],
-                map4: files[3],
-                map5: files[4],
-                map6: files[5],
-                map7: files[6],
-                map8: files[7],
-                map9: files[8],
+                intrinsic: files[2],
+                map1: files[3],
+                map2: files[4],
+                map3: files[5],
+                map4: files[6],
+                map5: files[7],
+                map6: files[8],
+                map7: files[9],
+                map8: files[10],
+                map9: files[11],
+                mappingInProgress: false,
+                mappingCount: 0
+            }
+            setImagePairs([object])
+            setMappingObject(object)
+        } else {
+            setMappingObject({
+                focused: files[1],
+                fext: "",
+                furl: "",
+                ferror: false,
+                diffused: files[0],
+                dext: "",
+                durl: "",
+                derror: false,
+                name: files[0].name.replace(/\.[^/.]+$/, "").slice(0, -4),
+                doterror: false,
+                nerror: false,
+                serror: false,
+                exterror: false,
+                intrinsic: files[2],
+                map1: null,
+                map2: null,
+                map3: null,
+                map4: null,
+                map5: null,
+                map6: null,
+                map7: null,
+                map8: null,
+                map9: null,
                 mappingInProgress: false,
                 mappingCount: 0
             })
@@ -174,67 +218,6 @@ const ImagePresenter = () => {
         updateUI();
     };
 
-    const handleImageAdding = (e) => {
-        const files = e.target.files;
-
-        var pairs = []
-
-        for (let i = 0; i < (files.length / 3); i++) {
-
-            var intrinsic = null;
-            var focused = null;
-            var diffused = null;
-
-            if (files[i * 3].name.includes('_I')) { intrinsic = files[i * 3] } else
-                if (files[i * 3].name.includes('_D')) { diffused = files[i * 3] } else focused = files[i * 3]
-
-            if (files[i * 3 + 1].name.includes('_I')) { intrinsic = files[i * 3 + 1] } else
-                if (files[i * 3 + 1].name.includes('_D')) { diffused = files[i * 3 + 1] } else focused = files[i * 3 + 1]
-
-            if (files[i * 3 + 2].name.includes('_I')) { intrinsic = files[i * 3 + 2] } else
-                if (files[i * 3 + 2].name.includes('_D')) { diffused = files[i * 3 + 2] } else focused = files[i * 3 + 2]
-
-            if (intrinsic == null || diffused == null || intrinsic == null) {
-                focused = files[i * 3]
-                diffused = files[i * 3 + 1]
-                intrinsic = files[i * 3 + 2]
-            }
-
-            pairs.push(
-                {
-                    focused: focused,
-                    fext: "",
-                    furl: "",
-                    ferror: false,
-                    diffused: diffused,
-                    dext: "",
-                    durl: "",
-                    derror: false,
-                    name: files[i*3].name.replace(/\.[^/.]+$/, "").slice(0, -2),
-                    doterror: false,
-                    nerror: false,
-                    serror: false,
-                    exterror: false,
-                    intrinsic: intrinsic,
-                    map1: null,
-                    map2: null,
-                    map3: null,
-                    map4: null,
-                    map5: null,
-                    map6: null,
-                    map7: null,
-                    map8: null,
-                    map9: null,
-                    mappingInProgress: false,
-                    mappingCount: 0
-                }
-            )
-        }
-
-        setImagePairs(imagePairs => [...imagePairs, ...pairs]);
-        updateUI();
-
-    };
 
     const reset = (e) => {
         setImagePairs([]);
@@ -281,10 +264,7 @@ const ImagePresenter = () => {
                     <div className="uploadImagesBackground">
                         <div className="input_images">
                             <p>Upload Basic Images Folder</p>
-                            <input type="file" directory="" webkitdirectory="" onChange={handleImageChange} />
-                            <p></p>
-                            <p>Upload Mapping Folder</p>
-                            <input type="file" directory="" webkitdirectory="" onChange={handleMappingChange} />
+                            <input type="file" directory="" webkitdirectory="" onChange={handleChange} />
                         </div>
                     </div>
                 }
@@ -300,7 +280,7 @@ const ImagePresenter = () => {
                             <div key={index} className="services">
                                 <div className="Second_row">
                                     <div className="image_row">
-                                        <div className='cqc__p'><p>Original Image</p>  </div>
+                                        <div className='cqc__p'><p>Focused Image</p>  </div>
                                         {pair.focused && (
                                             <>
                                                 <img src={URL.createObjectURL(pair.focused)} className="image_preview" alt="reload" onClick={() => {
@@ -312,7 +292,7 @@ const ImagePresenter = () => {
                                     </div>
                                     <div className="image_row">
                                         <div className='cqc__p'>
-                                            <p>Diffused Image</p>
+                                            <p>Defocused Image</p>
                                         </div>
                                         {pair.diffused && (
                                             <>
@@ -343,7 +323,7 @@ const ImagePresenter = () => {
                             </div>
                         </>
                     ))}
-                    {imagePairs.length > 0 &&
+                    {/* {imagePairs.length > 0 &&
                         <>
                             <div className="button_div" style={{ paddingLeft: '250px' }} >
                                 <label for="files" class='blue_button'>Select More Images</label>
@@ -355,11 +335,11 @@ const ImagePresenter = () => {
 
                         </>
 
-                    }
+                    } */}
                     {
                         mappingObject.map1 && <>
                             <div className="mappingServices">
-                                <div className='mapping_title'><p>Map {mappingObject.name}</p>  </div>
+                                <div className='cqc__p'><p>Map {mappingObject.name}</p>  </div>
                                 <div className="mapping_row">
 
                                     <div className="map_row">
