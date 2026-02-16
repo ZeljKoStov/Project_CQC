@@ -651,7 +651,7 @@ const Processing = () => {
                                     <input type="range" min="0" max="1" step="0.01" value={pair.opacity} onChange={(e) => handleFilterChange(e, index, 'opacity')} />
                                 </div>
                             </div>
-
+{/* 
                             <div className="Second_row">
                                 <div className="image_row">
                                     <p className='cqc__p'> {pair.invert === 1 ? 'Diffused Image' : 'Original Image'}</p>
@@ -660,6 +660,23 @@ const Processing = () => {
                                 <div className="image_row">
                                     <p className='cqc__p'> {pair.invert === 1 ? 'Original Image' : 'Diffused Image'}</p>
                                     {pair.durl ? <img src={pair.invert === 1 ? pair.furl : pair.durl} className="image_preview" alt="Diffused" onClick={() => { handleImageClick(pair.invert === 1 ? pair.furl : pair.durl); setIndex(index); setMapNumber(0); setN("durl"); }} /> : (pair.focused && <div className="spin"><div className="reg-spinner"></div></div>)}
+                                </div>
+                                {pair.intrinsic && <div className="image_row">
+                                    <p className='cqc__p'>Intrinsic Image</p>
+                                    <img src={`${pair.intrinsic}`} className="image_preview" alt="Intrinsic" onClick={() => { handleImageClick(pair.intrinsic); setIndex(index); setMapNumber(0); setN("intr"); }} />
+                                </div>}
+                                {loading && !pair.intrinsic && <div className="spin"><div className="reg-spinner"></div></div>}
+                                {pair.mappingInProgress && <div className="spin"><p>Mapping in Progress... {pair.mappingCount}/9</p></div>}
+                                <div className="second-division">
+                                    {imagePairs.length > 1 && <button type="button" onClick={() => handleImagePairRemove(index)} className="remove_button">X</button>}
+                                </div>
+                            </div> */}
+
+
+                            <div className="Second_row">
+                                <div className="image_row">
+                                    <p className='cqc__p'> {'Original Image'}</p>
+                                    {pair.focused && <img src={pair.furl} className="image_preview" alt="Original" onClick={() => { handleImageClick(pair.furl); setIndex(index); setMapNumber(0); setN("furl"); }} />}
                                 </div>
                                 {pair.intrinsic && <div className="image_row">
                                     <p className='cqc__p'>Intrinsic Image</p>
